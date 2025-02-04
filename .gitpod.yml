@@ -1,0 +1,14 @@
+tasks:
+  - name: Dev Server
+    init: |
+      pnpm install
+    command: |
+      pnpm run dev
+
+ports:
+  - port: 5173
+    onOpen: open-browser
+    visibility: public
+  - port: 8090
+    onOpen: open-browser
+    visibility: public
