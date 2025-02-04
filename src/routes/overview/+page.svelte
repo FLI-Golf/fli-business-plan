@@ -55,8 +55,7 @@
         <div class="space-y-1">
           <p class="text-sm font-medium leading-none">{partner.name}</p>
           <p class="text-sm text-muted-foreground">
-            {partner.expand?.relField1?.name}
-            {partner.expand?.relField2?.subRelField?.name}
+            {partner.expand?.avatar?.id}
           </p>
         </div>
       </div>
@@ -191,14 +190,20 @@
       <Card.Root>
         <AlertDialog.Root>
           <AlertDialog.Trigger>
-            <Button variant="ghost" class="w-full">
-              <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-                <Card.Title class="text-sm font-medium">Partners</Card.Title>
-                <Users class="text-muted-foreground h-4 w-4" />
-              </Card.Header>
+            <Button variant="ghost" class="w-full h-full">
+              <div class="w-full">
+                <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <Card.Title class="text-sm font-medium">Partners</Card.Title>
+                  <Users class="text-muted-foreground h-4 w-4" />
+                </Card.Header>
+                <Card.Content>
+                  <div class="text-2xl font-bold">+2350</div>
+                  <p class="text-muted-foreground text-xs">+180.1% from last month</p>
+                </Card.Content>
+              </div>
             </Button>
           </AlertDialog.Trigger>
-    
+
           <AlertDialog.Content>
             <AlertDialog.Header>
               <AlertDialog.Title>Our Partners</AlertDialog.Title>
@@ -206,7 +211,7 @@
                 Current active partnerships and collaborations.
               </AlertDialog.Description>
             </AlertDialog.Header>
-      
+
             <div class="grid gap-4 py-4">
               <div class="grid grid-cols-2 items-center gap-4">
                 {#each partners as partner}
@@ -222,7 +227,7 @@
                 {/each}
               </div>
             </div>
-      
+
             <AlertDialog.Footer>
               <AlertDialog.Cancel>
                 <Button variant="outline">Close</Button>
@@ -230,16 +235,15 @@
             </AlertDialog.Footer>
           </AlertDialog.Content>
         </AlertDialog.Root>
-        <Card.Content>
-          <div class="text-2xl font-bold">+2350</div>
-          <p class="text-muted-foreground text-xs">+180.1% from last month</p>
-        </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-          <Card.Title class="text-sm font-medium">Ticket Sales</Card.Title>
-          <CreditCard class="text-muted-foreground h-4 w-4" />
-        </Card.Header>
+        <Button variant="ghost" class="w-full h-full">
+          <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2 w-full">
+            <Card.Title class="text-sm font-medium">Partners</Card.Title>
+
+            <Users class="text-muted-foreground h-4 w-4 ml-auto" />
+          </Card.Header>
+        </Button>
         <Card.Content>
           <div class="text-2xl font-bold">+12,234</div>
           <p class="text-muted-foreground text-xs">+19% from last month</p>
