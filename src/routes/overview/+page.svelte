@@ -10,9 +10,10 @@
   import Users from "lucide-svelte/icons/users";
   import Home from "lucide-svelte/icons/home";
   import FileText from "lucide-svelte/icons/file-text";
-  import Calculator from "lucide-svelte/icons/calculator";
+  import Chart from "lucide-svelte/icons/chart-no-axes-combined";
   import Mail from "lucide-svelte/icons/mail";
   import Lock from "lucide-svelte/icons/lock";
+  import Scale from "lucide-svelte/icons/scale";
 
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
@@ -31,15 +32,23 @@
   
   let partners = [];
   let pros = [];
+  let exe = [];
 
   onMount(async () => {
+    const recordsExe = await pb.collection('executiveStaff').getList(1, 50, {
+      expand: 'avatar'
+    });
+    exe = recordsExe.items;
+    console.log('Exe loaded:', exe);
+    
     const recordsPartners = await pb.collection('partners').getList(1, 50, {
       expand: 'avatar'
     });
     partners = recordsPartners.items;
     console.log('Partners loaded:', partners);
-        const recordsPros = await pb.collection('pros').getList(1, 50, {
-      expand: 'avatar'
+
+    const recordsPros = await pb.collection('pros').getList(1, 50, {
+        expand: 'avatar, flag'
     });
     pros = recordsPros.items;
     console.log('Pros loaded:', pros);
@@ -57,7 +66,7 @@
       Dashboard
     </a>
     <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Lock class="h-4 w-4" />
+      <Scale class="h-4 w-4" />
       Legal
     </a>
     <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
@@ -65,7 +74,7 @@
       Plan
     </a>
     <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Calculator class="h-4 w-4" />
+      <Chart class="h-4 w-4" />
       Financials
     </a>
     <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
@@ -108,7 +117,7 @@
             Business Plan
           </a>
           <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
-            <Calculator class="h-5 w-5" />
+            <Chart class="h-5 w-5" />
             Financials
           </a>
           <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
@@ -264,76 +273,72 @@
             </Table.Header>
             <Table.Body>
               {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
-                <Table.Row>
-                  <Table.Cell>
+              <Table.Row>
+                <Table.Cell>
+                  <div class="flex items-center space-x-2">
+                    {#if pro.flag}
+                      <Avatar.Root class="h-6 w-6">
+                        <Avatar.Image 
+                          src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.image}`}
+                          alt={`${pro.name}'s country flag`}
+                        />
+                      </Avatar.Root>
+                    {/if}
                     <div class="font-medium">{pro.name}</div>
-                  </Table.Cell>
-                  <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
-                </Table.Row>
+                  </div>
+                </Table.Cell>
+                <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
+              </Table.Row>
               {/each}
             </Table.Body>
           </Table.Root>
         </Card.Content>
       </Card.Root>
-      <Card.Root>
-        <Card.Header>
-          <Card.Title>Executive Staff</Card.Title>
+      <Card.Root class="xl:col-span-2">
+        <Card.Header class="flex flex-row items-center">
+          <div class="grid gap-2">
+            <Card.Title>Executive Staff</Card.Title>
+            <Card.Description>Key Members of the Organization</Card.Description>
+          </div>
+          <Button href="#" size="sm" class="ml-auto gap-1">
+            View All
+            <ArrowUpRight class="h-4 w-4" />
+          </Button>
         </Card.Header>
-        <Card.Content class="grid gap-8">
-          <div class="flex items-center gap-4">
-            <Avatar.Root class="hidden h-9 w-9 sm:flex">
-              <Avatar.Fallback>OM</Avatar.Fallback>
-            </Avatar.Root>
-            <div class="grid gap-1">
-              <p class="text-sm font-medium leading-none">Andrew Panza</p>
-              <p class="text-muted-foreground text-sm">andrew@fligolf.com</p>
-            </div>
-            <div class="ml-auto font-medium">CEO</div>
-          </div>
-          <div class="flex items-center gap-4">
-            <Avatar.Root class="hidden h-9 w-9 sm:flex">
-              <Avatar.Image src="/avatars/02.png" alt="Avatar" />
-              <Avatar.Fallback>JL</Avatar.Fallback>
-            </Avatar.Root>
-            <div class="grid gap-1">
-              <p class="text-sm font-medium leading-none">Dustin Dinsmore</p>
-              <p class="text-muted-foreground text-sm">dustin@fligolf.com</p>
-            </div>
-            <div class="ml-auto font-medium">CTO</div>
-          </div>
-          <div class="flex items-center gap-4">
-            <Avatar.Root class="hidden h-9 w-9 sm:flex">
-              <Avatar.Image src="/avatars/Pure-Logo_1.png" alt="Avatar" />
-              <Avatar.Fallback>IN</Avatar.Fallback>
-            </Avatar.Root>
-            <div class="grid gap-1">
-              <p class="text-sm font-medium leading-none">Corey La Russo</p>
-              <p class="text-muted-foreground text-sm">corey@fligolf.com</p>
-            </div>
-            <div class="ml-auto font-medium">CMO</div>
-          </div>
-          <div class="flex items-center gap-4">
-            <Avatar.Root class="hidden h-9 w-9 sm:flex">
-              <Avatar.Image src="/avatars/04.png" alt="Avatar" />
-              <Avatar.Fallback>WK</Avatar.Fallback>
-            </Avatar.Root>
-            <div class="grid gap-1">
-              <p class="text-sm font-medium leading-none">Alaxander Smart</p>
-              <p class="text-muted-foreground text-sm">alexander@fligolf.com</p>
-            </div>
-            <div class="ml-auto font-medium">CFO</div>
-          </div>
-          <div class="flex items-center gap-4">
-            <Avatar.Root class="hidden h-9 w-9 sm:flex">
-              <Avatar.Image src="/avatars/05.png" alt="Avatar" />
-              <Avatar.Fallback>SD</Avatar.Fallback>
-            </Avatar.Root>
-            <div class="grid gap-1">
-              <p class="text-sm font-medium leading-none">Mark Colman</p>
-              <p class="text-muted-foreground text-sm">mark@fligolf.com</p>
-            </div>
-            <div class="ml-auto font-medium">CPO</div>
-          </div>
+        <Card.Content>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Name</Table.Head>
+                <Table.Head class="xl:table.-column hidden">Type</Table.Head>
+                <Table.Head class="xl:table.-column hidden">Status</Table.Head>
+                <Table.Head class="xl:table.-column hidden">Date</Table.Head>
+                <Table.Head class="text-right">Role</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {#each exe as executive}
+              <Table.Row>
+                <Table.Cell>
+                  <div class="flex items-center space-x-4">
+                    {#if executive.avatar}
+                      <Avatar.Root class="h-6 w-6">
+                        <Avatar.Image 
+                          src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
+                          alt={executive.name}
+                        />
+                      </Avatar.Root>
+                    {:else}
+                      <Avatar.Fallback>{executive.name?.charAt(0)}</Avatar.Fallback>
+                    {/if}
+                    <div class="font-medium">{executive.name}</div>
+                  </div>
+                </Table.Cell>
+                <Table.Cell class="text-right">{executive.role}</Table.Cell>
+              </Table.Row>
+              {/each}
+            </Table.Body>
+          </Table.Root>
         </Card.Content>
       </Card.Root>
     </div>
