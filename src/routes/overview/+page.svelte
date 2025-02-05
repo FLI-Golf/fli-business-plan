@@ -249,51 +249,48 @@
       </Card.Root>
     </div>
     <div class="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-      <Card.Root class="xl:col-span-2">
-        <Card.Header class="flex flex-row items-center">
-          <div class="grid gap-2">
-            <Card.Title>Pros</Card.Title>
-            <Card.Description>Top Ranked Disc Golfers</Card.Description>
-          </div>
-          <Button href="##" size="sm" class="ml-auto gap-1">
-            View All
-            <ArrowUpRight class="h-4 w-4" />
-          </Button>
-        </Card.Header>
-        <Card.Content>
-          <Table.Root>
-            <Table.Header>
-              <Table.Row>
-                <Table.Head>Name</Table.Head>
-                <Table.Head class="xl:table.-column hidden">Type</Table.Head>
-                <Table.Head class="xl:table.-column hidden">Status</Table.Head>
-                <Table.Head class="xl:table.-column hidden">Date</Table.Head>
-                <Table.Head class="text-right">Ranked</Table.Head>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
-              <Table.Row>
-                <Table.Cell>
-                  <div class="flex items-center space-x-2">
-                    {#if pro.flag}
-                      <Avatar.Root class="h-6 w-6">
-                        <Avatar.Image 
-                          src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.image}`}
-                          alt={`${pro.name}'s country flag`}
-                        />
-                      </Avatar.Root>
-                    {/if}
-                    <div class="font-medium">{pro.name}</div>
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
-              </Table.Row>
-              {/each}
-            </Table.Body>
-          </Table.Root>
-        </Card.Content>
-      </Card.Root>
+  <Card.Root class="xl:col-span-2">
+    <Card.Header class="flex flex-row items-center">
+      <div class="grid gap-2">
+        <Card.Title>Pros</Card.Title>
+        <Card.Description>Top Ranked Disc Golfers</Card.Description>
+      </div>
+      <Button href="#" size="sm" class="ml-auto gap-1">
+        View All
+        <ArrowUpRight class="h-4 w-4" />
+      </Button>
+    </Card.Header>
+    <Card.Content>
+      <Table.Root>
+        <Table.Header>
+          <Table.Row>
+            <Table.Head>Name</Table.Head>
+            <Table.Head class="text-right">Ranked</Table.Head>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
+          <Table.Row>
+            <Table.Cell>
+              <div class="flex items-center space-x-4">
+                {#if pro.expand.flag}
+                  <Avatar.Root class="h-6 w-6">
+                    <Avatar.Image 
+                      src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                      alt={`${pro.name}'s country flag`}
+                    />
+                  </Avatar.Root>
+                {/if}
+                <div class="font-medium">{pro.name}</div>
+              </div>
+            </Table.Cell>
+            <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
+          </Table.Row>
+          {/each}
+        </Table.Body>
+      </Table.Root>
+    </Card.Content>
+  </Card.Root>
       <Card.Root class="xl:col-span-2">
         <Card.Header class="flex flex-row items-center">
           <div class="grid gap-2">
