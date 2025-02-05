@@ -301,36 +301,72 @@
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog.Root>    </Card.Header>    <Card.Content>
-      <Table.Root>
+      <Table.Root class="w-full">
         <Table.Header>
           <Table.Row>
-            <Table.Head>Name</Table.Head>
-            <Table.Head class="text-right">Ranked</Table.Head>
+            <Table.Head class="w-[70%]">Name</Table.Head>
+            <Table.Head class="w-[30%] text-right">Ranked</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
-          <Table.Row>
-            <Table.Cell>
-              <div class="flex items-center space-x-4">
-                {#if pro.expand.flag}
-                  <Avatar.Root class="h-6 w-6">
-                    <Avatar.Image 
-                      src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
-                      alt={`${pro.name}'s country flag`}
-                    />
-                  </Avatar.Root>
-                {/if}
-                <div class="font-medium">{pro.name}</div>
-              </div>
-            </Table.Cell>
-            <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
-          </Table.Row>
-          {/each}
-        </Table.Body>
-      </Table.Root>
-    </Card.Content>
-  </Card.Root>
+            <Table.Row class="cursor-pointer hover:bg-muted">
+              <Table.Cell class="w-[70%]">
+                <AlertDialog.Root>
+                  <AlertDialog.Trigger class="w-full">
+                    <div class="flex items-center space-x-4">
+                      {#if pro.expand.flag}
+                        <Avatar.Root class="h-6 w-6">
+                          <Avatar.Image 
+                            src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                            alt={`${pro.name}'s country flag`}
+                          />
+                        </Avatar.Root>
+                      {/if}
+                      <div class="font-medium">{pro.name}</div>
+                    </div>
+                  </AlertDialog.Trigger>
+
+                  <AlertDialog.Content>
+                    <AlertDialog.Header>
+                      <AlertDialog.Title>Player Profile</AlertDialog.Title>
+                      <AlertDialog.Description>
+                        Detailed information about {pro.name}
+                      </AlertDialog.Description>
+                    </AlertDialog.Header>
+
+                    <div class="grid gap-4 py-4">
+                      <div class="flex items-center space-x-4">
+                        {#if pro.expand.flag}
+                          <Avatar.Root class="h-16 w-16">
+                            <Avatar.Image 
+                              src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                              alt={`${pro.name}'s country flag`}
+                            />
+                          </Avatar.Root>
+                        {/if}
+                        <div class="space-y-2">
+                          <h3 class="text-xl font-bold">{pro.name}</h3>
+                          <div class="flex items-center gap-2">
+                            <Badge>Rank #{pro.rank}</Badge>
+                            <Badge variant="outline">{pro.country}</Badge>
+                          </div>
+                          <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <AlertDialog.Footer>
+                      <AlertDialog.Cancel>
+                        <Button variant="outline">Close</Button>
+                      </AlertDialog.Cancel>
+                    </AlertDialog.Footer>
+                  </AlertDialog.Content>
+                </AlertDialog.Root>
+              </Table.Cell>
+              <Table.Cell class="w-[30%] text-right">#{pro.rank}</Table.Cell>
+            </Table.Row>
+          {/each}        </Table.Body>      </Table.Root>    </Card.Content>  </Card.Root>
       <Card.Root>
         <Card.Header class="flex flex-row items-center">
           <div class="grid gap-2">
