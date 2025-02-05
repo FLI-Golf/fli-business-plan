@@ -30,13 +30,19 @@
   const pb = new PocketBase('https://8090-fligolf-flibusinessplan-3t70ta2c7qs.ws-us117.gitpod.io');
   
   let partners = [];
+  let pros = [];
 
   onMount(async () => {
-    const records = await pb.collection('partners').getList(1, 50, {
+    const recordsPartners = await pb.collection('partners').getList(1, 50, {
       expand: 'avatar'
     });
-    partners = records.items;
+    partners = recordsPartners.items;
     console.log('Partners loaded:', partners);
+        const recordsPros = await pb.collection('pros').getList(1, 50, {
+      expand: 'avatar'
+    });
+    pros = recordsPros.items;
+    console.log('Pros loaded:', pros);
   });
 
 </script>
@@ -257,98 +263,14 @@
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              <Table.Row>
-                <Table.Cell>
-                  <div class="font-medium">Liam Johnson</div>
-                  <div class="text-muted-foreground hidden text-sm md:inline">
-                    liam@example.com
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  <Badge class="text-xs" variant="outline">Approved</Badge>
-                </Table.Cell>
-                <Table.Cell
-                  class="md:table.-cell xl:table.-column hidden lg:hidden"
-                >
-                  2023-06-23
-                </Table.Cell>
-                <Table.Cell class="text-right">$250.00</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <div class="font-medium">Olivia Smith</div>
-                  <div class="text-muted-foreground hidden text-sm md:inline">
-                    olivia@example.com
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">Refund</Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  <Badge class="text-xs" variant="outline">Declined</Badge>
-                </Table.Cell>
-                <Table.Cell
-                  class="md:table.-cell xl:table.-column hidden lg:hidden"
-                >
-                  2023-06-24
-                </Table.Cell>
-                <Table.Cell class="text-right">$150.00</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <div class="font-medium">Noah Williams</div>
-                  <div class="text-muted-foreground hidden text-sm md:inline">
-                    noah@example.com
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  Subscription
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  <Badge class="text-xs" variant="outline">Approved</Badge>
-                </Table.Cell>
-                <Table.Cell
-                  class="md:table.-cell xl:table.-column hidden lg:hidden"
-                >
-                  2023-06-25
-                </Table.Cell>
-                <Table.Cell class="text-right">$350.00</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <div class="font-medium">Emma Brown</div>
-                  <div class="text-muted-foreground hidden text-sm md:inline">
-                    emma@example.com
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  <Badge class="text-xs" variant="outline">Approved</Badge>
-                </Table.Cell>
-                <Table.Cell
-                  class="md:table.-cell xl:table.-column hidden lg:hidden"
-                >
-                  2023-06-26
-                </Table.Cell>
-                <Table.Cell class="text-right">$450.00</Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>
-                  <div class="font-medium">Liam Johnson</div>
-                  <div class="text-muted-foreground hidden text-sm md:inline">
-                    liam@example.com
-                  </div>
-                </Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">Sale</Table.Cell>
-                <Table.Cell class="xl:table.-column hidden">
-                  <Badge class="text-xs" variant="outline">Approved</Badge>
-                </Table.Cell>
-                <Table.Cell
-                  class="md:table.-cell xl:table.-column hidden lg:hidden"
-                >
-                  2023-06-27
-                </Table.Cell>
-                <Table.Cell class="text-right">$550.00</Table.Cell>
-              </Table.Row>
+              {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
+                <Table.Row>
+                  <Table.Cell>
+                    <div class="font-medium">{pro.name}</div>
+                  </Table.Cell>
+                  <Table.Cell class="text-right">#{pro.rank}</Table.Cell>
+                </Table.Row>
+              {/each}
             </Table.Body>
           </Table.Root>
         </Card.Content>
