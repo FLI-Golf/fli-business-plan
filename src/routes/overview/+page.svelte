@@ -484,11 +484,13 @@
                       <div class="grid gap-4 py-4">
                         <div class="space-y-2">
                           <h3 class="text-xl font-bold">{executive.name}</h3>
-                          <Badge variant="outline">{executive.role}</Badge>
+                          <div class="flex items-center gap-2">
+                            <Badge variant="outline">{executive.role}</Badge>
+                            <span class="text-sm text-muted-foreground">{executive.email}</span>
+                          </div>
                           <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
                         </div>
                       </div>
-
                       <AlertDialog.Footer>
                         <AlertDialog.Cancel>
                           <Button variant="outline">Close</Button>
