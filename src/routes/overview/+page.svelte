@@ -40,28 +40,7 @@
   });
 
 </script>
-<!-- In the AlertDialog.Content section -->
-<div class="grid gap-4 py-4">
-  <div class="grid grid-cols-2 items-center gap-4">
-    {#each partners as partner}
-      <div class="flex items-center space-x-4">
-        <Avatar.Root>
-          <Avatar.Image 
-            src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
-            alt={partner.name}
-          />
-          <Avatar.Fallback>{partner.name?.charAt(0)}</Avatar.Fallback>
-        </Avatar.Root>
-        <div class="space-y-1">
-          <p class="text-sm font-medium leading-none">{partner.name}</p>
-          <p class="text-sm text-muted-foreground">
-            {partner.expand?.avatar?.id}
-          </p>
-        </div>
-      </div>
-    {/each}
-  </div>
-</div>
+
 
 
 <div class="flex min-h-screen w-full flex-col">
@@ -217,11 +196,14 @@
               {#each partners as partner}
                 <div class="flex items-center space-x-4">
                   <Avatar.Root>
-                    <Avatar.Image 
-                      src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
-                      alt={partner.name}
-                    />
-                    <Avatar.Fallback>{partner.name?.charAt(0)}</Avatar.Fallback>
+                    {#if partner.avatar}
+                      <Avatar.Image 
+                        src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
+                        alt={partner.name}
+                      />
+                    {:else}
+                      <Avatar.Fallback>{partner.name?.charAt(0)}</Avatar.Fallback>
+                    {/if}
                   </Avatar.Root>
                   <div class="space-y-1">
                     <p class="text-sm font-medium leading-none">{partner.name}</p>
@@ -231,7 +213,6 @@
               {/each}
             </div>
           </div>
-
           <AlertDialog.Footer>
             <AlertDialog.Cancel>
               <Button variant="outline">Close</Button>
@@ -434,5 +415,5 @@
         </Card.Content>
       </Card.Root>
     </div>
-  </main> 
+  </main>  
 </div>
