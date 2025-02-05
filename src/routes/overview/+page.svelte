@@ -248,19 +248,59 @@
         </Card.Content>
       </Card.Root>
     </div>
-    <div class="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-  <Card.Root class="xl:col-span-2">
-    <Card.Header class="flex flex-row items-center">
+    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
+  <Card.Root>
+    <Card.Header class="flex flex-row items-center justify-between">
       <div class="grid gap-2">
         <Card.Title>Pros</Card.Title>
         <Card.Description>Top Ranked Disc Golfers</Card.Description>
       </div>
-      <Button href="#" size="sm" class="ml-auto gap-1">
-        View All
-        <ArrowUpRight class="h-4 w-4" />
-      </Button>
-    </Card.Header>
-    <Card.Content>
+      <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button size="sm" class="gap-1">
+            View All
+            <ArrowUpRight class="h-4 w-4" />
+          </Button>
+        </AlertDialog.Trigger>
+
+        <AlertDialog.Content>
+          <AlertDialog.Header>
+            <AlertDialog.Title>Our Professional Players</AlertDialog.Title>
+            <AlertDialog.Description>
+              Complete list of professional disc golfers.
+            </AlertDialog.Description>
+          </AlertDialog.Header>
+
+          <div class="grid gap-4 py-4">
+            <div class="grid grid-cols-2 items-center gap-4">
+              {#each pros.sort((a, b) => a.rank - b.rank) as pro}
+                <div class="flex items-center space-x-4">
+                  <div class="flex items-center gap-2">
+                    {#if pro.expand.flag}
+                      <Avatar.Root class="h-8 w-8">
+                        <Avatar.Image 
+                          src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                          alt={`${pro.name}'s country flag`}
+                        />
+                      </Avatar.Root>
+                    {/if}
+                    <div class="space-y-1">
+                      <p class="text-sm font-medium leading-none">{pro.name}</p>
+                      <p class="text-sm text-muted-foreground">Rank #{pro.rank}</p>
+                    </div>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          </div>
+
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>
+              <Button variant="outline">Close</Button>
+            </AlertDialog.Cancel>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Root>    </Card.Header>    <Card.Content>
       <Table.Root>
         <Table.Header>
           <Table.Row>
@@ -291,7 +331,7 @@
       </Table.Root>
     </Card.Content>
   </Card.Root>
-      <Card.Root class="xl:col-span-2">
+      <Card.Root>
         <Card.Header class="flex flex-row items-center">
           <div class="grid gap-2">
             <Card.Title>Executive Staff</Card.Title>
