@@ -430,10 +430,6 @@
             <Card.Title>Executive Staff</Card.Title>
             <Card.Description>Key Members of the Organization</Card.Description>
           </div>
-          <Button href="#" size="sm" class="ml-auto gap-1">
-            View All
-            <ArrowUpRight class="h-4 w-4" />
-          </Button>
         </Card.Header>
         <Card.Content>
           <Table.Root>
@@ -450,23 +446,58 @@
               {#each exe as executive}
               <Table.Row>
                 <Table.Cell>
-                  <div class="flex items-center space-x-4">
-                    {#if executive.avatar}
-                      <Avatar.Root class="h-6 w-6">
-                        <Avatar.Image 
-                          src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
-                          alt={executive.name}
-                        />
-                      </Avatar.Root>
-                    {:else}
-                      <Avatar.Fallback>{executive.name?.charAt(0)}</Avatar.Fallback>
-                    {/if}
-                    <div class="font-medium">{executive.name}</div>
-                  </div>
+                  <AlertDialog.Root>
+                    <AlertDialog.Trigger class="w-full">
+                      <div class="flex items-center space-x-4">
+                        {#if executive.avatar}
+                          <Avatar.Root class="h-6 w-6 rounded-none">
+                            <Avatar.Image 
+                              src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
+                              alt={executive.name}
+                            />
+                          </Avatar.Root>
+                        {:else}
+                          <Avatar.Fallback>{executive.name?.charAt(0)}</Avatar.Fallback>
+                        {/if}
+                        <div class="font-medium">{executive.name}</div>
+                      </div>
+                    </AlertDialog.Trigger>
+
+                    <AlertDialog.Content>
+                      <AlertDialog.Header class="flex justify-between items-start">
+                        <div>
+                          <AlertDialog.Title>Executive Profile</AlertDialog.Title>
+                          <AlertDialog.Description>
+                            {executive.title}
+                          </AlertDialog.Description>
+                        </div>
+                        {#if executive.avatar}
+                          <Avatar.Root class="h-24 w-32 rounded-none">
+                            <Avatar.Image 
+                              src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
+                              alt={executive.name}
+                            />
+                          </Avatar.Root>
+                        {/if}
+                      </AlertDialog.Header>
+
+                      <div class="grid gap-4 py-4">
+                        <div class="space-y-2">
+                          <h3 class="text-xl font-bold">{executive.name}</h3>
+                          <Badge variant="outline">{executive.role}</Badge>
+                          <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
+                        </div>
+                      </div>
+
+                      <AlertDialog.Footer>
+                        <AlertDialog.Cancel>
+                          <Button variant="outline">Close</Button>
+                        </AlertDialog.Cancel>
+                      </AlertDialog.Footer>
+                    </AlertDialog.Content>                  </AlertDialog.Root>
                 </Table.Cell>
                 <Table.Cell class="text-right">{executive.role}</Table.Cell>
-              </Table.Row>
-              {/each}
+              </Table.Row>              {/each}
             </Table.Body>
           </Table.Root>
         </Card.Content>
