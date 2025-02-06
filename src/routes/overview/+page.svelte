@@ -275,7 +275,7 @@
                   <AlertDialog.Trigger class="w-full">
                     <div class="flex items-center gap-4 p-3 hover:bg-muted rounded border w-full">
                       {#if pro.expand.flag}
-                        <Avatar.Root class="h-10 w-10 rounded-none shrink-0">
+                        <Avatar.Root class="h-10 w-14 rounded-none shrink-0">
                           <Avatar.Image 
                             src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
                             alt={`${pro.name}'s country flag`}
@@ -350,7 +350,7 @@
               <AlertDialog.Trigger class="w-full">
                 <div class="flex items-center space-x-4">
                   {#if pro.expand.flag}
-                    <Avatar.Root class="h-8 w-8 rounded-lg">
+                    <Avatar.Root class="h-10 w-14 rounded-lg">
                       <Avatar.Image
                         src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
                         alt={`${pro.name}'s country flag`}
@@ -436,7 +436,7 @@
                     <AlertDialog.Trigger class="w-full">
                       <div class="flex items-center space-x-4">
                         {#if executive.avatar}
-                          <Avatar.Root class="h-8 w-8 rounded-lg">
+                          <Avatar.Root class="h-10 w-14 rounded-lg">
                             <Avatar.Image 
                               src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
                               alt={executive.name}
@@ -458,7 +458,7 @@
                           </AlertDialog.Description>
                         </div>
                         {#if executive.avatar}
-                          <Avatar.Root class="h-24 w-24 rounded-none">
+                          <Avatar.Root class="h-24 w-32 rounded-none">
                             <Avatar.Image 
                               src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
                               alt={executive.name}
