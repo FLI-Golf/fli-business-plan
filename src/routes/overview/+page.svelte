@@ -3,7 +3,7 @@
   import ArrowUpRight from "lucide-svelte/icons/arrow-up-right";
   import CircleUser from "lucide-svelte/icons/circle-user";
   import CreditCard from "lucide-svelte/icons/credit-card";
-  import DollarSign from "lucide-svelte/icons/dollar-sign";
+  import BpIcon from "lucide-svelte/icons/layout-panel-top";
   import Menu from "lucide-svelte/icons/menu";
   import Package2 from "lucide-svelte/icons/package-2";
   import Search from "lucide-svelte/icons/search";
@@ -33,28 +33,25 @@
   let partners = [];
   let pros = [];
   let exe = [];
+  let loading = true;
 
   onMount(async () => {
     const recordsExe = await pb.collection('executiveStaff').getList(1, 50, {
       expand: 'avatar'
     });
     exe = recordsExe.items;
-    console.log('Exe loaded:', exe);
     
     const recordsPartners = await pb.collection('partners').getList(1, 50, {
       expand: 'avatar'
     });
     partners = recordsPartners.items;
-    console.log('Partners loaded:', partners);
 
     const recordsPros = await pb.collection('pros').getList(1, 50, {
         expand: 'avatar, flag'
     });
     pros = recordsPros.items;
-    console.log('Pros loaded:', pros);
-  });
-
-</script>
+    loading = false;
+  });</script>
 
 
 
@@ -166,12 +163,12 @@
     <div class="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
       <Card.Root>
         <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-          <Card.Title class="text-sm font-medium">Sponsor Potential</Card.Title>
-          <DollarSign class="text-muted-foreground h-4 w-4" />
+          <Card.Title class="text-sm font-medium">Business Plan</Card.Title>
+          <BpIcon class="text-muted-foreground h-4 w-4" />
         </Card.Header>
         <Card.Content>
-          <div class="text-2xl font-bold">$45,231.89</div>
-          <p class="text-muted-foreground text-xs">+20.1% from last month</p>
+            <div class="text-2xl font-bold">+18</div>
+          <p class="text-muted-foreground text-xs">sections</p>
         </Card.Content>
       </Card.Root>
       <script lang="ts">
@@ -292,25 +289,26 @@
                     </div>
                   </AlertDialog.Trigger>
                   <AlertDialog.Content>
-                    <AlertDialog.Header>
-                      <AlertDialog.Title>Player Profile</AlertDialog.Title>
-                      <AlertDialog.Description>
-                        Detailed information about {pro.name}
-                      </AlertDialog.Description>
+                    <AlertDialog.Header class="flex justify-between items-start">
+                      <div>
+                        <AlertDialog.Title>{pro.name}</AlertDialog.Title>
+                        <AlertDialog.Description>
+                          Professional Disc Golfer
+                        </AlertDialog.Description>
+                      </div>
+                      {#if pro.expand.avatar}
+                        <Avatar.Root class="h-24 w-24 rounded-none">
+                          <Avatar.Image
+                            src={`${pb.baseUrl}/api/files/${pro.expand.avatar.collectionId}/${pro.expand.avatar.id}/${pro.expand.avatar.image}`}
+                            alt={pro.name}
+                          />
+                        </Avatar.Root>
+                      {/if}
                     </AlertDialog.Header>
 
-                    <div class="grid gap-4 py-4">
-                      <div class="flex items-center space-x-4">
-                        {#if pro.expand.avatar}
-                          <Avatar.Root class="h-16 w-16 rounded-none">
-                            <Avatar.Image 
-                              src={`${pb.baseUrl}/api/files/${pro.expand.avatar.collectionId}/${pro.expand.avatar.id}/${pro.expand.avatar.image}`}
-                              alt={pro.name}
-                            />
-                          </Avatar.Root>
-                        {/if}
+                    <div class="overflow-y-auto max-h-[60vh]">
+                      <div class="grid gap-4 py-4">
                         <div class="space-y-2">
-                          <h3 class="text-xl font-bold">{pro.name}</h3>
                           <div class="flex items-center gap-2">
                             <Badge>Rank #{pro.rank}</Badge>
                             <Badge variant="outline">{pro.country}</Badge>
@@ -320,24 +318,12 @@
                       </div>
                     </div>
 
-                    <AlertDialog.Footer class="flex justify-between items-center w-full">
-                      <div class="flex-1">
-                        {#if pro.expand.flag}
-                          <Avatar.Root class="h-8 w-8 rounded-none">
-                            <Avatar.Image 
-                              src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
-                              alt={`${pro.name}'s country flag`}
-                            />
-                          </Avatar.Root>
-                        {/if}
-                      </div>
-                      <div class="flex-1 flex justify-end">
-                        <AlertDialog.Cancel>
-                          <Button variant="outline">Close</Button>
-                        </AlertDialog.Cancel>
-                      </div>
+                    <AlertDialog.Footer>
+                      <AlertDialog.Cancel>
+                        <Button variant="outline">Close</Button>
+                      </AlertDialog.Cancel>
                     </AlertDialog.Footer>
-                  </AlertDialog.Content>
+                  </AlertDialog.Content>             
                 </AlertDialog.Root>
               {/each}
             </div>
@@ -358,71 +344,71 @@
         </Table.Header>
         <Table.Body>
           {#each pros.sort((a, b) => a.rank - b.rank).slice(0, 5) as pro}
-            <Table.Row class="cursor-pointer hover:bg-muted">
-              <Table.Cell class="w-[70%]">
-                <AlertDialog.Root>
-                  <AlertDialog.Trigger class="w-full">
-                    <div class="flex items-center space-x-4">
-                      {#if pro.expand.flag}
-                        <Avatar.Root class="h-8 w-8 rounded-none">
-                          <Avatar.Image 
-                            src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
-                            alt={`${pro.name}'s country flag`}
-                          />
-                        </Avatar.Root>
-                      {/if}
-                      <div class="font-medium">{pro.name}</div>
-                    </div>
-                  </AlertDialog.Trigger>
+        <Table.Row class="cursor-pointer hover:bg-muted">
+          <Table.Cell class="w-[70%]">
+            <AlertDialog.Root>
+              <AlertDialog.Trigger class="w-full">
+                <div class="flex items-center space-x-4">
+                  {#if pro.expand.flag}
+                    <Avatar.Root class="h-8 w-8 rounded-lg">
+                      <Avatar.Image
+                        src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                        alt={`${pro.name}'s country flag`}
+                      />
+                    </Avatar.Root>
+                  {/if}
+                  <div class="font-medium">{pro.name}</div>
+                </div>
+              </AlertDialog.Trigger>
+              
+              <AlertDialog.Content>
+                <AlertDialog.Header class="flex justify-between items-start">
+                  <div>
+                    <AlertDialog.Title>{pro.name}</AlertDialog.Title>
+                    <AlertDialog.Description>
+                      Detailed information about {pro.name}
+                    </AlertDialog.Description>
+                  </div>
+                  {#if pro.expand.avatar}
+                    <Avatar.Root class="h-24 w-24 rounded-none">
+                      <Avatar.Image
+                        src={`${pb.baseUrl}/api/files/${pro.expand.avatar.collectionId}/${pro.expand.avatar.id}/${pro.expand.avatar.image}`}
+                        alt={pro.name}
+                      />
+                    </Avatar.Root>
+                  {/if}
+                </AlertDialog.Header>
 
-                  <AlertDialog.Content>
-                    <AlertDialog.Header>
-                      <AlertDialog.Title>Player Profile</AlertDialog.Title>
-                      <AlertDialog.Description>
-                        Detailed information about {pro.name}
-                      </AlertDialog.Description>
-                    </AlertDialog.Header>
-
-                    <div class="grid gap-4 py-4">
-                      <div class="flex items-center space-x-4">
-                        {#if pro.expand.avatar}
-                          <Avatar.Root class="h-16 w-16 rounded-none">
-                            <Avatar.Image 
-                              src={`${pb.baseUrl}/api/files/${pro.expand.avatar.collectionId}/${pro.expand.avatar.id}/${pro.expand.avatar.image}`}
-                              alt={pro.name}
-                            />
-                          </Avatar.Root>
-                        {/if}
-                        <div class="space-y-2">
-                          <h3 class="text-xl font-bold">{pro.name}</h3>
-                          <div class="flex items-center gap-2">
-                            <Badge>Rank #{pro.rank}</Badge>
-                            <Badge variant="outline">{pro.country}</Badge>
-                          </div>
-                          <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <AlertDialog.Footer class="flex justify-between items-center w-full">
-                      <div class="flex-1">
+                <div class="overflow-y-auto max-h-[60vh]">
+                  <div class="grid gap-4 py-4">
+                    <div class="space-y-2">
+                      <div class="flex items-center gap-2">
                         {#if pro.expand.flag}
                           <Avatar.Root class="h-4 w-4 rounded-none">
-                            <Avatar.Image 
+                            <Avatar.Image
                               src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
                               alt={`${pro.name}'s country flag`}
                             />
                           </Avatar.Root>
                         {/if}
+                        <Badge>Rank #{pro.rank}</Badge>
+                        <Badge variant="outline">{pro.country}</Badge>
                       </div>
-                      <div class="flex-1 flex justify-end">
-                        <AlertDialog.Cancel>
-                          <Button variant="outline">Close</Button>
-                        </AlertDialog.Cancel>
-                      </div>
-                    </AlertDialog.Footer>                  </AlertDialog.Content>                </AlertDialog.Root>              </Table.Cell>
-              <Table.Cell class="w-[30%] text-right">#{pro.rank}</Table.Cell>
-            </Table.Row>
+                      <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <AlertDialog.Footer>
+                  <AlertDialog.Cancel>
+                    <Button variant="outline">Close</Button>
+                  </AlertDialog.Cancel>
+                </AlertDialog.Footer>
+              </AlertDialog.Content>
+            </AlertDialog.Root>
+          </Table.Cell>
+          <Table.Cell class="w-[30%] text-right">#{pro.rank}</Table.Cell>
+        </Table.Row>
           {/each}        </Table.Body>      </Table.Root>    </Card.Content>  </Card.Root>
       <Card.Root>
         <Card.Header class="flex flex-row items-center">
@@ -450,7 +436,7 @@
                     <AlertDialog.Trigger class="w-full">
                       <div class="flex items-center space-x-4">
                         {#if executive.avatar}
-                          <Avatar.Root class="h-6 w-6 rounded-none">
+                          <Avatar.Root class="h-8 w-8 rounded-lg">
                             <Avatar.Image 
                               src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
                               alt={executive.name}
@@ -466,13 +452,13 @@
                     <AlertDialog.Content>
                       <AlertDialog.Header class="flex justify-between items-start">
                         <div>
-                          <AlertDialog.Title>Executive Profile</AlertDialog.Title>
+                          <AlertDialog.Title>{executive.name}</AlertDialog.Title>
                           <AlertDialog.Description>
                             {executive.title}
                           </AlertDialog.Description>
                         </div>
                         {#if executive.avatar}
-                          <Avatar.Root class="h-24 w-32 rounded-none">
+                          <Avatar.Root class="h-24 w-24 rounded-none">
                             <Avatar.Image 
                               src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
                               alt={executive.name}
@@ -481,23 +467,24 @@
                         {/if}
                       </AlertDialog.Header>
 
-                      <div class="grid gap-4 py-4">
-                        <div class="space-y-2">
-                          <h3 class="text-xl font-bold">{executive.name}</h3>
-                          <div class="flex items-center gap-2">
-                            <Badge variant="outline">{executive.role}</Badge>
-                            <span class="text-sm text-muted-foreground">{executive.email}</span>
+                      <div class="overflow-y-auto max-h-[60vh]">
+                        <div class="grid gap-4 py-4">
+                          <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                              <Badge variant="outline">{executive.role}</Badge>
+                              <span class="text-sm text-muted-foreground">{executive.email}</span>
+                            </div>
+                            <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
                           </div>
-                          <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
                         </div>
                       </div>
+
                       <AlertDialog.Footer>
                         <AlertDialog.Cancel>
                           <Button variant="outline">Close</Button>
                         </AlertDialog.Cancel>
                       </AlertDialog.Footer>
-                    </AlertDialog.Content>                  </AlertDialog.Root>
-                </Table.Cell>
+                    </AlertDialog.Content>                  </AlertDialog.Root>                </Table.Cell>
                 <Table.Cell class="text-right">{executive.role}</Table.Cell>
               </Table.Row>              {/each}
             </Table.Body>
