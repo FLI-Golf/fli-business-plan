@@ -2,14 +2,17 @@
   import { onMount } from 'svelte';
   import { Badge } from "$lib/components/ui/badge/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import * as Card from "$lib/components/ui/card/index.js";  import { Input } from "$lib/components/ui/input/index.js";  import Search from "lucide-svelte/icons/search";
+  import { Input } from "$lib/components/ui/input/index.js";
+  import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
   import type { BusinessPlan, Section as SectionType } from '$lib/types';
 
   let businessPlan: BusinessPlan | null = null;
   let sections: SectionType[] = [];
   let searchQuery = "";
+  let currentHash = "";
 
+  // Fetch Business Plan Data
   async function fetchBusinessPlan() {
       try {
           const response = await fetch('/api/business-plan');
@@ -27,18 +30,28 @@
       }
   }
 
-  onMount(fetchBusinessPlan);
+  // Update the hash when URL changes
+  function updateHash() {
+      currentHash = window.location.hash.slice(1);
+  }
 
-  function filteredSections() {
-      if (!sections || !searchQuery) return sections;
+  onMount(() => {
+      fetchBusinessPlan();
+      updateHash(); // Initialize hash value
+      window.addEventListener("hashchange", updateHash);
+      return () => window.removeEventListener("hashchange", updateHash);
+  });
 
-      return sections.map(section => ({
+  // Compute Filtered Sections Reactively
+  $: filteredSections = sections
+      .filter(section => !currentHash || `section-${section.id}` === currentHash) // Filter by section hash
+      .map(section => ({
           ...section,
           subsections: section.subsections.filter(sub =>
               sub.content.toLowerCase().includes(searchQuery.toLowerCase())
           )
-      })).filter(section => section.subsections.length > 0);
-  }
+      }))
+      .filter(section => section.subsections.length > 0 || !searchQuery);
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
@@ -87,7 +100,7 @@
         <h1 class="text-2xl font-bold">{businessPlan.name}</h1>
         <p class="text-sm text-gray-500">Version {businessPlan.version} | Updated: {new Date(businessPlan.updated).toLocaleDateString()}</p>
 
-        {#each filteredSections() as section}
+        {#each filteredSections as section}
           <Section id={`section-${section.id}`} {section} />
         {/each}
       {:else}
@@ -96,3 +109,4 @@
     </main>
   </div>
 </div>
+
