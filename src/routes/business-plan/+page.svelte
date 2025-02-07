@@ -1,69 +1,90 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { page } from '$app/stores'; // ✅ Listen for route changes
-  import { goto } from '$app/navigation'; // ✅ Navigate programmatically
+  import { onMount } from "svelte";
+  import { page } from "$app/stores"; // ✅ Listen for route changes
+  import { goto } from "$app/navigation"; // ✅ Navigate programmatically
   import { Badge } from "$lib/components/ui/badge/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
-  import type { BusinessPlan, Section as SectionType } from '$lib/types';
+  import type { BusinessPlan, Section as SectionType } from "$lib/types";
 
   let businessPlan: BusinessPlan | null = null;
   let sections: SectionType[] = [];
   let searchQuery = "";
   let currentHash = "";
+  let showBackToTop = false;
 
   // ✅ Fetch Business Plan Data
   async function fetchBusinessPlan() {
-      console.log("Fetching business plan data..."); // ✅ Debug log
-      try {
-          const response = await fetch('/api/business-plan');
-          const data = await response.json();
+    console.log("Fetching business plan data...");
+    try {
+      const response = await fetch("/api/business-plan");
+      const data = await response.json();
 
-          if (data.error) {
-              console.error("❌ ERROR: ", data.error);
-              return;
-          }
-
-          businessPlan = data.businessPlan;
-          sections = data.sections;
-          console.log("✅ Business Plan Data Updated!"); // ✅ Debug log
-      } catch (error) {
-          console.error("❌ ERROR: Failed to fetch business plan data", error);
+      if (data.error) {
+        console.error("❌ ERROR: ", data.error);
+        return;
       }
+
+      businessPlan = data.businessPlan;
+      sections = data.sections;
+      console.log("✅ Business Plan Data Updated!");
+    } catch (error) {
+      console.error("❌ ERROR: Failed to fetch business plan data", error);
+    }
   }
 
   // ✅ Handle URL Hash Change
   function updateHash() {
-      currentHash = window.location.hash.slice(1);
+    currentHash = window.location.hash.slice(1);
   }
 
-  // ✅ Navigate to `/business-plan` then Refresh
-  async function refreshPage() {
-      console.log("🔄 Navigating to /business-plan and refreshing...");
-      await goto('/business-plan');  // ✅ Navigate first
-      setTimeout(() => location.reload(), 100);  // ✅ Refresh after navigation
+  // ✅ Navigate to `/business-plan` then Force a Full Reload
+  async function refreshPage(event: Event) {
+    event.preventDefault(); // ✅ Prevent default navigation
+    console.log("🔄 Navigating to /business-plan and refreshing...");
+    
+    await goto("/business-plan"); // ✅ Navigate first
+
+    // ✅ Hard reload after a short delay
+    setTimeout(() => {
+      console.log("🔄 Forcing full page reload...");
+      window.location.reload();
+    }, 200);
+  }
+
+  // ✅ Show "Back to Top" button when scrolling
+  function handleScroll() {
+    showBackToTop = window.scrollY > 300;
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   // ✅ Fetch on Mount & Listen for URL Changes
   onMount(() => {
-      fetchBusinessPlan();
-      updateHash();
-      window.addEventListener("hashchange", updateHash);
-      return () => window.removeEventListener("hashchange", updateHash);
+    fetchBusinessPlan();
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("hashchange", updateHash);
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 
   // ✅ Compute Filtered Sections Reactively
   $: filteredSections = sections
-      .filter(section => !currentHash || `section-${section.id}` === currentHash) // Match URL hash
-      .map(section => ({
-          ...section,
-          subsections: section.subsections.filter(sub =>
-              sub.content.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-      }))
-      .filter(section => section.subsections.length > 0 || !searchQuery);
+    .filter(section => !currentHash || `section-${section.id}` === currentHash) // Match URL hash
+    .map(section => ({
+      ...section,
+      subsections: section.subsections.filter(sub =>
+        sub.content.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    }))
+    .filter(section => section.subsections.length > 0 || !searchQuery);
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
@@ -120,7 +141,9 @@
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       {#if businessPlan}
         <h1 class="text-2xl font-bold">{businessPlan.name}</h1>
-        <p class="text-sm text-gray-500">Version {businessPlan.version} | Updated: {new Date(businessPlan.updated).toLocaleDateString()}</p>
+        <p class="text-sm text-gray-500">
+          Version {businessPlan.version} | Updated: {new Date(businessPlan.updated).toLocaleDateString()}
+        </p>
 
         {#each filteredSections as section}
           <Section id={`section-${section.id}`} {section} />
@@ -131,3 +154,13 @@
     </main>
   </div>
 </div>
+
+<!-- ✅ Back to Top Button -->
+{#if showBackToTop}
+  <button
+    class="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-md hover:bg-blue-700 transition"
+    on:click={scrollToTop}
+  >
+    ⬆️ Top
+  </button>
+{/if}

@@ -9,6 +9,6 @@
   </CardHeader>
   <CardContent>
     {#each section.subsections as subsection}
-      <p class="text-gray-700 mt-2">{@html subsection.content}</p>    {/each}
+      <p class="text-gray-400 mt-2">{@html subsection.content}</p>    {/each}
   </CardContent>
 </Card>
