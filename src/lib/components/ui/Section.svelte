@@ -1,14 +1,15 @@
 <script lang="ts">
+  import { Card, CardContent, CardHeader, CardTitle } from "$lib/components/ui/card";
   export let section;
 </script>
 
-<Card.Root class="p-4 border rounded-lg shadow-sm mt-4">
-  <Card.Header>
-    <Card.Title class="text-xl font-semibold">{section.title}</Card.Title>
-  </Card.Header>
-  <Card.Content>
+<Card class="p-4 border rounded-lg shadow-sm mt-4">
+  <CardHeader>
+    <CardTitle class="text-xl font-semibold">{section.title}</CardTitle>
+  </CardHeader>
+  <CardContent>
     {#each section.subsections as subsection}
       <p class="text-gray-700 mt-2">{subsection.content}</p>
     {/each}
-  </Card.Content>
-</Card.Root>
+  </CardContent>
+</Card>

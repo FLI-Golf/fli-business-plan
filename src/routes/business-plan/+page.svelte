@@ -2,9 +2,7 @@
   import { onMount } from 'svelte';
   import { Badge } from "$lib/components/ui/badge/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
-  import * as Card from "$lib/components/ui/card/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import Search from "lucide-svelte/icons/search";
+  import * as Card from "$lib/components/ui/card/index.js";  import { Input } from "$lib/components/ui/input/index.js";  import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
   import type { BusinessPlan, Section as SectionType } from '$lib/types';
 
