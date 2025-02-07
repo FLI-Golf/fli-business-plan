@@ -1,5 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { page } from '$app/stores'; // ✅ Listen for route changes
+  import { goto } from '$app/navigation'; // ✅ Navigate programmatically
   import { Badge } from "$lib/components/ui/badge/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
@@ -12,8 +14,9 @@
   let searchQuery = "";
   let currentHash = "";
 
-  // Fetch Business Plan Data
+  // ✅ Fetch Business Plan Data
   async function fetchBusinessPlan() {
+      console.log("Fetching business plan data..."); // ✅ Debug log
       try {
           const response = await fetch('/api/business-plan');
           const data = await response.json();
@@ -25,26 +28,35 @@
 
           businessPlan = data.businessPlan;
           sections = data.sections;
+          console.log("✅ Business Plan Data Updated!"); // ✅ Debug log
       } catch (error) {
           console.error("❌ ERROR: Failed to fetch business plan data", error);
       }
   }
 
-  // Update the hash when URL changes
+  // ✅ Handle URL Hash Change
   function updateHash() {
       currentHash = window.location.hash.slice(1);
   }
 
+  // ✅ Navigate to `/business-plan` then Refresh
+  async function refreshPage() {
+      console.log("🔄 Navigating to /business-plan and refreshing...");
+      await goto('/business-plan');  // ✅ Navigate first
+      setTimeout(() => location.reload(), 100);  // ✅ Refresh after navigation
+  }
+
+  // ✅ Fetch on Mount & Listen for URL Changes
   onMount(() => {
       fetchBusinessPlan();
-      updateHash(); // Initialize hash value
+      updateHash();
       window.addEventListener("hashchange", updateHash);
       return () => window.removeEventListener("hashchange", updateHash);
   });
 
-  // Compute Filtered Sections Reactively
+  // ✅ Compute Filtered Sections Reactively
   $: filteredSections = sections
-      .filter(section => !currentHash || `section-${section.id}` === currentHash) // Filter by section hash
+      .filter(section => !currentHash || `section-${section.id}` === currentHash) // Match URL hash
       .map(section => ({
           ...section,
           subsections: section.subsections.filter(sub =>
@@ -58,7 +70,17 @@
   <!-- Sidebar with Sections -->
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
-      <h2 class="font-semibold text-xl">Business Plan</h2>
+      {#if businessPlan}
+        <a 
+          href="/business-plan" 
+          class="font-semibold text-xl hover:underline"
+          on:click={refreshPage} 
+        >
+          {businessPlan.name}
+        </a>
+      {:else}
+        <h2 class="font-semibold text-xl">Loading...</h2>
+      {/if}
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
       {#if sections.length}
@@ -109,4 +131,3 @@
     </main>
   </div>
 </div>
-
