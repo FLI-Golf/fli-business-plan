@@ -14,6 +14,7 @@
   import Mail from "lucide-svelte/icons/mail";
   import Lock from "lucide-svelte/icons/lock";
   import Scale from "lucide-svelte/icons/scale";
+  import { Disc3 } from 'lucide-svelte';
 
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
@@ -202,6 +203,48 @@
           <div>
             <h2 class="text-xl font-semibold">Partners</h2>
             <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+          </div>
+        </div>
+      </a>
+
+        <!-- Teams Card -->
+      <a
+        href="/teams"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <Disc3 class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Teams</h2>
+            <p class="text-muted-foreground">View team structure and roles</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Legal Card -->
+      <a
+        href="/legal"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <Scale class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Legal</h2>
+            <p class="text-muted-foreground">View legal documents and agreements</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Contact Us Card -->
+      <a
+        href="/contact"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <Mail class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Contact Us</h2>
+            <p class="text-muted-foreground">Get in touch with our team</p>
           </div>
         </div>
       </a>
