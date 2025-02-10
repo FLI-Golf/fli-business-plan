@@ -3,7 +3,7 @@ import PocketBase from 'pocketbase';
 import type { RequestHandler } from './$types';
 import type { BusinessPlan, Section, Subsection } from '$lib/types';
 
-const POCKETBASE_URL = 'https://8090-fligolf-flibusinessplan-3t70ta2c7qs.ws-us117.gitpod.io';
+const POCKETBASE_URL = 'https://few-likely.pockethost.io';
 
 export const GET: RequestHandler = async () => {
     try {

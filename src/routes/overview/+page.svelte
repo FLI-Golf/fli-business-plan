@@ -28,7 +28,7 @@
   import PocketBase from 'pocketbase';
   import { onMount } from 'svelte';
 
-  const pb = new PocketBase('https://8090-fligolf-flibusinessplan-3t70ta2c7qs.ws-us117.gitpod.io');
+  const pb = new PocketBase('https://few-likely.pockethost.io');
   
   let partners = [];
   let pros = [];
@@ -37,7 +37,8 @@
 
   onMount(async () => {
     const recordsExe = await pb.collection('executiveStaff').getList(1, 50, {
-      expand: 'avatar'
+      expand: 'avatar',
+      sort: '-created' // Added sort parameter
     });
     exe = recordsExe.items;
     
@@ -47,11 +48,13 @@
     partners = recordsPartners.items;
 
     const recordsPros = await pb.collection('pros').getList(1, 50, {
-        expand: 'avatar, flag'
+      expand: 'avatar, flag',
+      sort: 'rank' // Added sort parameter to order by rank ascending
     });
     pros = recordsPros.items;
     loading = false;
-  });</script>
+  });
+  </script>
 
 
 
@@ -168,7 +171,7 @@
       <BpIcon class="text-white h-4 w-4" />
     </Card.Header>
     <Card.Content>
-      <div class="text-2xl font-bold text-white">+18</div>
+      <div class="text-2xl font-bold text-white">+8</div>
       <p class="text-gray-300 text-xs">Sections</p>
     </Card.Content>
   </Card.Root>
@@ -176,7 +179,7 @@
 
 <script lang="ts">
   import PocketBase from 'pocketbase';
-  const pb = new PocketBase('https://8090-fligolf-flibusinessplan-3t70ta2c7qs.ws-us117.gitpod.io');
+  const pb = new PocketBase('https://few-likely.pockethost.io');
 
   let partners = [];
 </script>
