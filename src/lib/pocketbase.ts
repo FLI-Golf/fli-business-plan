@@ -1,10 +1,14 @@
 import PocketBase from 'pocketbase';
-import { writable } from 'svelte/store';
-import { env } from '$env/dynamic/public';
 
-export const pb = new PocketBase(env.POCKETBASE_URL);
-export const currentUser = writable(pb.authStore.model);
+export const pb = new PocketBase('https://few-likely.pockethost.io');
 
-pb.authStore.onChange((auth) => {
-    currentUser.set(pb.authStore.model);
-});
+export async function createUser(data: {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+}) {
+    return await pb.collection('users').create({
+      ...data,
+      emailVisibility: true
+    });
+}
