@@ -8,12 +8,14 @@
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
   import type { BusinessPlan, Section as SectionType } from "$lib/types";
+  import { Home } from "lucide-svelte";
 
   let businessPlan: BusinessPlan | null = null;
   let sections: SectionType[] = [];
   let searchQuery = "";
   let currentHash = "";
   let showBackToTop = false;
+  let isMobileMenuOpen = false;
 
   // ✅ Fetch Business Plan Data
   async function fetchBusinessPlan() {
@@ -122,9 +124,20 @@
   <!-- Main Content -->
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
-      <!-- Search Bar -->
-      <div class="w-full flex-1">
-        <form>
+      <!-- Add Hamburger Menu Button for Mobile -->
+      <button 
+        class="md:hidden p-2"
+        on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      
+      <div class="w-full flex-1 flex items-center gap-4">
+        <form class="flex-1">
           <div class="relative">
             <Search class="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
             <Input
@@ -135,6 +148,14 @@
             />
           </div>
         </form>
+        
+        <a 
+          href="/overview" 
+          class="flex items-center gap-2 text-sm font-medium hover:text-primary"
+        >
+          <Home class="h-4 w-4" />
+          <span>Overview</span>
+        </a>
       </div>
     </header>
 
@@ -164,3 +185,42 @@
     ⬆️ Top
   </button>
 {/if}
+<!-- Mobile Menu -->
+{#if isMobileMenuOpen}
+  <div class="fixed inset-0 z-50 bg-background md:hidden">
+    <!-- Mobile Menu Header -->
+    <div class="h-14 border-b px-4 flex items-center justify-between">
+      {#if businessPlan}
+        <span class="font-semibold text-xl">{businessPlan.name}</span>
+      {:else}
+        <span class="font-semibold text-xl">Loading...</span>
+      {/if}
+      
+      <!-- Close Button -->
+      <button 
+        class="p-2"
+        on:click={() => isMobileMenuOpen = false}
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="flex-1 overflow-y-auto p-4 space-y-2">
+      {#if sections.length}
+        {#each sections as section}
+          <a
+            href={`#section-${section.id}`}
+            class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
+            on:click={() => isMobileMenuOpen = false}
+          >
+            {section.order}. {section.title}
+          </a>
+        {/each}
+      {:else}
+        <p class="text-gray-500 text-sm">No sections available.</p>
+      {/if}
+    </nav>
+  </div>
+{/if}
+

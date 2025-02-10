@@ -163,94 +163,48 @@
     </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-    <div class="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-<a href="/business-plan" class="w-full">
-  <Card.Root class="cursor-pointer w-full h-full hover:bg-gray-800 transition duration-200 ease-in-out border rounded-lg shadow-sm">
-    <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-      <Card.Title class="text-sm font-medium text-white">Business Plan</Card.Title>
-      <BpIcon class="text-white h-4 w-4" />
-    </Card.Header>
-    <Card.Content>
-      <div class="text-2xl font-bold text-white">+8</div>
-      <p class="text-gray-300 text-xs">Sections</p>
-    </Card.Content>
-  </Card.Root>
-</a>
-
-<script lang="ts">
-  import PocketBase from 'pocketbase';
-  const pb = new PocketBase('https://few-likely.pockethost.io');
-
-  let partners = [];
-</script>
-
-<Card.Root class="cursor-pointer w-full h-full hover:bg-gray-800 transition duration-200 ease-in-out border rounded-lg shadow-sm">
-  <AlertDialog.Root>
-    <AlertDialog.Trigger class="w-full">
-      <Button variant="ghost" class="w-full h-full">
-        <div class="w-full text-left"> <!-- ✅ Moves content to the left -->
-          <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-            <Card.Title class="text-sm font-medium text-white">Partners</Card.Title>
-            <Users class="text-white h-4 w-4" />
-          </Card.Header>
-          <Card.Content>
-            <div class="text-2xl font-bold text-white">+{partners.length}</div>
-            <p class="text-gray-300 text-xs">Current active partnerships.</p>
-          </Card.Content>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+      <!-- Business Plan Card -->
+      <a 
+        href="/business-plan"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <BpIcon class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Business Plan</h2>
+            <p class="text-muted-foreground">8 Sections</p>
+          </div>
         </div>
-      </Button>
-    </AlertDialog.Trigger>
+      </a>
 
-    <AlertDialog.Content>
-      <AlertDialog.Header>
-        <AlertDialog.Title>Our Partners</AlertDialog.Title>
-        <AlertDialog.Description>
-          Current active partnerships and collaborations.
-        </AlertDialog.Description>
-      </AlertDialog.Header>
-
-      <div class="grid gap-4 py-4">
-        <div class="grid grid-cols-2 items-center gap-4">
-          {#each partners as partner}
-            <div class="flex items-center space-x-4">
-              <Avatar.Root>
-                {#if partner.avatar}
-                  <Avatar.Image 
-                    src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
-                    alt={partner.name}
-                  />
-                {:else}
-                  <Avatar.Fallback>{partner.name?.charAt(0)}</Avatar.Fallback>
-                {/if}
-              </Avatar.Root>
-              <div class="space-y-1">
-                <p class="text-sm font-medium leading-none">{partner.name}</p>
-                <p class="text-sm text-gray-300">{partner.type}</p>
-              </div>
-            </div>
-          {/each}
+      <!-- Financials Card -->
+      <a 
+        href="/financials"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <Chart class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Financials</h2>
+            <p class="text-muted-foreground">View financial projections and metrics</p>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <AlertDialog.Footer>
-        <AlertDialog.Cancel>
-          <Button variant="outline">Close</Button>
-        </AlertDialog.Cancel>
-      </AlertDialog.Footer>
-    </AlertDialog.Content>
-  </AlertDialog.Root>
-</Card.Root>
-
-      <Card.Root>
-        <Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-          <Card.Title class="text-sm font-medium">Subscriptions & Ecommerce</Card.Title>
-          <Activity class="text-muted-foreground h-4 w-4" />
-        </Card.Header>
-        <Card.Content>
-          <div class="text-2xl font-bold">+573</div>
-          <p class="text-muted-foreground text-xs">+201 since last hour</p>
-        </Card.Content>
-      </Card.Root>
+      <!-- Partners Card -->
+      <a 
+        href="/partners"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <Users class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Partners</h2>
+            <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
   <Card.Root>
