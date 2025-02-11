@@ -156,7 +156,7 @@ async function fetchTeams() {
         <img
             src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
             alt={`${team.name} mini logo`}
-            class="h-12 w-12 object-cover"
+            class="h-20 w-20 object-cover ml-2 mr-2"
         />
         {/if}
     </div>
@@ -166,7 +166,7 @@ async function fetchTeams() {
         <img
             src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
             alt={team.name}
-            class="h-12 w-12 object-cover"
+            class="h-20 w-20 object-cove ml-4r"
         />
         {/if}
     </div>

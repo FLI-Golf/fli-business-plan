@@ -194,16 +194,65 @@
 
       <!-- Partners Card -->
       <a 
-        href="/partners"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
       >
-        <div class="flex items-center gap-4">
-          <Users class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Partners</h2>
-            <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
-          </div>
-        </div>
+        <AlertDialog.Root>
+          <AlertDialog.Trigger class="w-full">
+            <div class="flex items-center gap-4">
+              <Users class="h-6 w-6" />
+              <div>
+                <h2 class="text-xl font-semibold">Partners</h2>
+                <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+              </div>
+            </div>
+          </AlertDialog.Trigger>
+
+          <AlertDialog.Content>
+            <AlertDialog.Header>
+              <AlertDialog.Title>Our Partners</AlertDialog.Title>
+              <AlertDialog.Description>Current active partnerships</AlertDialog.Description>
+            </AlertDialog.Header>
+
+            <div class="overflow-y-auto max-h-[60vh]">
+              <Table.Root>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.Head>Partner</Table.Head>
+                    <Table.Head class="text-right">Type</Table.Head>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  {#each partners as partner}
+                    <Table.Row>
+                      <Table.Cell>
+                        <div class="flex items-center space-x-4">
+                          {#if partner.expand?.avatar}
+                            <Avatar.Root class="h-10 w-14 rounded-lg">
+                              <Avatar.Image 
+                                src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
+                                alt={partner.name}
+                              />
+                            </Avatar.Root>
+                          {/if}
+                          <div class="font-medium">{partner.name}</div>
+                        </div>
+                      </Table.Cell>
+                      <Table.Cell class="text-right">
+                        <Badge variant="outline">{partner.type}</Badge>
+                      </Table.Cell>
+                    </Table.Row>
+                  {/each}
+                </Table.Body>
+              </Table.Root>
+            </div>
+
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel>
+                <Button variant="outline">Close</Button>
+              </AlertDialog.Cancel>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
       </a>
 
         <!-- Teams Card -->
