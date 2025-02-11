@@ -1,32 +1,30 @@
-// ✅ Business Plan Type (Parent of Sections)
+// Business Plan Types
 export type BusinessPlan = {
-    id: string; // TEXT primary key
+    id: string;
     name: string;
     version: string;
-    created: string; // ISO timestamp
+    created: string;
     updated: string;
     expand?: {
-        sections?: Section[]; // Expands to include related sections
+        sections?: Section[];
     };
 };
 
-// ✅ Section Type (Child of BusinessPlan, Parent of Subsections)
 export type Section = {
     id: string;
-    business_plan: string; // Foreign key reference to BusinessPlan (TEXT)
+    business_plan: string;
     created: string;
     order: number;
     title: string;
     updated: string;
     expand?: {
-        subsections?: Subsection[]; // Expands to include related subsections
+        subsections?: Subsection[];
     };
 };
 
-// ✅ Subsection Type (Child of Section)
 export type Subsection = {
     id: string;
-    section: string; // Foreign key reference to Section (TEXT)
+    section: string;
     created: string;
     order: number;
     title: string;
@@ -34,7 +32,6 @@ export type Subsection = {
     updated: string;
 };
 
-// ✅ Expanded Types for Relations
 export type BusinessPlanWithSections = BusinessPlan & {
     expand: {
         sections: SectionWithSubsections[];
@@ -46,3 +43,54 @@ export type SectionWithSubsections = Section & {
         subsections?: Subsection[];
     };
 };
+
+// Staff and User Types
+export interface ExecutiveStaff {
+    id: string;
+    name: string;
+    role: string;
+    email: string;
+    bio?: string;
+    title: string;
+    avatar?: string;
+    expand?: {
+        avatar?: {
+            collectionId: string;
+            id: string;
+            image: string;
+        };
+    };
+}
+
+export interface Pro {
+    id: string;
+    name: string;
+    rank: number;
+    country: string;
+    bio?: string;
+    expand: {
+        flag?: {
+            collectionId: string;
+            id: string;
+            flag_image: string;
+        };
+        avatar?: {
+            collectionId: string;
+            id: string;
+            image: string;
+        };
+    };
+}
+
+export interface Partner {
+    id: string;
+    name: string;
+    type: string;
+    expand?: {
+        avatar?: {
+            collectionId: string;
+            id: string;
+            image: string;
+        };
+    };
+}

@@ -26,7 +26,6 @@
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^0.22.0",
 		"clsx": "^2.1.1",
-		"drizzle-kit": "^0.30.4",
 		"eslint": "^9.19.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^2.46.1",
@@ -45,9 +44,8 @@
 		"vite": "^6.1.0"
 	},
 	"dependencies": {
-		"better-sqlite3": "^11.8.1",
+		"d3": "^7.9.0",
 		"dotenv": "^16.4.7",
-		"drizzle-orm": "^0.38.4",
 		"mode-watcher": "^0.5.1",
 		"pocketbase": "^0.25.1",
 		"sveltekit-superforms": "^2.23.1",

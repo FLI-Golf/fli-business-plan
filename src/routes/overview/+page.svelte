@@ -74,7 +74,7 @@
       <FileText class="h-4 w-4" />
       Plan
     </a>
-    <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
+    <a href="/financials" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Chart class="h-4 w-4" />
       Financials
     </a>
