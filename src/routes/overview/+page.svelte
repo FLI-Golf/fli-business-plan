@@ -26,17 +26,19 @@
   import * as Sheet from "$lib/components/ui/sheet/index.js";
   import * as Table from "$lib/components/ui/table/index.js";
   import LightSwitch from "@/components/ui/light-switch/light-switch.svelte";
-  import PocketBase from 'pocketbase';
+  import { pb } from '$lib/pocketbase';
   import { onMount } from 'svelte';
 
-  const pb = new PocketBase('https://few-likely.pockethost.io');
-  
+  let currentUser = pb.authStore.model;
   let partners = [];
   let pros = [];
   let exe = [];
   let loading = true;
 
   onMount(async () => {
+    console.log('Current User:', currentUser);
+    // This will show all user details including email, name, and other profile information
+
     const recordsExe = await pb.collection('executiveStaff').getList(1, 50, {
       expand: 'avatar',
       sort: '-created' // Added sort parameter
@@ -55,18 +57,16 @@
     pros = recordsPros.items;
     loading = false;
   });
-  </script>
-
-
+</script>
 
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
   <nav class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
     <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Home class="h-4 w-4" />
-      Dashboard
+      Overview
     </a>
-    <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
+    <a href="overview" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Scale class="h-4 w-4" />
       Legal
     </a>
@@ -84,8 +84,6 @@
     </a>
   </nav>
   <Avatar.Root class="hidden h-9 w-9 sm:flex">
-    <Avatar.Image src="/avatars/FGL_logo_CMYK-01.png" alt="Pure Logo" />
-    <Avatar.Fallback>PL</Avatar.Fallback>
   </Avatar.Root>
     <Sheet.Root>
       <Sheet.Trigger asChild let:builder>
@@ -105,9 +103,9 @@
             <Package2 class="h-6 w-6" />
             <span>FLI Golf</span>
           </a>
-          <a href="##" class="hover:text-foreground flex items-center gap-2">
+          <a href="/overview" class="hover:text-foreground flex items-center gap-2">
             <Home class="h-5 w-5" />
-            Dashboard
+            Overview
           </a>
           <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
             <Lock class="h-5 w-5" />
@@ -134,7 +132,7 @@
           <Search class="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
           <Input
             type="search"
-            placeholder="Search products..."
+            placeholder="Search this plan..."
             class="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
           />
         </div>
@@ -148,20 +146,21 @@
             size="icon"
             class="rounded-full"
           >
-            <CircleUser class="h-5 w-5" />
+            <div class="h-5 w-5 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
+              {currentUser?.email[0].toUpperCase()}
+            </div>
             <span class="sr-only">Toggle user menu</span>
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end">
-          <DropdownMenu.Label>My Account</DropdownMenu.Label>
+          <DropdownMenu.Label>{currentUser?.email}</DropdownMenu.Label>
           <DropdownMenu.Separator />
           <DropdownMenu.Item>Settings</DropdownMenu.Item>
           <DropdownMenu.Item>Support</DropdownMenu.Item>
           <DropdownMenu.Separator />
           <DropdownMenu.Item>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>
-    </div>
+      </DropdownMenu.Root>    </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">

@@ -10,7 +10,7 @@ export const GET: RequestHandler = async () => {
         
         const resultList = await pb.collection('teams').getList(1, 50, {
             sort: '-created',
-            expand: 'avatar'
+            expand: 'avatar,mini_logo'
         });
 
         console.log("✅ DEBUG: Teams Found:", resultList.items);

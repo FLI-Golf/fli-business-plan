@@ -97,33 +97,84 @@ async function fetchTeams() {
 <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
     {#if teams.length}
         <div class="grid gap-4">
-        {#each filteredTeams as team}
-      <div id={`team-${team.id}`} class="border rounded-lg p-4 hover:bg-muted/40 transition-colors">
-          <div class="flex items-center gap-4">
-              <div class="flex flex-col items-center">
-                  {#if team.mini_logo}
-                  <span class="text-xs text-muted-foreground mb-2">Mini</span>
-                  <img
-                      src={`https://few-likely.pockethost.io/api/files/pbc_1192491016/${team.mini_logo}/hyzer_heroes_mini_o02iyinjze.png`}
-                      alt={`${team.name} mini logo`}
-                      class="h-12 w-12 object-cover"
-                  />
-                  {/if}
-              </div>
-              <div class="flex flex-col items-center">
-                  {#if team.expand?.avatar}
-                  <span class="text-xs text-muted-foreground mb-2">Regular</span>
-                  <img
-                      src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
-                      alt={team.name}
-                      class="h-12 w-12 object-cover rounded-full border-2 border-primary"
-                  />
-                  {/if}
-              </div>
-              <h2 class="text-xl font-semibold">{team.name}</h2>
-          </div>
-      </div>
-        {/each}
+<!-- In your script tag -->
+<script lang="ts">
+  // Import all Lucide icons using destructuring
+  import {
+    Activity,
+    ArrowUpRight,
+    CircleUser,
+    CreditCard,
+    Menu,
+    Package2,
+    Search,
+    Users,
+    Home,
+    FileText,
+    Chart,
+    Mail,
+    Lock,
+    Scale,
+    Disc3
+  } from 'lucide-svelte';
+  import BpIcon from "lucide-svelte/icons/layout-panel-top";
+
+  // UI Components imports
+  import * as Avatar from "$lib/components/ui/avatar";
+  import { Badge } from "$lib/components/ui/badge";
+  import * as AlertDialog from "$lib/components/ui/alert-dialog";
+  import { Button } from "$lib/components/ui/button";
+  import * as Card from "$lib/components/ui/card";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+  import { Input } from "$lib/components/ui/input";
+  import * as Sheet from "$lib/components/ui/sheet";
+  import * as Table from "$lib/components/ui/table";
+  import LightSwitch from "@/components/ui/light-switch/light-switch.svelte";
+  
+
+  // PocketBase
+  import { pb } from '$lib/pocketbase';
+  import { onMount } from 'svelte';
+
+  let currentUser = pb.authStore.model;
+  let teams = [];
+  
+  onMount(async () => {
+    const response = await pb.collection('teams').getList(1, 50, {
+      expand: 'avatar,mini_logo'
+    });
+    teams = response.items;
+  });
+</script>
+
+<!-- In your Teams Card section -->
+{#each teams as team}
+<div class="flex items-center gap-4">
+    <div class="flex flex-col items-center">
+        {#if team.expand?.mini_logo}
+        <span class="text-xs text-muted-foreground mb-2">Mini</span>
+        <img
+            src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+            alt={`${team.name} mini logo`}
+            class="h-12 w-12 object-cover"
+        />
+        {/if}
+    </div>
+    <div class="flex flex-col items-center">
+        {#if team.avatar}
+        <span class="text-xs text-muted-foreground mb-2">Regular</span>
+        <img
+            src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+            alt={team.name}
+            class="h-12 w-12 object-cover"
+        />
+        {/if}
+    </div>
+    <h2 class="text-xl font-semibold">{team.name}</h2>
+</div>
+
+{/each}
+
         </div>
     {:else}
         <p class="text-gray-600">Loading teams...</p>
