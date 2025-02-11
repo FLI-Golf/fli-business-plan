@@ -5,11 +5,11 @@ import type { BusinessPlan, Section, Subsection } from '$lib/types';
 
 const POCKETBASE_URL = 'https://few-likely.pockethost.io';
 
-export const GET: RequestHandler = async () => {
+export const GET: RequestHandler = async ({ url }) => {
     try {
         const pb = new PocketBase(POCKETBASE_URL);
-
-        // ✅ Fetch Business Plans
+        
+        // Get all plans
         const plans = await pb.collection('business_plan').getFullList<BusinessPlan>(500, {
             sort: '-created'
         });
@@ -17,15 +17,17 @@ export const GET: RequestHandler = async () => {
         console.log("✅ DEBUG: Business Plans Found:", plans);
 
         if (!plans.length) {
-            console.error("❌ ERROR: No business plans found.");
-            return json({ error: 'No business plans found' }, { status: 404 });
+            console.error("❌ ERROR: No plans found.");
+            return json({ error: 'No plans found' }, { status: 404 });
         }
 
-        // ✅ Select the first business plan
-        const plan = plans[0];
-        console.log("✅ DEBUG: Selected Business Plan:", plan);
+        // Select the appropriate plan based on the type parameter
+        const type = url.searchParams.get('type');
+        const plan = type === 'Legal' ? plans[0] : plans[1];
+        
+        console.log(`✅ DEBUG: Selected ${type} Plan:`, plan);
 
-        // ✅ Fetch Sections linked to this Business Plan
+        // Fetch Sections linked to this Plan
         const sectionsList = await pb.collection('sections').getFullList<Section>(500, {
             filter: `business_plan = "${plan.id}"`,
             sort: 'order'
@@ -33,17 +35,17 @@ export const GET: RequestHandler = async () => {
 
         console.log("✅ DEBUG: Sections Found:", sectionsList);
 
-        // ✅ Fetch Subsections Separately
+        // Fetch Subsections
         const subsectionsList = await pb.collection('subsections').getFullList<Subsection>(500, {
             sort: 'order'
         });
 
         console.log("✅ DEBUG: Subsections Found:", subsectionsList);
 
-        // ✅ Group Subsections Under Their Respective Sections
+        // Group Subsections Under Their Respective Sections
         const sectionsWithSubsections = sectionsList.map((section) => ({
             ...section,
-            subsections: subsectionsList.filter(sub => sub.section === section.id) // ✅ Filter subsections by `section` field
+            subsections: subsectionsList.filter(sub => sub.section === section.id)
         }));
 
         console.log("✅ DEBUG: Final Sections with Subsections:", sectionsWithSubsections);
@@ -55,6 +57,6 @@ export const GET: RequestHandler = async () => {
 
     } catch (error: any) {
         console.error("❌ ERROR: Fetching data failed:", error.message);
-        return json({ error: 'Failed to fetch business plan data' }, { status: 500 });
+        return json({ error: 'Failed to fetch data' }, { status: 500 });
     }
 };
