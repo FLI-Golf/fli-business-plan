@@ -282,7 +282,6 @@
           </div>
         </div>
       </a>
-
       <!-- Contact Us Card -->
       <a
         href="/contact"
@@ -325,7 +324,7 @@
               {#each pros.sort((a, b) => a.rank - b.rank) as pro}
                 <AlertDialog.Root>
                   <AlertDialog.Trigger class="w-full">
-                    <div class="flex items-center gap-4 p-3 hover:bg-muted rounded border w-full">
+                    <div class="flex items-center gap-4 p-3 hover:bg-muted rounded border w-full h-full">
                       {#if pro.expand.flag}
                         <Avatar.Root class="h-10 w-14 rounded-none shrink-0">
                           <Avatar.Image 
