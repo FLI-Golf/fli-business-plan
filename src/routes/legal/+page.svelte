@@ -19,30 +19,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   async function fetchLegalDocs() {
     console.log("Fetching legal documents...");
     try {
