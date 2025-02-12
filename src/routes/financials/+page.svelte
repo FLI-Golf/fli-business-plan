@@ -99,11 +99,12 @@
         <div id={`section-${section.id}`} class="space-y-4">
           <h2 class="text-2xl font-bold">{section.title}</h2>
           <div class="rounded-lg border bg-card p-6">
-            <svelte:component 
-              this={section.id === 1 ? SponsorshipChart : 
-                   section.id === 2 ? MembershipChart : RevenueChart} 
-            />
-            <p class="mt-4 text-sm text-muted-foreground">{section.description?.replace(/<[^>]*>/g, '')}</p>
+                      <svelte:component 
+                        this={section.id === 1 ? SponsorshipChart : 
+                             section.id === 2 ? MembershipChart : RevenueChart}
+                        {section}
+                      />
+            <p class="mt-4 text-sm text-muted-foreground">{@html section.description}</p>
           </div>        </div>
       {/each}
     </main>
