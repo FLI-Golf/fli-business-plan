@@ -8,6 +8,7 @@
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
   import { Home, Scale } from "lucide-svelte";
+   import BpIcon from "lucide-svelte/icons/layout-panel-top";
 
   let businessDocs = null;
   let sections = [];
@@ -95,7 +96,7 @@
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
       {#if businessDocs}
         <div class="flex items-center gap-2">
-          <Scale class="h-5 w-5" />
+          <BpIcon class="h-5 w-5" />
           <a
             href="/business-plan"
             class="font-semibold text-xl hover:underline"

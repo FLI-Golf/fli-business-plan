@@ -5,6 +5,8 @@
   import { Copyright } from 'lucide-svelte';
   import { LogOut } from 'lucide-svelte';
   import { KeySquare } from 'lucide-svelte';
+  import { Home } from 'lucide-svelte';
+
 
   const isLoggedIn = pb.authStore.isValid;
 
@@ -15,37 +17,51 @@
 </script>
 
 <div class="flex flex-col min-h-screen bg-gray-900">
-  <Menubar class="border-b border-gray-600">
-    <MenubarMenu>
-      <MenubarTrigger class="font-bold">FLI Business Plan</MenubarTrigger>
-    </MenubarMenu>
-   
-    {#if !isLoggedIn}
+  <Menubar class="border-b border-gray-600 flex justify-between">
+    <div class="flex">
       <MenubarMenu>
-        <MenubarTrigger>
-          <a href="/login" class="hover:text-primary flex items-center gap-2">
-            <KeySquare class="h-4 w-4" />
-            Login
-          </a>
-        </MenubarTrigger>
+        <MenubarTrigger class="font-bold">FLI Business Plan</MenubarTrigger>
       </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>
-          <a href="/register" class="hover:text-primary">Register</a>
-        </MenubarTrigger>
-      </MenubarMenu>
-    {:else}
-      <MenubarMenu>
-        <MenubarTrigger>
-          <button on:click={handleLogout} class="hover:text-primary flex items-center gap-2">
-            <LogOut class="h-4 w-4" />
-            Logout
-          </button>
-        </MenubarTrigger>
-      </MenubarMenu>
-    {/if}
-  </Menubar>
+    </div>
 
+    <div class="flex">
+      {#if isLoggedIn}
+        <MenubarMenu>
+          <MenubarTrigger>
+            <a href="/overview" class="hover:text-primary flex items-center gap-2">
+              <Home class="h-4 w-4" />
+              Overview
+            </a>
+          </MenubarTrigger>
+        </MenubarMenu>
+      {/if}
+
+      {#if !isLoggedIn}
+        <MenubarMenu>
+          <MenubarTrigger>
+            <a href="/login" class="hover:text-primary flex items-center gap-2">
+              <KeySquare class="h-4 w-4" />
+              Login
+            </a>
+          </MenubarTrigger>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>
+            <a href="/register" class="hover:text-primary">Register</a>
+          </MenubarTrigger>
+        </MenubarMenu>
+      {:else}
+        <MenubarMenu>
+          <MenubarTrigger>
+            <button on:click={handleLogout} class="hover:text-primary flex items-center gap-2">
+              <LogOut class="h-4 w-4" />
+              Logout
+            </button>
+          </MenubarTrigger>
+        </MenubarMenu>
+      {/if}
+    </div>
+  </Menubar>
   <div class="flex-grow flex flex-col items-center justify-center">
     <img
       src="/logos/fli_logo.png"
