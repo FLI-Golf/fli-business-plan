@@ -28,6 +28,7 @@
   import LightSwitch from "@/components/ui/light-switch/light-switch.svelte";
   import { pb } from '$lib/pocketbase';
   import { onMount } from 'svelte';
+  import { goto } from "$app/navigation";
 
   let currentUser = pb.authStore.model;
   let partners = [];
@@ -57,6 +58,11 @@
     pros = recordsPros.items;
     loading = false;
   });
+
+    async function handleLogout() {
+    pb.authStore.clear();
+    await goto('/login');
+  }
 </script>
 
 <div class="flex min-h-screen w-full flex-col">
@@ -158,7 +164,7 @@
           <DropdownMenu.Item>Settings</DropdownMenu.Item>
           <DropdownMenu.Item>Support</DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item>Logout</DropdownMenu.Item>
+          <DropdownMenu.Item on:click={handleLogout}>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>    </div>
   </header>
