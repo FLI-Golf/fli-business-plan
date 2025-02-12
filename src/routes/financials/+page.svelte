@@ -1,42 +1,24 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
-  import { goto } from "$app/navigation";
-  import { Badge } from "$lib/components/ui/badge/index.js";
-  import { Button } from "$lib/components/ui/button/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import Search from "lucide-svelte/icons/search";
-  import { Home } from "lucide-svelte";
-  import FinancialChart from '$lib/components/charts/FinancialChart.svelte';
+  import { Search, Home } from 'lucide-svelte';
+  import SponsorshipChart from '$lib/components/charts/SponsorshipChart.svelte';
+  import MembershipChart from '$lib/components/charts/MembershipChart.svelte';
+  import RevenueChart from '$lib/components/charts/RevenueChart.svelte';
+  import PocketBase from 'pocketbase';
 
-  let financialSections = [
-    {
-      id: 1,
-      order: 1,
-      title: "Revenue Projections",
-      data: [100, 220, 380, 520, 690, 850, 920, 1050]
-    },
-    {
-      id: 2,
-      order: 2,
-      title: "Cost Analysis",
-      data: [50, 120, 280, 320, 490, 550, 620, 750]
-    },
-    {
-      id: 3,
-      order: 3,
-      title: "Profit Margins",
-      data: [50, 100, 100, 200, 200, 300, 300, 300]
-    }
-  ];
-
+  const pb = new PocketBase('https://few-likely.pockethost.io');
+  
+  let sections = [];
   let searchQuery = "";
-  let currentHash = "";
   let showBackToTop = false;
   let isMobileMenuOpen = false;
 
-  function updateHash() {
-    currentHash = window.location.hash.slice(1);
+  async function loadFinancialData() {
+    const resultList = await pb.collection('financial_sections').getList(1, 50, {
+      sort: 'order',
+      expand: 'financial_data'
+    });
+    sections = resultList.items;
   }
 
   function handleScroll() {
@@ -48,29 +30,23 @@
   }
 
   onMount(() => {
-    updateHash();
-    window.addEventListener("hashchange", updateHash);
+    loadFinancialData();
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("hashchange", updateHash);
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   });
 
-  $: filteredSections = financialSections
-    .filter(section => 
-      section.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  $: filteredSections = sections.filter(section =>
+    section.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
-  <!-- Sidebar -->
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
       <h2 class="font-semibold text-xl">Financial Analysis</h2>
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
-      {#each financialSections as section}
+      {#each filteredSections as section}
         <a
           href={`#section-${section.id}`}
           class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
@@ -81,12 +57,12 @@
     </nav>
   </aside>
 
-  <!-- Main Content -->
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <button
-        class="md:hidden p-2"
+        class="md:hidden"
         on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
+        aria-label="Toggle menu"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -99,7 +75,7 @@
         <form class="flex-1">
           <div class="relative">
             <Search class="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
-            <Input
+            <input
               type="search"
               placeholder="Search financials..."
               class="bg-background w-full appearance-none pl-8 shadow-none md:w-2/3 lg:w-1/3"
@@ -123,29 +99,27 @@
         <div id={`section-${section.id}`} class="space-y-4">
           <h2 class="text-2xl font-bold">{section.title}</h2>
           <div class="rounded-lg border bg-card p-6">
-            <FinancialChart 
-              data={section.data}
-              width={800}
-              height={400}
+            <svelte:component 
+              this={section.id === 1 ? SponsorshipChart : 
+                   section.id === 2 ? MembershipChart : RevenueChart} 
             />
-          </div>
-        </div>
+            <p class="mt-4 text-sm text-muted-foreground">{section.description?.replace(/<[^>]*>/g, '')}</p>
+          </div>        </div>
       {/each}
     </main>
   </div>
 </div>
 
-<!-- Back to Top Button -->
 {#if showBackToTop}
   <button
     class="fixed bottom-4 right-4 bg-primary text-primary-foreground p-3 rounded-full shadow-md hover:bg-primary/90 transition"
     on:click={scrollToTop}
+    aria-label="Scroll to top"
   >
     ⬆️ Top
   </button>
 {/if}
 
-<!-- Mobile Menu -->
 {#if isMobileMenuOpen}
   <div class="fixed inset-0 z-50 bg-background md:hidden">
     <div class="h-14 border-b px-4 flex items-center justify-between">
@@ -153,13 +127,14 @@
       <button
         class="p-2"
         on:click={() => isMobileMenuOpen = false}
+        aria-label="Close menu"
       >
         ✕
       </button>
     </div>
 
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
-      {#each financialSections as section}
+      {#each filteredSections as section}
         <a
           href={`#section-${section.id}`}
           class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
