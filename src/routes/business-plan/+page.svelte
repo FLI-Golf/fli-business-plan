@@ -124,12 +124,9 @@
               {#if section.subsections?.length}
                 <div class="ml-4 space-y-1">
                   {#each section.subsections as subsection}
-                    <a
-                      href={`#section-${section.id}-${subsection.id}`}
-                      class="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground transition"
-                    >
+                    <div class="block px-2 py-1 text-sm text-muted-foreground">
                       {subsection.title}
-                    </a>
+                    </div>
                   {/each}
                 </div>
               {/if}
@@ -139,8 +136,7 @@
       {:else}
         <p class="text-sm text-muted-foreground">No sections available</p>
       {/if}
-    </nav>
-  </aside>
+    </nav>  </aside>
 
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
