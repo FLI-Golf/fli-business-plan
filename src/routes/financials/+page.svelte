@@ -17,6 +17,11 @@
   import TechExpensesChart from '$lib/components/charts/TechExpensesChart.svelte';
   import PlayerSponsorshipChart from '$lib/components/charts/PlayerSponsorshipChart.svelte';
   import TravelExpensesChart from '$lib/components/charts/TravelExpensesChart.svelte';
+  import EcommerceExpensesChart from '$lib/components/charts/EcommerceExpensesChart.svelte';
+  import DocumentaryExpensesChart from '$lib/components/charts/DocumentaryExpensesChart.svelte';
+  import OfficeUpgradesChart from '$lib/components/charts/OfficeUpgradesChart.svelte';
+  import MiscExpensesChart from '$lib/components/charts/MiscExpensesChart.svelte';
+  import PrizePursesChart from '$lib/components/charts/PrizePursesChart.svelte';
   import PocketBase from 'pocketbase';
 
   const pb = new PocketBase('https://few-likely.pockethost.io');
@@ -128,7 +133,12 @@
                    section.id === '01kgik5v84ujour' ? CourseBuildoutChart :
                    section.id === 'm6omh18f3o5t682' ? TechExpensesChart :
                    section.id === '56623xceqzqq20k' ? PlayerSponsorshipChart :
-                   section.id === '4r0o176h168tgvy' ? TechExpensesChart :
+                   section.id === '4r0o176h168tgvy' ? TravelExpensesChart :
+                   section.id === 'sbcqpw3y3xfb258' ? EcommerceExpensesChart :
+                   section.id === '39y05pwmp336b1f' ? DocumentaryExpensesChart :
+                   section.id === 'h2j70j28pj2bq21' ? OfficeUpgradesChart :
+                   section.id === '965qfx4q93i45ro' ? MiscExpensesChart :
+                   section.id === '6q2137mu62l2irz' ? PrizePursesChart :
                    null}
               {section}
             />
