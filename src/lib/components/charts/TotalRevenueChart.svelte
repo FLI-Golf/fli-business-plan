@@ -9,7 +9,7 @@
     }
   ];
 
-  const years = ['2025', '2026', '2027'];
+  const years = ['2026', '2027', '2028'];
   const width = 800;
   const height = 400;
   const margin = { top: 40, right: 200, bottom: 40, left: 80 };
@@ -80,7 +80,7 @@
       .attr("text-anchor", "middle")
       .style("font-size", "16px")
       .style("fill", "currentColor")
-      .text("Total Revenue Projections (2025-2027)");
+      .text("Total Revenue Projections (2026-2028)");
   });
 </script>
 

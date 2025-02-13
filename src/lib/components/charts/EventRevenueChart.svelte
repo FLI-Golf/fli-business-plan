@@ -90,7 +90,7 @@
       .attr("text-anchor", "middle")
       .style("font-size", "16px")
       .style("fill", "currentColor")
-      .text("Event Revenue Projections (2025-2027)");
+      .text("Event Revenue Projections (2026-2028)");
   });
 </script>
 
