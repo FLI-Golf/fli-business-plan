@@ -16,6 +16,7 @@
   import Scale from "lucide-svelte/icons/scale";
   import { Disc3 } from 'lucide-svelte';
   import { CircleHelp } from 'lucide-svelte';
+  import { Box } from 'lucide-svelte';
 
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
@@ -30,6 +31,9 @@
   import { pb } from '$lib/pocketbase';
   import { onMount } from 'svelte';
   import { goto } from "$app/navigation";
+  import { writable } from 'svelte/store';
+
+  const showVideo = writable(false);
 
   let currentUser = pb.authStore.model;
   let partners = [];
@@ -77,6 +81,31 @@
       <Scale class="h-4 w-4" />
       Legal
     </a>
+    <a 
+      on:click={() => $showVideo = true} 
+      class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 cursor-pointer"
+    >
+      <Box class="h-4 w-4" />
+      Rendering
+    </a>  
+
+    {#if $showVideo}
+      <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-background p-4 rounded-lg max-w-4xl w-full">
+          <div class="flex justify-end mb-2">
+            <button 
+              on:click={() => $showVideo = false}
+              class="text-muted-foreground hover:text-foreground"
+            >
+              Close
+            </button>
+          </div>
+          <video controls width="100%">
+            <source src="https://www.dropbox.com/scl/fi/opjgwej87cx3b1m5ukr1z/Fligolf_Iteration2_-Final.mp4.crdownload?raw=1" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    {/if}
   </nav>
   <Avatar.Root class="hidden h-9 w-9 sm:flex">
   </Avatar.Root>
@@ -297,7 +326,7 @@
       </a>
             <!-- Team Franchising PDF -->
             <a
-              href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf"
+              href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf"
               class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
               target="_blank"
             >
