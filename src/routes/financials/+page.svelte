@@ -8,6 +8,15 @@
   import BroadcastingChart from '$lib/components/charts/BroadcastingChart.svelte';
   import LicensingChart from '$lib/components/charts/LicensingChart.svelte';
   import TotalRevenueChart from '$lib/components/charts/TotalRevenueChart.svelte';
+  import StaffExpensesChart from '$lib/components/charts/StaffExpensesChart.svelte';
+  import DepartmentBudgetsChart1 from '$lib/components/charts/DepartmentBudgetsChart1.svelte';
+  import DepartmentBudgetsChart2 from '$lib/components/charts/DepartmentBudgetsChart2.svelte';
+  import DepartmentBudgetsChart3 from '$lib/components/charts/DepartmentBudgetsChart3.svelte';
+  import OfficeExpensesChart from '$lib/components/charts/OfficeExpensesChart.svelte';
+  import CourseBuildoutChart from '$lib/components/charts/CourseBuildoutChart.svelte';
+  import TechExpensesChart from '$lib/components/charts/TechExpensesChart.svelte';
+  import PlayerSponsorshipChart from '$lib/components/charts/PlayerSponsorshipChart.svelte';
+  import TravelExpensesChart from '$lib/components/charts/TravelExpensesChart.svelte';
   import PocketBase from 'pocketbase';
 
   const pb = new PocketBase('https://few-likely.pockethost.io');
@@ -101,25 +110,32 @@
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       {#each filteredSections as section}
         <div id={`section-${section.id}`} class="space-y-4">
-          <h2 class="text-2xl font-bold">{section.title}</h2>
+          <h2 class="text-2xl font-bold">{@html section.title}</h2>
           <div class="rounded-lg border bg-card p-6">
             <svelte:component
               this={section.id === 'g30r0dwsk234w7z' ? SponsorshipChart :
-                  section.id === 'l6d5rl330g6r20j' ? MembershipChart :
-                  section.id === '60c8je1a2hmo4g2' ? EventRevenueChart :
-                  section.id === '88s1d09a770342h' ? FantasyLeagueChart :
-                  section.id === '8q8iyv73rk7hjto' ? BroadcastingChart :
-                  section.id === 'ei7hrivk64swq5o' ? LicensingChart :
-                  section.id === 'm31ey9k40prxd6f' ? TotalRevenueChart :
-                  null}
+                   section.id === 'l6d5rl330g6r20j' ? MembershipChart :
+                   section.id === '60c8je1a2hmo4g2' ? EventRevenueChart :
+                   section.id === '88s1d09a770342h' ? FantasyLeagueChart :
+                   section.id === '8q8iyv73rk7hjto' ? BroadcastingChart :
+                   section.id === 'ei7hrivk64swq5o' ? LicensingChart :
+                   section.id === 'm31ey9k40prxd6f' ? TotalRevenueChart :
+                   section.id === '6klhosg2k6z681i' ? StaffExpensesChart :
+                   section.id === '85zfk723vv78fq6' ? DepartmentBudgetsChart1 :
+                   section.id === '394758883500d17' ? DepartmentBudgetsChart2 :
+                   section.id === 'a7ma004736p20b1' ? DepartmentBudgetsChart3 :
+                   section.id === 'qhdex88djzqmk65' ? OfficeExpensesChart :
+                   section.id === '01kgik5v84ujour' ? CourseBuildoutChart :
+                   section.id === 'm6omh18f3o5t682' ? TechExpensesChart :
+                   section.id === '56623xceqzqq20k' ? PlayerSponsorshipChart :
+                   section.id === '4r0o176h168tgvy' ? TechExpensesChart :
+                   null}
               {section}
-            />      
+            />
             <p class="mt-4 text-sm text-muted-foreground">{@html section.description}</p>
           </div>
         </div>
-      {/each}    
-    </main>
-  </div>
+      {/each}    </main>  </div>
 </div>
 
 {#if showBackToTop}
