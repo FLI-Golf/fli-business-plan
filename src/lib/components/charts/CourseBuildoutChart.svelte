@@ -6,56 +6,56 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Materials',
       value: 250000,
       explanation: 'Expected expense for on-course materials needed to build out the course at Chicken Ranch'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Materials',
       value: 50000,
       explanation: 'Maintenance budget for course materials'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Materials',
       value: 250000,
       explanation: 'Additional buildout for transportable course elements'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Tools',
       value: 50000,
       explanation: 'Initial purchase of necessary tools for course construction'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Tools',
       value: 10000,
       explanation: 'Tool upkeep and part replacement'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Tools',
       value: 10000,
       explanation: 'Continued tool maintenance'
     },
     {
-      year: '2024/2025',
-      category: 'Miscellaneous',
+      year: '2025/2026',
+      category: 'Misc',
       value: 30000,
       explanation: 'Unforeseen expenses including land alterations and equipment use'
     },
     {
-      year: '2026',
-      category: 'Miscellaneous',
+      year: '2027',
+      category: 'Misc',
       value: 30000,
       explanation: 'Ongoing miscellaneous expenses'
     },
     {
-      year: '2027',
-      category: 'Miscellaneous',
+      year: '2028',
+      category: 'Misc',
       value: 30000,
       explanation: 'Continued miscellaneous expense allocation'
     }

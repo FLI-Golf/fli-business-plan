@@ -6,17 +6,17 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       value: 500000,
       explanation: 'Full budget for FLI Golf League Documentary production'
     },
     {
-      year: '2026',
+      year: '2027',
       value: 0,
       explanation: 'No additional documentary expenses'
     },
     {
-      year: '2027',
+      year: '2028',
       value: 0,
       explanation: 'No additional documentary expenses'
     }

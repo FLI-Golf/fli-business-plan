@@ -6,73 +6,73 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Flights',
       value: 144000,
       explanation: '24 players × $1,000 × 6 tournaments'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Flights',
       value: 72000,
       explanation: 'Reduced costs due to airline sponsorship'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Flights',
       value: 96000,
       explanation: 'Increased travel for expanded tour'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Rooms',
       value: 100000,
       explanation: 'Flat rate agreement with Chicken Ranch'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Rooms',
       value: 100000,
       explanation: 'Continued flat rate agreement'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Rooms',
       value: 150000,
       explanation: 'Expanded accommodations and upgraded facilities'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Car',
       value: 50000,
       explanation: 'Partnership with local car service'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Car',
       value: 50000,
       explanation: 'Continued transportation partnership'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Car',
       value: 50000,
       explanation: 'Maintained car service agreement'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Food',
       value: 75000,
       explanation: '$100 daily food vouchers per player'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Food',
       value: 75000,
       explanation: 'Consistent food voucher program'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Food',
       value: 75000,
       explanation: 'Maintained food allowance'

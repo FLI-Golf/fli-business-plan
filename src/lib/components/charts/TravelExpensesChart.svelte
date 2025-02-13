@@ -6,76 +6,76 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Flights',
       value: 25000,
       explanation: 'Air travel for staff and executives'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Flights',
       value: 25000,
       explanation: 'Continued air travel support'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Flights',
       value: 25000,
       explanation: 'Ongoing flight expenses'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Hotels',
       value: 15000,
       explanation: 'Accommodation expenses during travel'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Hotels',
       value: 15000,
       explanation: 'Continued accommodation support'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Hotels',
       value: 15000,
       explanation: 'Ongoing hotel expenses'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Rental Cars',
       value: 10000,
       explanation: 'Ground transportation expenses'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Rental Cars',
       value: 10000,
       explanation: 'Continued vehicle rental support'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Rental Cars',
       value: 10000,
       explanation: 'Ongoing car rental expenses'
     },
     {
-      year: '2024/2025',
-      category: 'Miscellaneous',
+      year: '2025/2026',
+      category: 'Misc',
       value: 10000,
       explanation: 'Additional travel-related expenses'
     },
     {
-      year: '2026',
-      category: 'Miscellaneous',
+      year: '2027',
+      category: 'Misc',
       value: 10000,
-      explanation: 'Continued miscellaneous travel support'
+      explanation: 'Continued Misc travel support'
     },
     {
-      year: '2027',
-      category: 'Miscellaneous',
+      year: '2028',
+      category: 'Misc',
       value: 10000,
-      explanation: 'Ongoing miscellaneous expenses'
+      explanation: 'Ongoing Misc expenses'
     }
   ];
 

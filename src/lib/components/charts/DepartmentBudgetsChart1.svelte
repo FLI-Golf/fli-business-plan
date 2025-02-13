@@ -11,7 +11,7 @@
       explanation: 'Budget includes social media, influencers, SEO, and other strategies across 6 countries'
     },
     { 
-      department: 'Public Relations', 
+      department: 'Relations', 
       value: 200000,
       explanation: 'Covers monthly retainer for PR efforts and securing premium space in publications'
     },
@@ -26,7 +26,7 @@
       explanation: 'Non-digital marketing including billboards, printed ads, and radio ads'
     },
     { 
-      department: 'Tech/App Development', 
+      department: 'Tech/App', 
       value: 150000,
       explanation: 'Development of FLI Golf fantasy app and website'
     }
@@ -85,7 +85,7 @@
       .attr('y', -20)
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
-      .text('Department Budgets 2024/2025 - Total: $2,150,000');
+      .text('Department Budgets 2025/2026 - Total: $2,150,000');
 
     // Add bars with interactions
     svg.selectAll('rect')

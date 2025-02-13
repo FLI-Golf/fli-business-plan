@@ -6,91 +6,91 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'League Insurance',
       value: 80000,
       explanation: 'Event and general liability insurance'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'League Insurance',
       value: 80000,
       explanation: 'Continued insurance coverage'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'League Insurance',
       value: 80000,
       explanation: 'Ongoing insurance protection'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Payroll Company',
       value: 6000,
       explanation: 'Payroll processing services'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Payroll Company',
       value: 7000,
       explanation: 'Increased payroll processing'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Payroll Company',
       value: 8000,
       explanation: 'Extended payroll services'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Employee Relocation',
       value: 40000,
       explanation: 'One-time employee relocation to Scottsdale'
     },
     {
-      year: '2026',
-      category: 'Employee Relocation',
-      value: 0,
-      explanation: 'No relocation expenses'
-    },
-    {
       year: '2027',
       category: 'Employee Relocation',
       value: 0,
       explanation: 'No relocation expenses'
     },
     {
-      year: '2024/2025',
+      year: '2028',
+      category: 'Employee Relocation',
+      value: 0,
+      explanation: 'No relocation expenses'
+    },
+    {
+      year: '2025/2026',
       category: 'Employee Insurance',
       value: 60000,
       explanation: 'Employee insurance benefits'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Employee Insurance',
       value: 65000,
       explanation: 'Increased insurance coverage'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Employee Insurance',
       value: 70000,
       explanation: 'Enhanced insurance benefits'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Savings Secured',
       value: 500000,
       explanation: 'Emergency business savings'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Savings Secured',
       value: 500000,
       explanation: 'Continued emergency fund'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Savings Secured',
       value: 500000,
       explanation: 'Maintained emergency reserves'

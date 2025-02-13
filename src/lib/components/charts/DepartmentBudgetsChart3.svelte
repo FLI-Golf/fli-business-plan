@@ -6,10 +6,10 @@
 
   const data = [
     { department: 'Marketing', value: 1000000 },
-    { department: 'Public Relations', value: 200000 },
+    { department: 'Relations', value: 200000 },
     { department: 'Legal', value: 100000 },
     { department: 'Advertising', value: 225000 },
-    { department: 'Tech/App Development', value: 50000 }
+    { department: 'Tech/App', value: 50000 }
   ];
 
   let chart: HTMLDivElement;
@@ -54,7 +54,7 @@
       .attr('y', -20)
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
-      .text('Department Budgets 2027');
+      .text('Department Budgets 2028');
 
     // Add bars
     svg.selectAll('rect')

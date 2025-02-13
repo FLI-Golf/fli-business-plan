@@ -6,55 +6,55 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Hardware',
       value: 15000,
       explanation: 'Tech hardware including computers, printers, and studio equipment'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Hardware',
       value: 5000,
       explanation: 'Hardware maintenance and replacement'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Hardware',
       value: 5000,
       explanation: 'Continued hardware maintenance'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Software',
       value: 3000,
       explanation: 'Software for editing, marketing, and web management'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Software',
       value: 3000,
       explanation: 'Ongoing software subscriptions and licenses'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Software',
       value: 3000,
       explanation: 'Continued software services'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Mobile Data',
       value: 10000,
       explanation: 'Cellular and data usage for executive staff'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Mobile Data',
       value: 10000,
       explanation: 'Continued mobile connectivity services'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Mobile Data',
       value: 10000,
       explanation: 'Ongoing mobile data support'

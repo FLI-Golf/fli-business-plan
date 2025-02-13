@@ -6,55 +6,55 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Production',
       value: 10000,
       explanation: 'Green wall painting, soundproofing, and light control screens'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Production',
       value: 2000,
       explanation: 'Ongoing studio maintenance'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Production',
       value: 2000,
       explanation: 'Continued studio upkeep'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Scottsdale',
       value: 30000,
       explanation: 'Full office furniture staging for professional hosting'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Scottsdale',
       value: 5000,
       explanation: 'Office maintenance and updates'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Scottsdale',
       value: 5000,
       explanation: 'Continued office improvements'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'Warehouse',
       value: 5000,
       explanation: 'Break room and bathroom necessities'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'Warehouse',
       value: 1000,
       explanation: 'Warehouse facility maintenance'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'Warehouse',
       value: 1000,
       explanation: 'Ongoing warehouse upkeep'
