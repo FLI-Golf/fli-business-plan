@@ -3,7 +3,11 @@
   import { Search, Home } from 'lucide-svelte';
   import SponsorshipChart from '$lib/components/charts/SponsorshipChart.svelte';
   import MembershipChart from '$lib/components/charts/MembershipChart.svelte';
-  import RevenueChart from '$lib/components/charts/RevenueChart.svelte';
+  import EventRevenueChart from '$lib/components/charts/EventRevenueChart.svelte';
+  import FantasyLeagueChart from '$lib/components/charts/FantasyLeagueChart.svelte';
+  import BroadcastingChart from '$lib/components/charts/BroadcastingChart.svelte';
+  import LicensingChart from '$lib/components/charts/LicensingChart.svelte';
+  import TotalRevenueChart from '$lib/components/charts/TotalRevenueChart.svelte';
   import PocketBase from 'pocketbase';
 
   const pb = new PocketBase('https://few-likely.pockethost.io');
@@ -99,14 +103,21 @@
         <div id={`section-${section.id}`} class="space-y-4">
           <h2 class="text-2xl font-bold">{section.title}</h2>
           <div class="rounded-lg border bg-card p-6">
-                      <svelte:component 
-                        this={section.id === 1 ? SponsorshipChart : 
-                             section.id === 2 ? MembershipChart : RevenueChart}
-                        {section}
-                      />
+            <svelte:component
+              this={section.id === 'g30r0dwsk234w7z' ? SponsorshipChart :
+                  section.id === 'l6d5rl330g6r20j' ? MembershipChart :
+                  section.id === '60c8je1a2hmo4g2' ? EventRevenueChart :
+                  section.id === '88s1d09a770342h' ? FantasyLeagueChart :
+                  section.id === '8q8iyv73rk7hjto' ? BroadcastingChart :
+                  section.id === 'ei7hrivk64swq5o' ? LicensingChart :
+                  section.id === 'm31ey9k40prxd6f' ? TotalRevenueChart :
+                  null}
+              {section}
+            />      
             <p class="mt-4 text-sm text-muted-foreground">{@html section.description}</p>
-          </div>        </div>
-      {/each}
+          </div>
+        </div>
+      {/each}    
     </main>
   </div>
 </div>
