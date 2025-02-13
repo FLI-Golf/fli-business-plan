@@ -70,7 +70,7 @@
   <nav class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
     <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Home class="h-4 w-4" />
-      Overview
+    Overview
     </a>
     <a href="overview" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Scale class="h-4 w-4" />
@@ -80,9 +80,9 @@
       <FileText class="h-4 w-4" />
       Plan
     </a>
-    <a href="/financials" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
+    <a href="https://udisc.com/disc-golf-growth-report" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Chart class="h-4 w-4" />
-      Financials
+      Growth
     </a>
     <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Mail class="h-4 w-4" />
@@ -121,9 +121,9 @@
             <FileText class="h-5 w-5" />
             Business Plan
           </a>
-          <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
+          <a href="https://udisc.com/disc-golf-growth-report" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
             <Chart class="h-5 w-5" />
-            Financials
+            2024 Growth Report
           </a>
           <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
             <Mail class="h-5 w-5" />
@@ -169,7 +169,10 @@
       </DropdownMenu.Root>    </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+      <div class="flex flex-col gap-4">
+        <h1 class="text-2xl font-bold">Welcome The FLI Business Plan</h1>
+      
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <!-- Business Plan Card -->
       <a 
         href="/business-plan"
@@ -306,8 +309,9 @@
   <Card.Root>
     <Card.Header class="flex flex-row items-center justify-between">
       <div class="grid gap-2">
-        <Card.Title>Pros</Card.Title>
-        <Card.Description>Top Ranked Disc Golfers</Card.Description>
+        <Card.Title>Committed Pros</Card.Title>
+         <img src="/logos/wdr.png" alt="Pros Logo" class="w-68 h-32" />
+        <Card.Description>Complete list of professional disc golfers.</Card.Description>
       </div>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
@@ -396,7 +400,7 @@
         <Table.Header>
           <Table.Row>
             <Table.Head class="w-[70%]">Name</Table.Head>
-            <Table.Head class="w-[30%] text-right">Ranked</Table.Head>
+            <Table.Head class="w-[30%] text-right">World Rankings</Table.Head>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -469,8 +473,9 @@
           {/each}        </Table.Body>      </Table.Root>    </Card.Content>  </Card.Root>
       <Card.Root>
         <Card.Header class="flex flex-row items-center">
-          <div class="grid gap-2">
+          <div class="grid">
             <Card.Title>Executive Staff</Card.Title>
+            <img src="/logos/fli_logo.png" alt="Exe Logo" class="w-52 h-34" />
             <Card.Description>Key Members of the Organization</Card.Description>
           </div>
         </Card.Header>
