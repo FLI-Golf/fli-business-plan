@@ -283,8 +283,9 @@
       </a>
       <!-- Gambling Breakdown PDF -->
       <a
-        href="##"
+        href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+        target="_blank"
       >
         <div class="flex items-center gap-4">
           <FileText class="h-6 w-6" />
@@ -295,23 +296,24 @@
         </div>
       </a>
             <!-- Team Franchising PDF -->
-      <a
-        href="##"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <div class="flex items-center gap-4">
-          <FileText class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
-            <p class="text-muted-foreground">Click to download</p>
-          </div>
-        </div>
-      </a>
-
+            <a
+              href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf"
+              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+              target="_blank"
+            >
+              <div class="flex items-center gap-4">
+                <FileText class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
+                  <p class="text-muted-foreground">Click to download</p>
+                </div>
+              </div>
+            </a>
       <!-- Broadcasting & Production PDF -->
       <a
-        href="##"
+        href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+        target="_blank"
       >
         <div class="flex items-center gap-4">
           <FileText class="h-6 w-6" />
@@ -320,8 +322,7 @@
             <p class="text-muted-foreground">Click to download</p>
           </div>
         </div>
-      </a>    </div>
-    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
+      </a>    </div>    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
   <Card.Root>
     <Card.Header class="flex flex-row items-center justify-between">
       <div class="grid gap-2">
