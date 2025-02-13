@@ -15,6 +15,7 @@
   import Lock from "lucide-svelte/icons/lock";
   import Scale from "lucide-svelte/icons/scale";
   import { Disc3 } from 'lucide-svelte';
+  import { CircleHelp } from 'lucide-svelte';
 
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
@@ -72,21 +73,9 @@
       <Home class="h-4 w-4" />
     Overview
     </a>
-    <a href="overview" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
+    <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
       <Scale class="h-4 w-4" />
       Legal
-    </a>
-    <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <FileText class="h-4 w-4" />
-      Plan
-    </a>
-    <a href="https://udisc.com/disc-golf-growth-report" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Chart class="h-4 w-4" />
-      Growth
-    </a>
-    <a href="##" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Mail class="h-4 w-4" />
-      Contact
     </a>
   </nav>
   <Avatar.Root class="hidden h-9 w-9 sm:flex">
@@ -127,7 +116,7 @@
           </a>
           <a href="##" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
             <Mail class="h-5 w-5" />
-            Contact Us
+            FAQ
           </a>
         </nav>
       </Sheet.Content>
@@ -169,9 +158,10 @@
       </DropdownMenu.Root>    </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-      <div class="flex flex-col gap-4">
-        <h1 class="text-2xl font-bold">Welcome The FLI Business Plan</h1>
-      
+          <div class="flex flex-col items-center gap-4 mb-8">
+            <h1 class="text-2xl font-bold">Welcome to FLI Business Plan</h1>
+            <img src="logos/fli_logo.png" alt="FLI Logo" class="w-52 h-18" />
+</div>      
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <!-- Business Plan Card -->
       <a 
@@ -280,31 +270,57 @@
 
       <!-- Legal Card -->
       <a
-        href="/legal"
+        href="https://udisc.com/disc-golf-growth-report"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
       >
         <div class="flex items-center gap-4">
-          <Scale class="h-6 w-6" />
+          <Chart class="h-6 w-6" />
           <div>
-            <h2 class="text-xl font-semibold">Legal</h2>
-            <p class="text-muted-foreground">View legal documents and agreements</p>
+            <h2 class="text-xl font-semibold">Worldwide Growth</h2>
+            <p class="text-muted-foreground">View 2024 Growth Report</p>
           </div>
         </div>
       </a>
-      <!-- Contact Us Card -->
+      <!-- Gambling Breakdown PDF -->
       <a
-        href="/contact"
+        href="##"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
       >
         <div class="flex items-center gap-4">
-          <Mail class="h-6 w-6" />
+          <FileText class="h-6 w-6" />
           <div>
-            <h2 class="text-xl font-semibold">Contact Us</h2>
-            <p class="text-muted-foreground">Get in touch with our team</p>
+            <h2 class="text-xl font-semibold">Gambling Breakdown PDF</h2>
+            <p class="text-muted-foreground">Click to download</p>
           </div>
         </div>
       </a>
-    </div>
+            <!-- Team Franchising PDF -->
+      <a
+        href="##"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <FileText class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
+            <p class="text-muted-foreground">Click to download</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Broadcasting & Production PDF -->
+      <a
+        href="##"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      >
+        <div class="flex items-center gap-4">
+          <FileText class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
+            <p class="text-muted-foreground">Click to download</p>
+          </div>
+        </div>
+      </a>    </div>
     <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
   <Card.Root>
     <Card.Header class="flex flex-row items-center justify-between">
@@ -475,7 +491,7 @@
         <Card.Header class="flex flex-row items-center">
           <div class="grid">
             <Card.Title>Executive Staff</Card.Title>
-            <img src="/logos/fli_logo.png" alt="Exe Logo" class="w-52 h-34" />
+            <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-52 h-18" />
             <Card.Description>Key Members of the Organization</Card.Description>
           </div>
         </Card.Header>
