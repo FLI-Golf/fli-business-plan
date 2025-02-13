@@ -21,10 +21,10 @@
     }
   ];
 
-  const years = ['2025', '2026', '2027'];
+  const years = ['2026', '2027', '2028'];
   const width = 800;
   const height = 400;
-  const margin = { top: 40, right: 200, bottom: 40, left: 80 }; // Increased right margin for longer labels
+  const margin = { top: 40, right: 200, bottom: 40, left: 80 };
 
   onMount(() => {
     const svg = d3.select('#revenue-chart')
@@ -34,10 +34,10 @@
     const x = d3.scaleBand()
       .domain(years)
       .range([margin.left, width - margin.right])
-      .padding(0.2); // Increased padding between year groups
+      .padding(0.2);
 
     const y = d3.scaleLinear()
-      .domain([0, 8000000]) // Set max to 8M for better scale
+      .domain([0, 8000000])
       .range([height - margin.bottom, margin.top]);
 
     const color = d3.scaleOrdinal()
@@ -75,7 +75,7 @@
     revenueData.forEach((d, i) => {
       legend.append("rect")
         .attr("x", 0)
-        .attr("y", i * 25) // Increased spacing between legend items
+        .attr("y", i * 25)
         .attr("width", 15)
         .attr("height", 15)
         .attr("fill", color(d.category));
@@ -94,7 +94,7 @@
       .attr("text-anchor", "middle")
       .style("font-size", "16px")
       .style("fill", "currentColor")
-      .text("Sponsorship Revenue by Tier (2025-2027)");
+      .text("Sponsorship Revenue by Tier (2026-2028)");
   });
 </script>
 

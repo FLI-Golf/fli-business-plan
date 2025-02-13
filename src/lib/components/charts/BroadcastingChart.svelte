@@ -9,7 +9,7 @@
     }
   ];
 
-  const years = ['2025', '2026', '2027'];
+  const years = ['2026', '2027', '2028'];
   const width = 800;
   const height = 400;
   const margin = { top: 40, right: 200, bottom: 40, left: 80 };
