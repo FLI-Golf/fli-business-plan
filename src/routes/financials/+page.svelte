@@ -22,6 +22,9 @@
   import OfficeUpgradesChart from '$lib/components/charts/OfficeUpgradesChart.svelte';
   import MiscExpensesChart from '$lib/components/charts/MiscExpensesChart.svelte';
   import PrizePursesChart from '$lib/components/charts/PrizePursesChart.svelte';
+  import PlayerExpensesChart from '$lib/components/charts/PlayerExpensesChart.svelte';
+  import TotalExpensesChart from '$lib/components/charts/TotalExpensesChart.svelte';
+  import ProfitLossChart from '$lib/components/charts/ProfitLossChart.svelte';
   import PocketBase from 'pocketbase';
 
   const pb = new PocketBase('https://few-likely.pockethost.io');
@@ -139,6 +142,9 @@
                    section.id === 'h2j70j28pj2bq21' ? OfficeUpgradesChart :
                    section.id === '965qfx4q93i45ro' ? MiscExpensesChart :
                    section.id === '6q2137mu62l2irz' ? PrizePursesChart :
+                   section.id === '8b30z7t22021q9q' ? PlayerExpensesChart :
+                   section.id === '7b48hp26wwh5709' ? TotalExpensesChart :
+                   section.id === 'h506us6u31g3bw4' ? ProfitLossChart :
                    null}
               {section}
             />
