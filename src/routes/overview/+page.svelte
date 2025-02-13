@@ -100,10 +100,14 @@
               Close
             </button>
           </div>
-          <video controls width="100%">
-            <source src="https://www.dropbox.com/scl/fi/opjgwej87cx3b1m5ukr1z/Fligolf_Iteration2_-Final.mp4.crdownload?raw=1" type="video/mp4">
-          </video>
-        </div>
+          <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+              src="https://drive.google.com/file/d/1C895DZEMAJ4vuY77iiRkc-ikS8p5hHeM/preview"
+              allow="autoplay"
+              allowfullscreen
+            ></iframe>
+          </div>        </div>      
       </div>
     {/if}
   </nav>
