@@ -504,10 +504,10 @@
 
   <!-- For Executive Staff Card -->
   <Card.Root>
-    <Card.Header class="flex flex-row items-center">
-      <div class="grid">
+    <Card.Header class="flex flex-row items-center justify-between">
+      <div class="grid gap-2">
         <Card.Title>Executive Staff</Card.Title>
-        <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-52 h-18" />
+        <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-32 h-35" />
         <Card.Description>Key Members of the Organization</Card.Description>
       </div>
     </Card.Header>
