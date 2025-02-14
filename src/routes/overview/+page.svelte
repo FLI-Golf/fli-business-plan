@@ -196,15 +196,15 @@
       </DropdownMenu.Root>    </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-  <Breadcrumb 
-    items={[
-      { label: 'Home', href: '/' },
-      { label: 'Overview', href: '/overview' }
-    ]} />
+        <Breadcrumb 
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Overview', href: '/overview' }
+          ]} />
           <div class="flex flex-col items-center gap-4 mb-8">
             <h1 class="text-2xl font-bold">Welcome to FLI Business Plan</h1>
             <img src="logos/fli_logo.png" alt="FLI Logo" class="w-52 h-18" />
-</div>      
+          </div>      
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <!-- Business Plan Card -->
       <a 
@@ -325,6 +325,90 @@
         <img src="/logos/wdr.png" alt="Pros Logo" class="w-68 h-32" />
         <Card.Description>Complete list of professional disc golfers.</Card.Description>
       </div>
+            <AlertDialog.Root>
+        <AlertDialog.Trigger>
+          <Button size="sm" class="gap-1">
+            View All
+            <ArrowUpRight class="h-4 w-4" />
+          </Button>
+        </AlertDialog.Trigger>
+
+        <AlertDialog.Content class="sm:max-w-[800px]">
+          <AlertDialog.Header>
+            <AlertDialog.Title>Our Professional Players</AlertDialog.Title>
+            <AlertDialog.Description>
+              Complete list of professional disc golfers.
+            </AlertDialog.Description>
+          </AlertDialog.Header>
+
+          <div class="overflow-y-auto max-h-[60vh]">
+            <div class="grid grid-cols-2 gap-4 p-4">
+              {#each pros.sort((a, b) => a.rank - b.rank) as pro}
+                <AlertDialog.Root>
+                  <AlertDialog.Trigger class="w-full">
+                    <div class="flex items-center gap-4 p-3 hover:bg-muted rounded border w-full h-full">
+                      {#if pro.expand.flag}
+                        <Avatar.Root class="h-10 w-14 rounded-none shrink-0">
+                          <Avatar.Image 
+                            src={`${pb.baseUrl}/api/files/${pro.expand.flag.collectionId}/${pro.expand.flag.id}/${pro.expand.flag.flag_image}`}
+                            alt={`${pro.name}'s country flag`}
+                          />
+                        </Avatar.Root>
+                      {/if}
+                      <div class="text-left">
+                        <div class="font-medium">{pro.name}</div>
+                        <div class="text-sm text-muted-foreground">Rank #{pro.rank}</div>
+                      </div>
+                    </div>
+                  </AlertDialog.Trigger>
+                  <AlertDialog.Content>
+                    <AlertDialog.Header class="flex justify-between items-start">
+                      <div>
+                        <AlertDialog.Title>{pro.name}</AlertDialog.Title>
+                        <AlertDialog.Description>
+                          Professional Disc Golfer
+                        </AlertDialog.Description>
+                      </div>
+                      {#if pro.expand.avatar}
+                        <Avatar.Root class="h-24 w-24 rounded-none">
+                          <Avatar.Image
+                            src={`${pb.baseUrl}/api/files/${pro.expand.avatar.collectionId}/${pro.expand.avatar.id}/${pro.expand.avatar.image}`}
+                            alt={pro.name}
+                          />
+                        </Avatar.Root>
+                      {/if}
+                    </AlertDialog.Header>
+
+                    <div class="overflow-y-auto max-h-[60vh]">
+                      <div class="grid gap-4 py-4">
+                        <div class="space-y-2">
+                          <div class="flex items-center gap-2">
+                            <Badge>Rank #{pro.rank}</Badge>
+                            <Badge variant="outline">{pro.country}</Badge>
+                          </div>
+                          <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <AlertDialog.Footer>
+                      <AlertDialog.Cancel>
+                        <Button variant="outline">Close</Button>
+                      </AlertDialog.Cancel>
+                    </AlertDialog.Footer>
+                  </AlertDialog.Content>             
+                </AlertDialog.Root>
+              {/each}
+            </div>
+          </div>
+
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>
+              <Button variant="outline">Close</Button>
+            </AlertDialog.Cancel>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>      
+      </AlertDialog.Root>
     </Card.Header>
     <Card.Content>
       {#if loading}
