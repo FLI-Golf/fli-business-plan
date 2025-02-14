@@ -5,6 +5,7 @@
   import { Button } from "$lib/components/ui/button";
   import Search from "lucide-svelte/icons/search";
   import { Home } from "lucide-svelte";
+  import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
 
   let teams = [];
   let searchQuery = "";
@@ -95,6 +96,11 @@ async function fetchTeams() {
     </header>
 
 <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+   <Breadcrumb 
+      items={[
+        { label: 'Home', href: '/overview' },
+        { label: 'Teams', href: '/teams' }
+   ]} />
     {#if teams.length}
         <div class="grid gap-4">
 <!-- In your script tag -->

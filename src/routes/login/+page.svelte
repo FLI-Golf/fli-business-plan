@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import PocketBase from 'pocketbase';
   
+  
   const pb = new PocketBase('https://few-likely.pockethost.io');
   
   let email = '';

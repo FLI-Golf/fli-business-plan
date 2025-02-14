@@ -26,6 +26,7 @@
   import TotalExpensesChart from '$lib/components/charts/TotalExpensesChart.svelte';
   import ProfitLossChart from '$lib/components/charts/ProfitLossChart.svelte';
   import PocketBase from 'pocketbase';
+  import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
 
   const pb = new PocketBase('https://few-likely.pockethost.io');
   
@@ -116,6 +117,11 @@
     </header>
 
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+         <Breadcrumb 
+          items={[
+            { label: 'Home', href: '/overview' },
+            { label: 'Financials', href: '/financials' }
+          ]} />
       {#each filteredSections as section}
         <div id={`section-${section.id}`} class="space-y-4">
           <h2 class="text-2xl font-bold">{@html section.title}</h2>

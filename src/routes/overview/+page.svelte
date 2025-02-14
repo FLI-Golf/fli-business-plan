@@ -198,7 +198,7 @@
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <Breadcrumb 
           items={[
-            { label: 'Home', href: '/' },
+            { label: 'Home', href: '/overview' },
             { label: 'Overview', href: '/overview' }
           ]} />
           <div class="flex flex-col items-center gap-4 mb-8">

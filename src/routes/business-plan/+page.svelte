@@ -8,7 +8,9 @@
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
   import { Home, Scale } from "lucide-svelte";
-   import BpIcon from "lucide-svelte/icons/layout-panel-top";
+  import BpIcon from "lucide-svelte/icons/layout-panel-top";
+  import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
+  
 
   let businessDocs = null;
   let sections = [];
@@ -175,6 +177,11 @@
     </header>
 
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+        <Breadcrumb 
+          items={[
+            { label: 'Home', href: '/overview' },
+            { label: 'Business Plan', href: '/business-plan' }
+          ]} />
       {#if businessDocs}
         <h1 class="text-2xl font-bold">{businessDocs.name}</h1>
         <p class="text-sm text-gray-500">
