@@ -6,7 +6,7 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025 / 2026',
       value: 8500000,
       categories: [
         'Staff Expenses',
@@ -20,7 +20,7 @@
       ]
     },
     {
-      year: '2026',
+      year: '2027',
       value: 7200000,
       categories: [
         'Staff Expenses',
@@ -33,7 +33,7 @@
       ]
     },
     {
-      year: '2027',
+      year: '2028',
       value: 7800000,
       categories: [
         'Staff Expenses',

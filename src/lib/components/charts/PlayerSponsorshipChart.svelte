@@ -6,37 +6,37 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'MPO (Male)',
       value: 150000,
       explanation: 'Male Professional Open division player sponsorships'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'MPO (Male)',
       value: 150000,
       explanation: 'Continued support for male athletes'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'MPO (Male)',
       value: 150000,
       explanation: 'Sustained investment in male division'
     },
     {
-      year: '2024/2025',
+      year: '2025/2026',
       category: 'FPO (Female)',
       value: 150000,
       explanation: 'Female Professional Open division player sponsorships'
     },
     {
-      year: '2026',
+      year: '2027',
       category: 'FPO (Female)',
       value: 150000,
       explanation: 'Continued support for female athletes'
     },
     {
-      year: '2027',
+      year: '2028',
       category: 'FPO (Female)',
       value: 150000,
       explanation: 'Sustained investment in female division'

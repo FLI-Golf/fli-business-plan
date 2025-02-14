@@ -7,91 +7,91 @@
   const data = [
     {
       year: '2025/2026',
-      category: 'League Insurance',
+      category: 'Insurance',
       value: 80000,
       explanation: 'Event and general liability insurance'
     },
     {
       year: '2027',
-      category: 'League Insurance',
+      category: 'Insurance',
       value: 80000,
       explanation: 'Continued insurance coverage'
     },
     {
       year: '2028',
-      category: 'League Insurance',
+      category: 'Insurance',
       value: 80000,
       explanation: 'Ongoing insurance protection'
     },
     {
       year: '2025/2026',
-      category: 'Payroll Company',
+      category: 'Payroll',
       value: 6000,
       explanation: 'Payroll processing services'
     },
     {
       year: '2027',
-      category: 'Payroll Company',
+      category: 'Payroll',
       value: 7000,
       explanation: 'Increased payroll processing'
     },
     {
       year: '2028',
-      category: 'Payroll Company',
+      category: 'Payroll',
       value: 8000,
       explanation: 'Extended payroll services'
     },
     {
       year: '2025/2026',
-      category: 'Employee Relocation',
+      category: 'Relocation',
       value: 40000,
-      explanation: 'One-time employee relocation to Scottsdale'
+      explanation: 'One-time Relocation to Scottsdale'
     },
     {
       year: '2027',
-      category: 'Employee Relocation',
+      category: 'Relocation',
       value: 0,
       explanation: 'No relocation expenses'
     },
     {
       year: '2028',
-      category: 'Employee Relocation',
+      category: 'Relocation',
       value: 0,
       explanation: 'No relocation expenses'
     },
     {
       year: '2025/2026',
-      category: 'Employee Insurance',
+      category: 'Staff Ins.',
       value: 60000,
-      explanation: 'Employee insurance benefits'
+      explanation: 'Staff Ins. benefits'
     },
     {
       year: '2027',
-      category: 'Employee Insurance',
+      category: 'Staff Ins.',
       value: 65000,
       explanation: 'Increased insurance coverage'
     },
     {
       year: '2028',
-      category: 'Employee Insurance',
+      category: 'Staff Ins.',
       value: 70000,
       explanation: 'Enhanced insurance benefits'
     },
     {
       year: '2025/2026',
-      category: 'Savings Secured',
+      category: 'Savings',
       value: 500000,
       explanation: 'Emergency business savings'
     },
     {
       year: '2027',
-      category: 'Savings Secured',
+      category: 'Savings',
       value: 500000,
       explanation: 'Continued emergency fund'
     },
     {
       year: '2028',
-      category: 'Savings Secured',
+      category: 'Savings',
       value: 500000,
       explanation: 'Maintained emergency reserves'
     }

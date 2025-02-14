@@ -6,7 +6,7 @@
 
   const data = [
     {
-      year: '2025/2026',
+      year: '2025 / 2026',
       value: 4000000,
       explanation: 'Six tournaments with guaranteed payouts for all teams'
     },

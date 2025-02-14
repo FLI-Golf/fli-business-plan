@@ -72,21 +72,21 @@
 
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
-  <nav class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-    <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Home class="h-4 w-4" />
+  <nav class="hidden flex-col gap-6 text-xl font-medium md:flex md:flex-row md:items-center md:gap-6 md:text-base lg:gap-7">
+    <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
+      <Home class="h-5 w-5" />
     Overview
     </a>
-    <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-      <Scale class="h-4 w-4" />
+    <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
+      <Scale class="h-5 w-5" />
       Legal
     </a>
     <a 
       on:click={() => $showVideo = true} 
-      class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 cursor-pointer"
+      class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3 cursor-pointer whitespace-nowrap"
     >
-      <Box class="h-4 w-4" />
-      Rendering
+      <Box class="h-5 w-5" />
+      3D Rendering
     </a>  
 
     {#if $showVideo}

@@ -6,7 +6,7 @@
 
   const data = [
     {
-      year: '2024/2025',
+      year: '2025 / 2026',
       value: -2500000,
       details: {
         revenue: 6000000,
@@ -20,7 +20,7 @@
       }
     },
     {
-      year: '2026',
+      year: '2027',
       value: 1800000,
       details: {
         revenue: 9000000,
@@ -34,7 +34,7 @@
       }
     },
     {
-      year: '2027',
+      year: '2028',
       value: 4200000,
       details: {
         revenue: 12000000,
