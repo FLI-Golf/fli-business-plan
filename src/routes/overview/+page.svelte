@@ -7,6 +7,7 @@
   import Menu from "lucide-svelte/icons/menu";
   import Package2 from "lucide-svelte/icons/package-2";
   import Search from "lucide-svelte/icons/search";
+  import HelpCircle from "lucide-svelte/icons/help-circle";
   import Users from "lucide-svelte/icons/users";
   import Home from "lucide-svelte/icons/home";
   import FileText from "lucide-svelte/icons/file-text";
@@ -88,6 +89,10 @@
     <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
       <Scale class="h-5 w-5" />
       Legal
+    </a>
+    <a href="/faqs" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
+      <HelpCircle class="h-5 w-5" />
+      FAQs
     </a>
     <a 
       on:click={() => $showVideo = true} 
