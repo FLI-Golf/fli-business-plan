@@ -6,31 +6,32 @@
   import Search from "lucide-svelte/icons/search";
   import { Home } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
+  import * as AlertDialog from "$lib/components/ui/alert-dialog";
 
   let teams = [];
   let searchQuery = "";
   let isMobileMenuOpen = false;
 
-async function fetchTeams() {
-  try {
-    const response = await fetch("/api/teams?expand=avatar,mini_logo");
-    const data = await response.json();
-    console.log("Full response data:", JSON.stringify(data, null, 2));
-    
-    if (data.error) {
-      console.error("Error:", data.error);
-      return;
-    }
+  async function fetchTeams() {
+    try {
+      const response = await fetch("/api/teams?expand=avatar,mini_logo");
+      const data = await response.json();
+      console.log("Full response data:", JSON.stringify(data, null, 2));
+      
+      if (data.error) {
+        console.error("Error:", data.error);
+        return;
+      }
 
-    teams = data.teams;
-  } catch (error) {
-    console.error("Failed to fetch teams data", error);
+      teams = data.teams;
+    } catch (error) {
+      console.error("Failed to fetch teams data", error);
+    }
   }
-}
 
   onMount(fetchTeams);
 
-  $: filteredTeams = teams.filter(team => 
+  $: filteredTeams = teams.filter(team =>
     team.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 </script>
@@ -44,12 +45,40 @@ async function fetchTeams() {
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
       {#if teams.length}
         {#each teams as team}
-          <a
-            href={`#team-${team.id}`}
-            class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
-          >
-            {team.name}
-          </a>
+          <AlertDialog.Root>
+            <AlertDialog.Trigger class="block w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition text-left">
+              {team.name}
+            </AlertDialog.Trigger>
+
+            <AlertDialog.Content>
+              <AlertDialog.Header class="flex justify-between items-start">
+                <AlertDialog.Title>{team.name}</AlertDialog.Title>
+              </AlertDialog.Header>
+
+              <div class="flex justify-center gap-8 py-6">
+                {#if team.expand?.mini_logo}
+                  <img
+                    src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                    alt={`${team.name} mini logo`}
+                    class="w-32 h-auto"
+                  />
+                {/if}
+                {#if team.expand?.avatar}
+                  <img
+                    src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+                    alt={team.name}
+                    class="w-32 h-auto"
+                  />
+                {/if}
+              </div>
+
+              <AlertDialog.Footer>
+                <AlertDialog.Cancel>
+                  <Button variant="outline">Close</Button>
+                </AlertDialog.Cancel>
+              </AlertDialog.Footer>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         {/each}
       {:else}
         <p class="text-gray-500 text-sm">No teams available.</p>
