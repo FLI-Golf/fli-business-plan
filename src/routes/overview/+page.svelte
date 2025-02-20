@@ -9,16 +9,15 @@
   import Search from "lucide-svelte/icons/search";
   import HelpCircle from "lucide-svelte/icons/help-circle";
   import Users from "lucide-svelte/icons/users";
+  import Box from "lucide-svelte/icons/box";
   import Home from "lucide-svelte/icons/home";
   import FileText from "lucide-svelte/icons/file-text";
   import Chart from "lucide-svelte/icons/chart-no-axes-combined";
   import Mail from "lucide-svelte/icons/mail";
   import Lock from "lucide-svelte/icons/lock";
   import Scale from "lucide-svelte/icons/scale";
+  import { Pyramid } from 'lucide-svelte';
   import { Disc3 } from 'lucide-svelte';
-  import { CircleHelp } from 'lucide-svelte';
-  import { Box } from 'lucide-svelte';
-
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
   import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
@@ -37,9 +36,7 @@
   import ExecutiveCard from "$lib/components/cards/ExecutiveCard.svelte";
   import ProsCard from "$lib/components/cards/ProsCard.svelte";
 
-
   const showVideo = writable(false);
-
   let currentUser = pb.authStore.model;
   let partners = [];
   let pros = [];
@@ -49,14 +46,13 @@
   onMount(async () => {
     try {
       console.log('Current User:', currentUser);
-      // This will show all user details including email, name, and other profile information
 
       const recordsExe = await pb.collection('executiveStaff').getList(1, 50, {
         expand: 'avatar',
-        sort: '-created' // Added sort parameter
+        sort: '-created'
       });
       exe = recordsExe.items;
-      
+     
       const recordsPartners = await pb.collection('partners').getList(1, 50, {
         expand: 'avatar'
       });
@@ -64,7 +60,7 @@
 
       const recordsPros = await pb.collection('pros').getList(1, 50, {
         expand: 'avatar, flag',
-        sort: 'rank' // Added sort parameter to order by rank ascending
+        sort: 'rank'
       });
       pros = recordsPros.items;
       loading = false;
@@ -73,34 +69,44 @@
       loading = false;
     }
   });
-    async function handleLogout() {
+
+  async function handleLogout() {
     pb.authStore.clear();
     await goto('/login');
   }
 </script>
 
+
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
-  <nav class="hidden flex-col gap-6 text-xl font-medium md:flex md:flex-row md:items-center md:gap-6 md:text-base lg:gap-7">
-    <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
-      <Home class="h-5 w-5" />
-    Overview
-    </a>
-    <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
-      <Scale class="h-5 w-5" />
-      Legal
-    </a>
-    <a href="/faqs" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
-      <HelpCircle class="h-5 w-5" />
-      FAQs
-    </a>
-    <a 
-      on:click={() => $showVideo = true} 
-      class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3 cursor-pointer whitespace-nowrap"
-    >
-      <Box class="h-5 w-5" />
-      3D Rendering
-    </a>  
+    <nav class="hidden flex-col gap-6 text-xl font-medium md:flex md:flex-row md:items-center md:gap-6 md:text-base lg:gap-7">
+      <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
+        <Home class="h-5 w-5" />
+        Overview
+      </a>
+      <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
+        <Scale class="h-5 w-5" />
+        Legal
+      </a>
+      <a href="/faqs" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
+        <HelpCircle class="h-5 w-5" />
+        FAQs
+      </a>
+      <a 
+        on:click={() => $showVideo = true} 
+        class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3 cursor-pointer whitespace-nowrap"
+      >
+        <Box class="h-5 w-5" />
+        <span>Video</span>
+      </a>
+      <a
+        href="/obstacles"
+        class="flex items-center gap-2 text-sm font-medium hover:text-primary"
+      >
+        <Pyramid class="h-4 w-4" />
+        <span>Obstacle</span>
+      </a>
+    </nav>
 
     {#if $showVideo}
       <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -120,12 +126,13 @@
               allow="autoplay"
               allowfullscreen
             ></iframe>
-          </div>        </div>      
+          </div>
+        </div>      
       </div>
     {/if}
-  </nav>
-  <Avatar.Root class="hidden h-9 w-9 sm:flex">
-  </Avatar.Root>
+
+    <Avatar.Root class="hidden h-9 w-9 sm:flex">
+    </Avatar.Root>
     <Sheet.Root>
       <Sheet.Trigger asChild let:builder>
         <Button
@@ -201,19 +208,20 @@
           <DropdownMenu.Separator />
           <DropdownMenu.Item on:click={handleLogout}>Logout</DropdownMenu.Item>
         </DropdownMenu.Content>
-      </DropdownMenu.Root>    </div>
+      </DropdownMenu.Root>
+    </div>
   </header>
   <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <Breadcrumb 
-          items={[
-            { label: 'Home', href: '/overview' },
-            { label: 'Overview', href: '/overview' }
-          ]} />
-          <div class="flex flex-col items-center gap-4 mb-8">
-            <h1 class="text-2xl font-bold">Welcome to FLI Business Plan</h1>
-            <img src="logos/fli_logo.png" alt="FLI Logo" class="w-52 h-18" />
-          </div>      
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <Breadcrumb 
+      items={[
+        { label: 'Home', href: '/overview' },
+        { label: 'Overview', href: '/overview' }
+      ]} />
+    <div class="flex flex-col items-center gap-4 mb-8">
+      <h1 class="text-2xl font-bold">FLI Golf Business Plan</h1>
+      <img src="logos/fli_logo.png" alt="FLI Logo" class="w-52 h-18" />
+    </div>      
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <!-- Business Plan Card -->
       <a 
         href="/business-plan"
@@ -305,7 +313,7 @@
         </AlertDialog.Root>
       </a>
 
-        <!-- Teams Card -->
+      <!-- Teams Card -->
       <a
         href="/teams"
         class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
@@ -346,20 +354,20 @@
           </div>
         </div>
       </a>
-            <!-- Team Franchising PDF -->
-            <a
-              href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf"
-              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-              target="_blank"
-            >
-              <div class="flex items-center gap-4">
-                <FileText class="h-6 w-6" />
-                <div>
-                  <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
-                  <p class="text-muted-foreground">Click to download</p>
-                </div>
-              </div>
-            </a>
+      <!-- Team Franchising PDF -->
+      <a
+        href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+        target="_blank"
+      >
+        <div class="flex items-center gap-4">
+          <FileText class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
+            <p class="text-muted-foreground">Click to download</p>
+          </div>
+        </div>
+      </a>
       <!-- Broadcasting & Production PDF -->
       <a
         href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1"
@@ -373,16 +381,20 @@
             <p class="text-muted-foreground">Click to download</p>
           </div>
         </div>
-      </a>    </div>    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
-  <!-- For Pros Card -->
-  <Card.Root>
-    <ProsCard {loading} {pros} {pb} />
-  </Card.Root>
-  <!-- Replace the existing executive staff card with: -->
-  <Card.Root>
-    <ExecutiveCard {loading} {exe} {pb} />
-  </Card.Root>   
+      </a>
+    </div>
+    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
+      <!-- For Pros Card -->
+      <Card.Root>
+        <ProsCard {loading} {pros} {pb} />
+      </Card.Root>
+      <!-- Replace the existing executive staff card with: -->
+      <Card.Root>
+        <ExecutiveCard {loading} {exe} {pb} />
+      </Card.Root>   
+    </div>
+  </main>
+</div>
 
-</div>
-  </main>  
-</div>
+
+

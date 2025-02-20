@@ -20,7 +20,7 @@
   <Menubar class="border-b border-gray-600 flex justify-between">
     <div class="flex">
       <MenubarMenu>
-        <MenubarTrigger class="font-bold">FLI Business Plan</MenubarTrigger>
+        <MenubarTrigger class="font-bold">FLI Golf Business Plan</MenubarTrigger>
       </MenubarMenu>
     </div>
 
@@ -70,7 +70,7 @@
     />
    
     <div class="text-center space-y-6">
-      <h1 class="text-4xl font-bold text-white">Welcome to FLI Business Plan</h1>
+      <h1 class="text-4xl font-bold text-white">Welcome To The FLI Golf Business Plan</h1>
       <p class="text-gray-400">Please login or register to view our business plan</p>
     </div>
   </div>
