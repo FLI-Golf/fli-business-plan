@@ -7,7 +7,7 @@ const pb = new PocketBase('https://few-likely.pockethost.io');
 export const GET: RequestHandler = async () => {
     const records = await pb.collection('obstacles').getFullList({
         sort: 'created',
-        expand: 'category'
+        expand: 'category,avatar'
     });
     return json(records);
 }
