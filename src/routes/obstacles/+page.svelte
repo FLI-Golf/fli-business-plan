@@ -19,6 +19,9 @@
       const response = await fetch("/api/obstacles");
       const data = await response.json();
       obstacles = data;
+      console.log("Fetched obstacles:", data);
+      console.log("First obstacle avatar:", data[0]?.expand?.avatar);
+      console.log("Image URL:", `https://few-likely.pockethost.io/api/files/${data[0]?.expand?.avatar?.collectionId}/${data[0]?.expand?.avatar?.id}/${data[0]?.expand?.avatar?.image}`);
     } catch (error) {
       console.error("Failed to fetch obstacles data", error);
     }
@@ -29,11 +32,17 @@
   $: filteredObstacles = obstacles?.filter(obstacle =>
     obstacle?.description?.toLowerCase().includes(searchQuery?.toLowerCase() || '') ||
     obstacle?.expand?.category?.name?.toLowerCase().includes(searchQuery?.toLowerCase() || '')
-  ) || [];
+  );
 
-  $: getImageUrl = (obstacle) => 
-    `https://few-likely.pockethost.io/api/files/${obstacle.collectionId}/${obstacle.id}/${obstacle.avatar}`;
+  $: getImageUrl = (obstacle: any) => {
+    if (obstacle?.expand?.avatar) {
+      return `https://few-likely.pockethost.io/api/files/${obstacle.expand.avatar.collectionId}/${obstacle.expand.avatar.id}/${obstacle.expand.avatar.image}`;
+    }
+    return null;
+  };
 </script>
+
+
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
   <!-- Sidebar -->
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
@@ -96,29 +105,26 @@
       <div class="w-full p-4">
         <Carousel.Root class="w-full">
           <Carousel.Content>
-            {#each obstacles as obstacle}
+            {#each obstacles as obstacle (obstacle.id)}
               <Carousel.Item class="md:basis-1/2 lg:basis-1/3">
                 <div class="p-1">
-                  <Card.Root>
-                    <Card.Header>
+                <Card.Root>
+                  <Card.Header>
                       <Card.Title>{obstacle.expand?.category?.name || 'Uncategorized'}</Card.Title>
-                      <Card.Description>
-                        Created: {new Date(obstacle.created).toLocaleDateString()}
-                      </Card.Description>
-                    </Card.Header>
-                    <Card.Content>
-                      {@html obstacle.description}
-                      {#if obstacle.avatar}
-                        <img
-                          src={`https://few-likely.pockethost.io/api/files/${obstacle.collectionId}/${obstacle.id}/${obstacle.avatar}`}
-                          alt={obstacle.expand?.category?.name}
-                          class="w-full h-48 object-cover rounded-md"
-                        />
+                  </Card.Header>
+                  <Card.Content>
+                      {#if obstacle.expand?.avatar}
+                          <img
+                              src={`https://few-likely.pockethost.io/api/files/${obstacle.expand.avatar.collectionId}/${obstacle.expand.avatar.id}/${obstacle.expand.avatar.image}`}
+                              alt={obstacle.expand?.category?.name}
+                              class="w-full h-48 object-cover rounded-md mb-4"
+                          />
                       {/if}
-                    </Card.Content>
-                  </Card.Root>
-                </div>
-              </Carousel.Item>
+                      {@html obstacle.description}
+                  </Card.Content>
+                </Card.Root>
+              </div>
+            </Carousel.Item>
             {/each}
           </Carousel.Content>
           <div class="flex justify-center gap-2 mt-4">
