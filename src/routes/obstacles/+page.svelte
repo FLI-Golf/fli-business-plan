@@ -9,6 +9,7 @@
   import * as Card from "$lib/components/ui/card";
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import * as Carousel from "$lib/components/ui/carousel";
+  import { ChartColumnStacked } from 'lucide-svelte';
 
   let obstacles = [];
   let searchQuery = "";
@@ -18,7 +19,13 @@
     try {
       const response = await fetch("/api/obstacles");
       const data = await response.json();
-      obstacles = data;
+      // Sort obstacles by order field if present, fallback to created date
+      obstacles = data.sort((a: any, b: any) => {
+        if (a.order !== undefined && b.order !== undefined) {
+          return a.order - b.order;
+        }
+        return new Date(b.created).getTime() - new Date(a.created).getTime();
+      });
       console.log("Fetched obstacles:", data);
       console.log("First obstacle avatar:", data[0]?.expand?.avatar);
       console.log("Image URL:", `https://few-likely.pockethost.io/api/files/${data[0]?.expand?.avatar?.collectionId}/${data[0]?.expand?.avatar?.id}/${data[0]?.expand?.avatar?.image}`);
@@ -46,14 +53,23 @@
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
   <!-- Sidebar -->
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
-    <div class="h-14 border-b px-4 flex items-center lg:px-6">
-      <h2 class="font-semibold text-xl">Categories</h2>
-    </div>
+  <div class="h-14 border-b px-4 flex items-center lg:px-6 gap-2">
+    <ChartColumnStacked class="h-5 w-5" />
+    <h2 class="font-semibold text-xl">Categories</h2>
+  </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-4">
       {#if obstacles.length}
         {#each [...new Set(obstacles.map(o => o.expand?.category?.name))] as categoryName}
           <div class="category-group">
-            <h3 class="font-medium text-lg mb-2">{categoryName}</h3>
+            <button 
+              class="font-medium text-lg mb-2 hover:text-primary"
+              on:click={() => {
+                const categoryId = obstacles.find(o => o.expand?.category?.name === categoryName)?.expand?.category?.id;
+                document.getElementById(`obstacle-category-${categoryId}`)?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              {categoryName}
+            </button>
           </div>
         {/each}
       {:else}
@@ -102,11 +118,15 @@
         ]} 
       />
 
-      <div class="w-full p-4">
+      <div class="w-full p-4 relative max-w-2xl mx-auto">
         <Carousel.Root class="w-full">
+          <div class="absolute top-1/2 -translate-y-1/2 left-4 z-10">
+            <Carousel.Previous />
+          </div>
+          
           <Carousel.Content>
             {#each obstacles as obstacle (obstacle.id)}
-              <Carousel.Item class="md:basis-1/2 lg:basis-1/3">
+              <Carousel.Item id="obstacle-category-{obstacle.expand?.category?.id}">
                 <div class="p-1">
                 <Card.Root>
                   <Card.Header>
@@ -127,8 +147,8 @@
             </Carousel.Item>
             {/each}
           </Carousel.Content>
-          <div class="flex justify-center gap-2 mt-4">
-            <Carousel.Previous />
+          
+          <div class="absolute top-1/2 -translate-y-1/2 right-4 z-10">
             <Carousel.Next />
           </div>
         </Carousel.Root>
