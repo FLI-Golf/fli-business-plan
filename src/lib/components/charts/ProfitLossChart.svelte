@@ -136,14 +136,15 @@
         tooltip.transition()
           .duration(200)
           .style('opacity', .9);
-        
-        tooltip.html(`
-          ${d.year}<br/>
-          Profit/Loss: $${d3.format(',.0f')(d.value)}<br/>
-          Revenue: $${d3.format(',.0f')(d.details.revenue)}<br/>
-          Expenses: $${d3.format(',.0f')(d.details.expenses)}<br/>
-          <br/>Key Factors:<br/>${factorsList}
-        `)
+tooltip.html(`
+  <div style="color: black">
+    ${d.year}<br/>
+    Profit/Loss: ${d3.format(',.0f')(d.value)}<br/>
+    Revenue: ${d3.format(',.0f')(d.details.revenue)}<br/>
+    Expenses: ${d3.format(',.0f')(d.details.expenses)}<br/>
+    <br/>Key Factors:<br/>${factorsList}
+  </div>
+`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })

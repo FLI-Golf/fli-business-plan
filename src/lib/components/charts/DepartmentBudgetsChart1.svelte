@@ -55,7 +55,8 @@
       .style('background-color', 'white')
       .style('border', '1px solid #ddd')
       .style('padding', '10px')
-      .style('border-radius', '4px');
+      .style('border-radius', '4px')
+      .style('color', 'black');  // Add this line
 
     const x = d3.scaleBand()
       .range([0, width])

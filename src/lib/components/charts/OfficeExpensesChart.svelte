@@ -55,8 +55,8 @@
       .style('border', '1px solid #ddd')
       .style('padding', '10px')
       .style('border-radius', '4px')
-      .style('pointer-events', 'none');
-
+      .style('pointer-events', 'none')
+      .style('color', 'black');  // Added black text color for tooltip
     const x = d3.scaleBand()
       .range([0, width])
       .domain(data.map(d => d.category))
