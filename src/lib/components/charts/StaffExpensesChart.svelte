@@ -41,20 +41,45 @@
       .range(['#3B82F6', '#10B981', '#8B5CF6']);
 
     const barWidth = x.bandwidth() / expenseData.length;
+// Add tooltip
+const tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0)
+  .style("position", "absolute")
+  .style("background-color", "white")
+  .style("border", "1px solid #ddd")
+  .style("padding", "10px")
+  .style("border-radius", "4px")
+  .style("pointer-events", "none");
 
-    // Add grouped bars
-    expenseData.forEach((category, i) => {
-      svg.selectAll(`.bar-${i}`)
-        .data(category.values)
-        .join("rect")
-        .attr("class", `bar-${i}`)
-        .attr("x", (d, j) => x(years[j]) + i * barWidth)
-        .attr("y", d => y(d))
-        .attr("width", barWidth)
-        .attr("height", d => height - margin.bottom - y(d))
-        .attr("fill", color(category.category));
+// Add grouped bars
+expenseData.forEach((category, i) => {
+  svg.selectAll(`.bar-${i}`)
+    .data(category.values)
+    .join("rect")
+    .attr("class", `bar-${i}`)
+    .attr("x", (d, j) => x(years[j]) + i * barWidth)
+    .attr("y", d => y(d))
+    .attr("width", barWidth)
+    .attr("height", d => height - margin.bottom - y(d))
+    .attr("fill", color(category.category))
+    .on("mouseover", function(event, d) {
+      d3.select(this).style("opacity", 0.8);
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", 0.9);
+      tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Amount: ${d3.format(",.0f")(d)}</div>`)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      d3.select(this).style("opacity", 1);
+      tooltip.transition()
+        .duration(500)
+        .style("opacity", 0);
     });
-
+});
     // Add axes
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)

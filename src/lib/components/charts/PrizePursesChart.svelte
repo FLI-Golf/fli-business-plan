@@ -99,7 +99,7 @@
           .duration(200)
           .style('opacity', .9);
         
-        tooltip.html(`${d.year}<br/>Prize Purse: $${d3.format(',.0f')(d.value)}<br/><small>${d.explanation}</small>`)
+        tooltip.html(`<div style="color: black">${d.year}<br/>Prize Purse: ${d3.format(',.0f')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })

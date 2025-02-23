@@ -142,7 +142,7 @@
           .style('opacity', .9);
         
         const categoriesList = d.categories.map(cat => `• ${cat}`).join('<br/>');
-        tooltip.html(`${d.year}<br/>Total: $${d3.format(',.0f')(d.value)}<br/><br/>Categories:<br/>${categoriesList}`)
+        tooltip.html(`<div style="color: black">${d.year}<br/>Total: ${d3.format(',.0f')(d.value)}<br/><br/>Categories:<br/>${categoriesList}</div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })

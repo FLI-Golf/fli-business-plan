@@ -26,6 +26,18 @@
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
+    // Create tooltip
+    const tooltip = d3.select(chart)
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0)
+      .style('position', 'absolute')
+      .style('background-color', 'white')
+      .style('border', '1px solid #ddd')
+      .style('padding', '10px')
+      .style('border-radius', '4px')
+      .style('color', 'black');
+
     const x = d3.scaleBand()
       .range([0, width])
       .domain(data.map(d => d.department))
@@ -46,7 +58,7 @@
     // Add Y axis
     svg.append('g')
       .call(d3.axisLeft(y)
-        .tickFormat(d => `$${d3.format(',')(d)}`));
+        .tickFormat(d => `${d3.format(',')(d)}`));
 
     // Add title
     svg.append('text')
@@ -56,7 +68,7 @@
       .style('font-size', '16px')
       .text('Department Budgets 2026');
 
-    // Add bars
+    // Add interactive bars
     svg.selectAll('rect')
       .data(data)
       .enter()
@@ -65,9 +77,33 @@
       .attr('y', d => y(d.value))
       .attr('width', x.bandwidth())
       .attr('height', d => height - y(d.value))
-      .attr('fill', '#4CAF50');
+      .attr('fill', '#4CAF50')
+      .on('mouseover', function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr('fill', '#66BB6A');
+        
+        tooltip.transition()
+          .duration(200)
+          .style('opacity', .9);
+        
+        tooltip.html(`${d.department}<br/>${d3.format(',')(d.value)}`)
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function() {
+        d3.select(this)
+          .transition()
+          .duration(500)
+          .attr('fill', '#4CAF50');
+        
+        tooltip.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
 
-    // Add value labels on top of bars
+    // Add value labels
     svg.selectAll('.value')
       .data(data)
       .enter()
@@ -76,7 +112,7 @@
       .attr('x', d => x(d.department) + x.bandwidth() / 2)
       .attr('y', d => y(d.value) - 5)
       .attr('text-anchor', 'middle')
-      .text(d => `$${d3.format(',')(d.value)}`);
+      .text(d => `${d3.format(',')(d.value)}`);
   });
 </script>
 

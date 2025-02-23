@@ -84,7 +84,8 @@
       .style('border', '1px solid #ddd')
       .style('padding', '10px')
       .style('border-radius', '4px')
-      .style('pointer-events', 'none');
+      .style('pointer-events', 'none')
+      .style('color', 'black');
 
     const categories = [...new Set(data.map(d => d.category))];
     const years = [...new Set(data.map(d => d.year))];
@@ -106,18 +107,22 @@
     const color = d3.scaleOrdinal()
       .domain(years)
       .range(['#2196F3', '#4CAF50', '#FF5722']);
-    // Add X axis
+
+    // Add X axis with white text
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x0))
       .selectAll('text')
       .attr('transform', 'translate(-10,0)rotate(-45)')
-      .style('text-anchor', 'end');
+      .style('text-anchor', 'end')
+      .style('fill', 'white');
 
-    // Add Y axis
+    // Add Y axis with white text
     svg.append('g')
       .call(d3.axisLeft(y)
-        .tickFormat(d => `$${d3.format(',')(d)}`));
+        .tickFormat(d => `${d3.format(',')(d)}`))
+      .selectAll('text')
+      .style('fill', 'white');
 
     // Add title
     svg.append('text')
@@ -127,6 +132,7 @@
       .style('font-size', '16px')
       .style('fill', 'white')
       .text('Course Buildout Expenses by Year');
+
     // Create groups for each category
     const categoryGroups = svg.selectAll('.category')
       .data(categories)
@@ -134,7 +140,7 @@
       .attr('class', 'category')
       .attr('transform', d => `translate(${x0(d)},0)`);
 
-    // Add bars
+    // Update bars with black text tooltip
     categoryGroups.selectAll('rect')
       .data(d => data.filter(item => item.category === d))
       .enter().append('rect')
@@ -148,7 +154,7 @@
         tooltip.transition()
           .duration(200)
           .style('opacity', .9);
-        tooltip.html(`${d.year}<br/>${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small>`)
+        tooltip.html(`<div style="color: black">${d.year}<br/>${d.category}<br/>${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
@@ -179,7 +185,8 @@
         .attr('text-anchor', 'start')
         .style('font-size', '12px')
         .style('fill', 'white')
-        .text(year);    });
+        .text(year);
+    });
   });
 </script>
 
