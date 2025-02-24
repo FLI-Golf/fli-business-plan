@@ -35,12 +35,14 @@
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import ExecutiveCard from "$lib/components/cards/ExecutiveCard.svelte";
   import ProsCard from "$lib/components/cards/ProsCard.svelte";
+  import BroadcasterCard from "$lib/components/cards/BroadcasterCard.svelte";
 
   const showVideo = writable(false);
   let currentUser = pb.authStore.model;
   let partners = [];
   let pros = [];
   let exe = [];
+  let broadcasters = [];
   let loading = true;
 
   onMount(async () => {
@@ -63,6 +65,12 @@
         sort: 'rank'
       });
       pros = recordsPros.items;
+
+      const recordsBroadcasters = await pb.collection('broadcasters').getList(1, 50, {
+        expand: 'avatar'
+      });
+      broadcasters = recordsBroadcasters.items;
+
       loading = false;
     } catch (error) {
       console.error(error);
@@ -107,29 +115,6 @@
         <span>Obstacle</span>
       </a>
     </nav>
-
-    {#if $showVideo}
-      <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div class="bg-background p-4 rounded-lg max-w-4xl w-full">
-          <div class="flex justify-end mb-2">
-            <button 
-              on:click={() => $showVideo = false}
-              class="text-muted-foreground hover:text-foreground"
-            >
-              Close
-            </button>
-          </div>
-          <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-            <iframe
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-              src="https://drive.google.com/file/d/1C895DZEMAJ4vuY77iiRkc-ikS8p5hHeM/preview"
-              allow="autoplay"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>      
-      </div>
-    {/if}
 
     <Avatar.Root class="hidden h-9 w-9 sm:flex">
     </Avatar.Root>
@@ -217,11 +202,11 @@
         { label: 'Home', href: '/overview' },
         { label: 'Overview', href: '/overview' }
       ]} />
-    <div class="flex flex-col items-center gap-4 mb-8">
-      <h1 class="text-2xl font-bold">FLI Golf Business Plan</h1>
-      <img src="logos/fli_logo.png" alt="FLI Logo" class="w-52 h-18" />
-    </div>      
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    
+
+
+    <!-- Grid for quick access cards -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
       <!-- Business Plan Card -->
       <a 
         href="/business-plan"
@@ -383,18 +368,111 @@
         </div>
       </a>
     </div>
-    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2">
-      <!-- For Pros Card -->
+
+    <!-- Single grid for all cards -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+      <!-- Business Plan Card -->
+      <!-- Financials Card -->
+      <!-- Partners Card -->
+      <!-- Teams Card -->
+      <!-- Growth Report Card -->
+      <!-- PDF Cards -->
+      
+      <!-- Video Card -->
+      <a
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+        on:click={() => $showVideo = true}
+      >
+        <div class="flex items-center gap-4">
+          <Box class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Watch Presentation</h2>
+            <p class="text-muted-foreground">3D Video Overview</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Obstacle Course Card -->
+      <a
+        href="/obstacles"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+      >
+        <div class="flex items-center gap-4">
+          <Pyramid class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Obstacle Course</h2>
+            <p class="text-muted-foreground">Course layout and features</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Legal Card -->
+      <a
+        href="/legal"
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+      >
+        <div class="flex items-center gap-4">
+          <Scale class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Legal Documents</h2>
+            <p class="text-muted-foreground">View legal information</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- FAQ Card -->
+      <a
+        href="/faqs"
+
+        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+      >
+        <div class="flex items-center gap-4">
+          <HelpCircle class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">FAQ Guide</h2>
+            <p class="text-muted-foreground">Detailed answers and support</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Three-column layout for team cards -->
+    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
+      <!-- Team cards -->
+    </div>
+    <!-- Three-column layout for team cards -->
+    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
       <Card.Root>
         <ProsCard {loading} {pros} {pb} />
       </Card.Root>
-      <!-- Replace the existing executive staff card with: -->
       <Card.Root>
         <ExecutiveCard {loading} {exe} {pb} />
-      </Card.Root>   
+      </Card.Root>
+      <Card.Root>
+        <BroadcasterCard {loading} {broadcasters} {pb} />
+      </Card.Root>
     </div>
   </main>
 </div>
-
-
-
+{#if $showVideo}
+  <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-background p-4 rounded-lg max-w-4xl w-full">
+      <div class="flex justify-end mb-2">
+        <button
+          on:click={() => $showVideo = false}
+          class="text-muted-foreground hover:text-foreground"
+        >
+          Close
+        </button>
+      </div>
+      <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+        <iframe
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+          src="https://drive.google.com/file/d/1C895DZEMAJ4vuY77iiRkc-ikS8p5hHeM/preview"
+          allow="autoplay"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>      
+  </div>
+{/if}
