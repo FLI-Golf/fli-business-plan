@@ -92,28 +92,6 @@
         <Home class="h-5 w-5" />
         Overview
       </a>
-      <a href="/legal" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
-        <Scale class="h-5 w-5" />
-        Legal
-      </a>
-      <a href="/faqs" class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3">
-        <HelpCircle class="h-5 w-5" />
-        FAQs
-      </a>
-      <a 
-        on:click={() => $showVideo = true} 
-        class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3 cursor-pointer whitespace-nowrap"
-      >
-        <Box class="h-5 w-5" />
-        <span>Video</span>
-      </a>
-      <a
-        href="/obstacles"
-        class="flex items-center gap-2 text-sm font-medium hover:text-primary"
-      >
-        <Pyramid class="h-4 w-4" />
-        <span>Obstacle</span>
-      </a>
     </nav>
 
     <Avatar.Root class="hidden h-9 w-9 sm:flex">
@@ -139,10 +117,6 @@
           <a href="/overview" class="hover:text-foreground flex items-center gap-2">
             <Home class="h-5 w-5" />
             Overview
-          </a>
-          <a href="/legal" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
-            <Lock class="h-5 w-5" />
-            Confidentiality
           </a>
           <a href="/business-plan" class="text-muted-foreground hover:text-foreground flex items-center gap-2">
             <FileText class="h-5 w-5" />
@@ -195,264 +169,263 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </div>
-  </header>
-  <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-    <Breadcrumb 
-      items={[
-        { label: 'Home', href: '/overview' },
-        { label: 'Overview', href: '/overview' }
-      ]} />
+</header>
+<main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+  <Breadcrumb 
+    items={[
+      { label: 'Home', href: '/overview' },
+      { label: 'Overview', href: '/overview' }
+    ]} />
     
 
 
-    <!-- Grid for quick access cards -->
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
-      <!-- Business Plan Card -->
-      <a 
-        href="/business-plan"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <div class="flex items-center gap-4">
-          <BpIcon class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Business Plan</h2>
-            <p class="text-muted-foreground">8 Sections</p>
-          </div>
+  <!-- Grid for quick access cards -->
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+    <!-- Business Plan Card -->
+    <a 
+      href="/business-plan"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+    >
+      <div class="flex items-center gap-4">
+        <BpIcon class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Business Plan</h2>
+          <p class="text-muted-foreground">8 Sections</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- Financials Card -->
-      <a 
-        href="/financials"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <div class="flex items-center gap-4">
-          <Chart class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Financials</h2>
-            <p class="text-muted-foreground">View financial projections and metrics</p>
-          </div>
+    <!-- Financials Card -->
+    <a 
+      href="/financials"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+    >
+      <div class="flex items-center gap-4">
+        <Chart class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Financials</h2>
+          <p class="text-muted-foreground">View financial projections and metrics</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- Partners Card -->
-      <a 
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <AlertDialog.Root>
-          <AlertDialog.Trigger class="w-full">
-            <div class="flex items-center gap-4">
-              <Users class="h-6 w-6" />
-              <div>
-                <h2 class="text-xl font-semibold">Partners</h2>
-                <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
-              </div>
+    <!-- Partners Card -->
+    <a 
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+    >
+      <AlertDialog.Root>
+        <AlertDialog.Trigger class="w-full">
+          <div class="flex items-center gap-4">
+            <Users class="h-6 w-6" />
+            <div>
+              <h2 class="text-xl font-semibold">Partners</h2>
+              <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
             </div>
-          </AlertDialog.Trigger>
+          </div>
+        </AlertDialog.Trigger>
 
-          <AlertDialog.Content>
-            <AlertDialog.Header>
-              <AlertDialog.Title>Our Partners</AlertDialog.Title>
-              <AlertDialog.Description>Current active partnerships</AlertDialog.Description>
-            </AlertDialog.Header>
+        <AlertDialog.Content>
+          <AlertDialog.Header>
+            <AlertDialog.Title>Our Partners</AlertDialog.Title>
+            <AlertDialog.Description>Current active partnerships</AlertDialog.Description>
+          </AlertDialog.Header>
 
-            <div class="overflow-y-auto max-h-[60vh]">
-              <Table.Root>
-                <Table.Header>
+          <div class="overflow-y-auto max-h-[60vh]">
+            <Table.Root>
+              <Table.Header>
+                <Table.Row>
+                  <Table.Head>Partner</Table.Head>
+                  <Table.Head class="text-right">Type</Table.Head>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {#each partners as partner}
                   <Table.Row>
-                    <Table.Head>Partner</Table.Head>
-                    <Table.Head class="text-right">Type</Table.Head>
+                    <Table.Cell>
+                      <div class="flex items-center space-x-4">
+                        {#if partner.expand?.avatar}
+                          <Avatar.Root class="h-10 w-14 rounded-lg">
+                            <Avatar.Image 
+                              src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
+                              alt={partner.name}
+                            />
+                          </Avatar.Root>
+                        {/if}
+                        <div class="font-medium">{partner.name}</div>
+                      </div>
+                    </Table.Cell>
+                    <Table.Cell class="text-right">
+                      <Badge variant="outline">{partner.type}</Badge>
+                    </Table.Cell>
                   </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {#each partners as partner}
-                    <Table.Row>
-                      <Table.Cell>
-                        <div class="flex items-center space-x-4">
-                          {#if partner.expand?.avatar}
-                            <Avatar.Root class="h-10 w-14 rounded-lg">
-                              <Avatar.Image 
-                                src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
-                                alt={partner.name}
-                              />
-                            </Avatar.Root>
-                          {/if}
-                          <div class="font-medium">{partner.name}</div>
-                        </div>
-                      </Table.Cell>
-                      <Table.Cell class="text-right">
-                        <Badge variant="outline">{partner.type}</Badge>
-                      </Table.Cell>
-                    </Table.Row>
-                  {/each}
-                </Table.Body>
-              </Table.Root>
-            </div>
+                {/each}
+              </Table.Body>
+            </Table.Root>
+          </div>
 
-            <AlertDialog.Footer>
-              <AlertDialog.Cancel>
-                <Button variant="outline">Close</Button>
-              </AlertDialog.Cancel>
-            </AlertDialog.Footer>
-          </AlertDialog.Content>
-        </AlertDialog.Root>
-      </a>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>
+              <Button variant="outline">Close</Button>
+            </AlertDialog.Cancel>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+    </a>
 
-      <!-- Teams Card -->
-      <a
-        href="/teams"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <div class="flex items-center gap-4">
-          <Disc3 class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Teams</h2>
-            <p class="text-muted-foreground">View team structure and roles</p>
-          </div>
+    <!-- Teams Card -->
+    <a
+      href="/teams"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+    >
+      <div class="flex items-center gap-4">
+        <Disc3 class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Teams</h2>
+          <p class="text-muted-foreground">View team structure and roles</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- Legal Card -->
-      <a
-        href="https://udisc.com/disc-golf-growth-report"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-      >
-        <div class="flex items-center gap-4">
-          <Chart class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Worldwide Growth</h2>
-            <p class="text-muted-foreground">View 2024 Growth Report</p>
-          </div>
+    <!-- Legal Card -->
+    <a
+      href="https://udisc.com/disc-golf-growth-report"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+    >
+      <div class="flex items-center gap-4">
+        <Chart class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Worldwide Growth</h2>
+          <p class="text-muted-foreground">View 2024 Growth Report</p>
         </div>
-      </a>
-      <!-- Gambling Breakdown PDF -->
-      <a
-        href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-        target="_blank"
-      >
-        <div class="flex items-center gap-4">
-          <FileText class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Gambling Breakdown PDF</h2>
-            <p class="text-muted-foreground">Click to download</p>
-          </div>
+      </div>
+    </a>
+    <!-- Gambling Breakdown PDF -->
+    <a
+      href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      target="_blank"
+    >
+      <div class="flex items-center gap-4">
+        <FileText class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Gambling Breakdown PDF</h2>
+          <p class="text-muted-foreground">Click to download</p>
         </div>
-      </a>
-      <!-- Team Franchising PDF -->
-      <a
-        href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-        target="_blank"
-      >
-        <div class="flex items-center gap-4">
-          <FileText class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
-            <p class="text-muted-foreground">Click to download</p>
-          </div>
+      </div>
+    </a>
+    <!-- Team Franchising PDF -->
+    <a
+      href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      target="_blank"
+    >
+      <div class="flex items-center gap-4">
+        <FileText class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
+          <p class="text-muted-foreground">Click to download</p>
         </div>
-      </a>
-      <!-- Broadcasting & Production PDF -->
-      <a
-        href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
-        target="_blank"
-      >
-        <div class="flex items-center gap-4">
-          <FileText class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
-            <p class="text-muted-foreground">Click to download</p>
-          </div>
+      </div>
+    </a>
+    <!-- Broadcasting & Production PDF -->
+    <a
+      href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+      target="_blank"
+    >
+      <div class="flex items-center gap-4">
+        <FileText class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
+          <p class="text-muted-foreground">Click to download</p>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
+  </div>
 
-    <!-- Single grid for all cards -->
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
-      <!-- Business Plan Card -->
-      <!-- Financials Card -->
-      <!-- Partners Card -->
-      <!-- Teams Card -->
-      <!-- Growth Report Card -->
-      <!-- PDF Cards -->
+  <!-- Single grid for all cards -->
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+    <!-- Business Plan Card -->
+    <!-- Financials Card -->
+    <!-- Partners Card -->
+    <!-- Teams Card -->
+    <!-- Growth Report Card -->
+    <!-- PDF Cards -->
       
-      <!-- Video Card -->
-      <a
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-        on:click={() => $showVideo = true}
-      >
-        <div class="flex items-center gap-4">
-          <Box class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Watch Presentation</h2>
-            <p class="text-muted-foreground">3D Video Overview</p>
-          </div>
+    <!-- Video Card -->
+    <a
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+      on:click={() => $showVideo = true}
+    >
+      <div class="flex items-center gap-4">
+        <Box class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Watch Presentation</h2>
+          <p class="text-muted-foreground">3D Video Overview</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- Obstacle Course Card -->
-      <a
-        href="/obstacles"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-      >
-        <div class="flex items-center gap-4">
-          <Pyramid class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Obstacle Course</h2>
-            <p class="text-muted-foreground">Course layout and features</p>
-          </div>
+    <!-- Obstacle Course Card -->
+    <a
+      href="/obstacles"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+    >
+      <div class="flex items-center gap-4">
+        <Pyramid class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Obstacle Course</h2>
+          <p class="text-muted-foreground">Course layout and features</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- Legal Card -->
-      <a
-        href="/legal"
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-      >
-        <div class="flex items-center gap-4">
-          <Scale class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Legal Documents</h2>
-            <p class="text-muted-foreground">View legal information</p>
-          </div>
+    <!-- Legal Card -->
+    <a
+      href="/legal"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+    >
+      <div class="flex items-center gap-4">
+        <Scale class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">Legal Documents</h2>
+          <p class="text-muted-foreground">View legal information</p>
         </div>
-      </a>
+      </div>
+    </a>
 
-      <!-- FAQ Card -->
-      <a
-        href="/faqs"
-
-        class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-      >
-        <div class="flex items-center gap-4">
-          <HelpCircle class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">FAQ Guide</h2>
-            <p class="text-muted-foreground">Detailed answers and support</p>
-          </div>
+    <!-- FAQ Card -->
+    <a
+      href="/faqs"
+      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
+    >
+      <div class="flex items-center gap-4">
+        <HelpCircle class="h-6 w-6" />
+        <div>
+          <h2 class="text-xl font-semibold">FAQ Guide</h2>
+          <p class="text-muted-foreground">Detailed answers and support</p>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
+  </div>
 
-    <!-- Three-column layout for team cards -->
-    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
-      <!-- Team cards -->
-    </div>
-    <!-- Three-column layout for team cards -->
-    <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
-      <Card.Root>
-        <ProsCard {loading} {pros} {pb} />
-      </Card.Root>
-      <Card.Root>
-        <ExecutiveCard {loading} {exe} {pb} />
-      </Card.Root>
-      <Card.Root>
-        <BroadcasterCard {loading} {broadcasters} {pb} />
-      </Card.Root>
-    </div>
-  </main>
+  <!-- Three-column layout for team cards -->
+  <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
+    <!-- Team cards -->
+  </div>
+  <!-- Three-column layout for team cards -->
+  <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
+    <Card.Root>
+      <ProsCard {loading} {pros} {pb} />
+    </Card.Root>
+    <Card.Root>
+      <ExecutiveCard {loading} {exe} {pb} />
+    </Card.Root>
+    <Card.Root>
+      <BroadcasterCard {loading} {broadcasters} {pb} />
+    </Card.Root>
+  </div>
+</main>
 </div>
 {#if $showVideo}
   <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
