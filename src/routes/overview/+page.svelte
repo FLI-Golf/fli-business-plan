@@ -69,8 +69,9 @@
       });
       pros = recordsPros.items;
 
-      const recordsBroadcasters = await pb.collection('broadcasters').getList(1, 50, {
-        expand: 'avatar'
+      const recordsBroadcasters = await pb.collection('broadcaster').getList(1, 50, {
+        expand: 'avatar',
+        sort: '-created'
       });
       broadcasters = recordsBroadcasters.items;
 
