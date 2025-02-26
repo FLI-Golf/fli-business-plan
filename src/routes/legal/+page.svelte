@@ -156,15 +156,15 @@
         </form>
         
         <a 
-          href="/overview" 
-          class="flex items-center gap-2 text-sm font-medium hover:text-primary"
-        >
-          <Home class="h-4 w-4" />
-          <span>Overview</span>
-        </a>
-      </div>
-    </header>
-
+          <a 
+            href="/overview" 
+            class="text-foreground hover:text-foreground transition-colors flex items-center gap-3"
+          >
+            <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
+            Overview
+          </a>
+        </div>
+      </header>
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
          <Breadcrumb 
           items={[
@@ -190,13 +190,16 @@
 <!-- ✅ Back to Top Button -->
 {#if showBackToTop}
   <button
-    class="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-md hover:bg-blue-700 transition"
+    class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
     on:click={scrollToTop}
   >
-    ⬆️ Top
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m18 15-6-6-6 6"/></svg>
+      Back to top
+    </div>
+    <img src="/logos/fli_logo.png" alt="Back to top" class="h-14 w-14" />
   </button>
-{/if}
-<!-- Mobile Menu -->
+{/if}<!-- Mobile Menu -->
 {#if isMobileMenuOpen}
   <div class="fixed inset-0 z-50 bg-background md:hidden">
     <div class="h-14 border-b px-4 flex items-center justify-between">
