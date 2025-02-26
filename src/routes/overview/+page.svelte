@@ -1,6 +1,7 @@
 <script lang="ts">
   // Core icons for navigation and functionality
-  import Home from "lucide-svelte/icons/home";
+  // Remove this line
+  // import Home from "lucide-svelte/icons/home";
   import Menu from "lucide-svelte/icons/menu";
   import Search from "lucide-svelte/icons/search";
   
@@ -91,12 +92,11 @@
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
     <nav class="hidden flex-col gap-6 text-xl font-medium md:flex md:flex-row md:items-center md:gap-6 md:text-base lg:gap-7">
-      <a href="##" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
-        <Home class="h-5 w-5" />
-        Overview
+      <a href="##" class="text-foreground hover:text-foreground transition-colors inline-flex items-center gap-3 whitespace-nowrap">
+        <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-24 w-24 mt-2" />
+        Welcome to The FLI Golf Business Plan
       </a>
     </nav>
-
     <Avatar.Root class="hidden h-9 w-9 sm:flex">
     </Avatar.Root>
     <Sheet.Root>

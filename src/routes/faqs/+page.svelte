@@ -83,9 +83,9 @@
           </div>
         </form>
 
-        <a href="/overview" class="flex items-center gap-2 text-sm font-medium hover:text-primary">
-          <Home class="h-4 w-4" />
-          <span>Overview</span>
+        <a href="/overview" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
+          <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
+          Overview
         </a>
       </div>
     </header>

@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { Search, Home, Disc3 } from 'lucide-svelte';
   import { goto } from "$app/navigation";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import Search from "lucide-svelte/icons/search";
-  import { Home } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
 
@@ -114,12 +113,9 @@
           </div>
         </form>
 
-        <a
-          href="/overview"
-          class="flex items-center gap-2 text-sm font-medium hover:text-primary"
-        >
-          <Home class="h-4 w-4" />
-          <span>Overview</span>
+        <a href="/overview" class="text-foreground hover:text-foreground transition-colors flex items-center gap-3">
+          <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
+          Overview
         </a>
       </div>
     </header>

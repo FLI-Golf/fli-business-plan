@@ -29,16 +29,19 @@
         <MenubarMenu>
           <MenubarTrigger>
             <a href="/overview" class="hover:text-primary flex items-center gap-2">
-              <Home class="h-4 w-4" />
+              <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
               Overview
             </a>
           </MenubarTrigger>
         </MenubarMenu>
       {/if}
       {#if !isLoggedIn}
-        <a href="/login" class="hover:text-primary flex items-center gap-2 px-4 py-2">
-          <KeySquare class="h-4 w-4" />
-          Login
+
+
+
+        <a href="/overview" class="hover:text-primary flex items-center gap-2">
+          <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
+          Overview
         </a>
         <a href="/register" class="hover:text-primary px-4 py-2">
           Register
