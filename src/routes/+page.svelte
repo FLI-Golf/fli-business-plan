@@ -8,7 +8,7 @@
 
   function handleLogout() {
     pb.authStore.clear();
-    goto('/');
+    goto('/login');
   }
 </script>
 
@@ -31,14 +31,13 @@
           Register
         </a>
       {:else}
-        <MenubarMenu>
-          <MenubarTrigger>
-            <button on:click={handleLogout} class="hover:text-primary flex items-center gap-2">
-              <LogOut class="h-4 w-4" />
-              Logout
-            </button>
-          </MenubarTrigger>
-        </MenubarMenu>
+        <a href="/overview" class="hover:text-primary px-4 py-2 flex items-center gap-2">
+          Overview
+        </a>
+        <button on:click={handleLogout} class="hover:text-primary px-4 py-2 flex items-center gap-2">
+          <LogOut class="h-4 w-4" />
+          Logout
+        </button>
       {/if}
     </div>
   </Menubar>
