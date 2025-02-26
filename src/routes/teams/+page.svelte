@@ -1,34 +1,52 @@
 <script lang="ts">
+  // Core imports
   import { onMount } from "svelte";
-  import { Search, Home, Disc3 } from 'lucide-svelte';
   import { goto } from "$app/navigation";
+
+  // Icons
+  import { Search, Home, Disc3 } from 'lucide-svelte';
+
+  // UI Components
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
+  import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
 
+  // State management
   let teams = [];
   let searchQuery = "";
   let isMobileMenuOpen = false;
+  let showBackToTop = false;
 
+  // Functions
   async function fetchTeams() {
     try {
       const response = await fetch("/api/teams?expand=avatar,mini_logo");
       const data = await response.json();
-      console.log("Full response data:", JSON.stringify(data, null, 2));
       
       if (data.error) {
         console.error("Error:", data.error);
         return;
       }
-
       teams = data.teams;
     } catch (error) {
       console.error("Failed to fetch teams data", error);
     }
   }
 
-  onMount(fetchTeams);
+  function handleScroll() {
+    showBackToTop = window.scrollY > 300;
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  onMount(() => {
+    fetchTeams();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   $: filteredTeams = teams.filter(team =>
     team.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -237,4 +255,18 @@
       {/if}
     </nav>
   </div>
+{/if}
+
+<!-- ✅ Back to Top Button -->
+{#if showBackToTop}
+  <button
+    class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
+    on:click={scrollToTop}
+  >
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m18 15-6-6-6 6"/></svg>
+      Back to top
+    </div>
+    <img src="/logos/fli_logo.png" alt="Back to top" class="h-14 w-14" />
+  </button>
 {/if}
