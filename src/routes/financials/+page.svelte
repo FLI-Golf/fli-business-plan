@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { Search, Home } from 'lucide-svelte';
+  import Chart from "lucide-svelte/icons/chart-no-axes-combined";
   import SponsorshipChart from '$lib/components/charts/SponsorshipChart.svelte';
   import MembershipChart from '$lib/components/charts/MembershipChart.svelte';
   import EventRevenueChart from '$lib/components/charts/EventRevenueChart.svelte';
@@ -65,7 +66,10 @@
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
-      <h2 class="font-semibold text-xl">Financial Analysis</h2>
+      <div class="flex items-center gap-2">
+        <Chart class="h-5 w-5" />
+        <h2 class="font-semibold text-xl">Financial Analysis</h2>
+      </div>
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
       {#each filteredSections as section}
@@ -172,7 +176,12 @@
 {#if isMobileMenuOpen}
   <div class="fixed inset-0 z-50 bg-background md:hidden">
     <div class="h-14 border-b px-4 flex items-center justify-between">
-      <span class="font-semibold text-xl">Financial Analysis</span>
+      <div class="h-14 border-b px-4 flex items-center lg:px-6">
+      <div class="flex items-center gap-2">
+        <Chart class="h-5 w-5" />
+        <h2 class="font-semibold text-xl">Financial Analysis</h2>
+      </div>
+    </div>
       <button
         class="p-2"
         on:click={() => isMobileMenuOpen = false}

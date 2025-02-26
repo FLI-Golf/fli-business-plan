@@ -1,10 +1,9 @@
 <script lang="ts">
   // Core imports
   import { onMount } from "svelte";
-  import { goto } from "$app/navigation";
-
-  // Icons
-  import { Search, Home, Disc3 } from 'lucide-svelte';
+  import { Search, Home } from 'lucide-svelte';
+  import { pb } from '$lib/pocketbase';
+  import { Disc3 } from "lucide-svelte";
 
   // UI Components
   import { Input } from "$lib/components/ui/input";
@@ -15,20 +14,16 @@
   // State management
   let teams = [];
   let searchQuery = "";
-  let isMobileMenuOpen = false;
   let showBackToTop = false;
+  let isMobileMenuOpen = false;
 
   // Functions
   async function fetchTeams() {
     try {
-      const response = await fetch("/api/teams?expand=avatar,mini_logo");
-      const data = await response.json();
-      
-      if (data.error) {
-        console.error("Error:", data.error);
-        return;
-      }
-      teams = data.teams;
+      const response = await pb.collection('teams').getList(1, 50, {
+        expand: 'avatar,mini_logo'
+      });
+      teams = response.items;
     } catch (error) {
       console.error("Failed to fetch teams data", error);
     }
@@ -54,10 +49,12 @@
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
-  <!-- Sidebar -->
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
-      <h2 class="font-semibold text-xl">Teams</h2>
+      <div class="flex items-center gap-2">
+        <Disc3 class="h-5 w-5" />
+        <h2 class="font-semibold text-xl">Teams</h2>
+      </div>
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
       {#if teams.length}
@@ -103,14 +100,12 @@
     </nav>
   </aside>
 
-  <!-- Main Content -->
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <button 
         class="md:hidden p-2"
         on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
       >
-        <!-- Hamburger Icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -138,105 +133,55 @@
       </div>
     </header>
 
-<main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-   <Breadcrumb 
-      items={[
-        { label: 'Home', href: '/overview' },
-        { label: 'Teams', href: '/teams' }
-   ]} />
-    {#if teams.length}
+    <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+      <Breadcrumb 
+        items={[
+          { label: 'Home', href: '/overview' },
+          { label: 'Teams', href: '/teams' }
+        ]} 
+      />
+      {#if teams.length}
         <div class="grid gap-4">
-<!-- In your script tag -->
-<script lang="ts">
-  // Import all Lucide icons using destructuring
-  import {
-    Activity,
-    ArrowUpRight,
-    CircleUser,
-    CreditCard,
-    Menu,
-    Package2,
-    Search,
-    Users,
-    Home,
-    FileText,
-    Chart,
-    Mail,
-    Lock,
-    Scale,
-    Disc3
-  } from 'lucide-svelte';
-  import BpIcon from "lucide-svelte/icons/layout-panel-top";
-
-  // UI Components imports
-  import * as Avatar from "$lib/components/ui/avatar";
-  import { Badge } from "$lib/components/ui/badge";
-  import * as AlertDialog from "$lib/components/ui/alert-dialog";
-  import { Button } from "$lib/components/ui/button";
-  import * as Card from "$lib/components/ui/card";
-  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import { Input } from "$lib/components/ui/input";
-  import * as Sheet from "$lib/components/ui/sheet";
-  import * as Table from "$lib/components/ui/table";
-  import LightSwitch from "@/components/ui/light-switch/light-switch.svelte";
-  
-
-  // PocketBase
-  import { pb } from '$lib/pocketbase';
-  import { onMount } from 'svelte';
-
-  let currentUser = pb.authStore.model;
-  let teams = [];
-  
-  onMount(async () => {
-    const response = await pb.collection('teams').getList(1, 50, {
-      expand: 'avatar,mini_logo'
-    });
-    teams = response.items;
-  });
-</script>
-
-<!-- In your Teams Card section -->
-{#each teams as team}
-<div class="flex items-center gap-4">
-    <div class="flex flex-col items-center">
-        {#if team.expand?.mini_logo}
-        <span class="text-xs text-muted-foreground mb-2">Mini</span>
-        <img
-            src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
-            alt={`${team.name} mini logo`}
-            class="h-20 w-20 object-cover ml-2 mr-2"
-        />
-        {/if}
-    </div>
-    <div class="flex flex-col items-center">
-        {#if team.avatar}
-        <span class="text-xs text-muted-foreground mb-2">Regular</span>
-        <img
-            src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
-            alt={team.name}
-            class="h-20 w-20 object-cove ml-4r"
-        />
-        {/if}
-    </div>
-    <h2 class="text-xl font-semibold">{team.name}</h2>
-</div>
-
-{/each}
-
+          {#each teams as team}
+            <div class="flex items-center gap-4">
+              <div class="flex flex-col items-center">
+                {#if team.expand?.mini_logo}
+                  <span class="text-xs text-muted-foreground mb-2">Mini</span>
+                  <img
+                    src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                    alt={`${team.name} mini logo`}
+                    class="h-20 w-20 object-cover ml-2 mr-2"
+                  />
+                {/if}
+              </div>
+              <div class="flex flex-col items-center">
+                {#if team.avatar}
+                  <span class="text-xs text-muted-foreground mb-2">Regular</span>
+                  <img
+                    src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+                    alt={team.name}
+                    class="h-20 w-20 object-cove ml-4r"
+                  />
+                {/if}
+              </div>
+              <h2 class="text-xl font-semibold">{team.name}</h2>
+            </div>
+          {/each}
         </div>
-    {:else}
+      {:else}
         <p class="text-gray-600">Loading teams...</p>
-    {/if}
-</main>
+      {/if}
+    </main>
   </div>
 </div>
 
-<!-- Mobile Menu -->
 {#if isMobileMenuOpen}
   <div class="fixed inset-0 z-50 bg-background md:hidden">
     <div class="h-14 border-b px-4 flex items-center justify-between">
-      <h2 class="font-semibold text-xl">Teams</h2>
+      <div class="flex items-center gap-2">
+        <Disc3 class="h-5 w-5" />
+        <h2 class="font-semibold text-xl">Teams</h2>
+      </div>
       <button class="p-2" on:click={() => isMobileMenuOpen = false}>✕</button>
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-2">
@@ -257,7 +202,6 @@
   </div>
 {/if}
 
-<!-- ✅ Back to Top Button -->
 {#if showBackToTop}
   <button
     class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
