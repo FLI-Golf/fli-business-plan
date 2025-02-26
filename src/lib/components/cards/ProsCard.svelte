@@ -15,7 +15,7 @@
 <Card.Header class="flex flex-row items-center justify-between">
   <div class="grid gap-2">
     <Card.Title>Committed Pros</Card.Title>
-    <img src="/logos/wdr.png" alt="Pros Logo" class="w-68 h-32" />
+    <img src="/logos/wdr.png" alt="Pros Logo" class="w-38 h-24" />
     <Card.Description>Complete list of professional disc golfers.</Card.Description>
   </div>
 

@@ -10,15 +10,13 @@
   export let exe: any[];
   export let pb: any;
 </script>
-
 <Card.Header class="flex flex-row items-center justify-between">
   <div class="grid gap-2">
     <Card.Title>Executive Staff</Card.Title>
     <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-32 h-35" />
-    <Card.Description>Key Members of the Organization</Card.Description>
+    <Card.Description class="-mt-5">Key Members of the Organization</Card.Description>
   </div>
 </Card.Header>
-
 <Card.Content>
   {#if loading}
     <div class="space-y-4">
