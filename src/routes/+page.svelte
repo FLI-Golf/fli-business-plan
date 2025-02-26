@@ -2,11 +2,7 @@
   import { goto } from '$app/navigation';
   import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "$lib/components/ui/menubar";
   import { pb } from '$lib/pocketbase';
-  import { Copyright } from 'lucide-svelte';
-  import { LogOut } from 'lucide-svelte';
-  import { KeySquare } from 'lucide-svelte';
-  import { Home } from 'lucide-svelte';
-
+  import { Copyright, LogOut, UserPlus, LogIn } from 'lucide-svelte';
 
   const isLoggedIn = pb.authStore.isValid;
 
@@ -24,26 +20,14 @@
       </MenubarMenu>
     </div>
 
-    <div class="flex">
-      {#if isLoggedIn}
-        <MenubarMenu>
-          <MenubarTrigger>
-            <a href="/overview" class="hover:text-primary flex items-center gap-2">
-              <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
-              Overview
-            </a>
-          </MenubarTrigger>
-        </MenubarMenu>
-      {/if}
+    <div class="flex items-center gap-4">
       {#if !isLoggedIn}
-
-
-
-        <a href="/overview" class="hover:text-primary flex items-center gap-2">
-          <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
-          Overview
+        <a href="/login" class="hover:text-primary px-4 py-2 flex items-center gap-2">
+          <LogIn class="h-4 w-4" />
+          Login
         </a>
-        <a href="/register" class="hover:text-primary px-4 py-2">
+        <a href="/register" class="hover:text-primary px-4 py-2 flex items-center gap-2">
+          <UserPlus class="h-4 w-4" />
           Register
         </a>
       {:else}
@@ -58,6 +42,7 @@
       {/if}
     </div>
   </Menubar>
+
   <div class="flex-grow flex flex-col items-center justify-center">
     <img
       src="/logos/fli_logo.png"
