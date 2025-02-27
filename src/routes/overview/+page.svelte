@@ -1,14 +1,12 @@
 <script lang="ts">
   // Core icons for navigation and functionality
-  // Remove this line
-  // import Home from "lucide-svelte/icons/home";
   import Menu from "lucide-svelte/icons/menu";
   import Search from "lucide-svelte/icons/search";
-  
+ 
   // Icons for main cards
   import BpIcon from "lucide-svelte/icons/layout-panel-top";
   import Chart from "lucide-svelte/icons/chart-no-axes-combined";
-  import Users from "lucide-svelte/icons/users";
+  import { Handshake } from 'lucide-svelte';
   import { Disc3 } from 'lucide-svelte';
   import FileText from "lucide-svelte/icons/file-text";
   import Box from "lucide-svelte/icons/box";
@@ -19,13 +17,11 @@
   // UI Components
   import * as Avatar from "$lib/components/ui/avatar/index.js";
   import { Badge } from "$lib/components/ui/badge/index.js";
-  import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
   import * as Card from "$lib/components/ui/card/index.js";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import * as Sheet from "$lib/components/ui/sheet/index.js";
-  import * as Table from "$lib/components/ui/table/index.js";
   import LightSwitch from "@/components/ui/light-switch/light-switch.svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
 
@@ -88,6 +84,7 @@
     await goto('/login');
   }
 </script>
+
 
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
@@ -283,71 +280,15 @@
 
 
   <!-- Partners -->
-  <a class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <AlertDialog.Root>
-      <AlertDialog.Trigger class="w-full">
-        <div class="flex items-center gap-4">
-          <Users class="h-6 w-6" />
-          <div>
-            <h2 class="text-xl font-semibold">Partners</h2>
-            <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
-          </div>
-
-        </div>
-      </AlertDialog.Trigger>
-
-      <AlertDialog.Content>
-        <AlertDialog.Header>
-          <AlertDialog.Title>Our Partners</AlertDialog.Title>
-          <AlertDialog.Description>Current active partnerships</AlertDialog.Description>
-        </AlertDialog.Header>
-
-
-
-
-        <div class="overflow-y-auto max-h-[60vh]">
-          <Table.Root>
-            <Table.Header>
-              <Table.Row>
-                <Table.Head>Partner</Table.Head>
-                <Table.Head class="text-right">Type</Table.Head>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {#each partners as partner}
-                <Table.Row>
-
-
-                  <Table.Cell>
-                    <div class="flex items-center space-x-4">
-                      {#if partner.expand?.avatar}
-                        <Avatar.Root class="h-10 w-14 rounded-lg">
-                          <Avatar.Image 
-                            src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
-                            alt={partner.name}
-                          />
-                        </Avatar.Root>
-                      {/if}
-                      <div class="font-medium">{partner.name}</div>
-                    </div>
-                  </Table.Cell>
-                  <Table.Cell class="text-right">
-                    <Badge variant="outline">{partner.type}</Badge>
-                  </Table.Cell>
-                </Table.Row>
-              {/each}
-            </Table.Body>
-          </Table.Root>
-        </div>
-        <AlertDialog.Footer>
-          <AlertDialog.Cancel>
-            <Button variant="outline">Close</Button>
-          </AlertDialog.Cancel>
-        </AlertDialog.Footer>
-      </AlertDialog.Content>
-    </AlertDialog.Root>
-  </a>
-  <!-- Teams -->
+  <a href="/partners" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+    <div class="flex items-center gap-4">
+      <Handshake class="h-6 w-6" />
+      <div>
+        <h2 class="text-xl font-semibold">Partners</h2>
+        <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+      </div>
+    </div>
+  </a>  <!-- Teams -->
   <a href="/teams" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
     <div class="flex items-center gap-4">
       <Disc3 class="h-6 w-6" />
