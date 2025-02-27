@@ -13,16 +13,17 @@
 
   async function fetchSlides() {
     try {
-      const response = await fetch("/api/obstacles");
+      const response = await fetch("/api/obstacles");  // Note: we're using the obstacles endpoint
       const data = await response.json();
+      console.log('Fetched slides:', data);  // Let's see what we're getting
       slides = data.sort((a: any, b: any) => {
         return new Date(b.created).getTime() - new Date(a.created).getTime();
       });
+      console.log('Processed slides:', slides);  // And what we're setting
     } catch (error) {
       console.error("Failed to fetch slides data", error);
     }
-}
-  onMount(fetchSlides);
+}  onMount(fetchSlides);
 
   $: filteredSlides = slides?.filter(slide =>
     slide?.description?.toLowerCase().includes(searchQuery?.toLowerCase() || '') ||
@@ -41,25 +42,49 @@
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6 gap-2">
       <ChartColumnStacked class="h-5 w-5" />
-      <h2 class="font-semibold text-xl">Categories</h2>
+      <h2 class="font-semibold text-xl">Navigation</h2>
     </div>
-    <nav class="flex-1 overflow-y-auto p-4 space-y-4">
+    <nav class="flex-1 overflow-y-auto p-4 space-y-6">
       {#if slides.length}
-        {#each [...new Set(slides.map(s => s.expand?.category?.name))] as categoryName}
-          <div class="category-group">
-            <button
-              class="font-medium text-lg mb-2 hover:text-primary"
-              on:click={() => {
-                const categoryId = slides.find(s => s.expand?.category?.name === categoryName)?.expand?.category?.id;
-                document.getElementById(`slide-category-${categoryId}`)?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              {categoryName}
-            </button>
-          </div>
-        {/each}
+        <!-- Advertising Section -->
+        <div class="type-group">
+          <h3 class="font-medium text-lg mb-3">Advertising</h3>
+          <ul class="space-y-2 ml-4">
+            {#each slides.filter(s => s.type === "Advertising").sort((a, b) => a.name.localeCompare(b.name)) as slide}
+              <li>
+                <button
+                  class="text-sm hover:text-primary text-left w-full truncate"
+                  on:click={() => {
+                    document.getElementById(`slide-${slide.id}`)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {slide.name}
+                </button>
+              </li>
+            {/each}
+          </ul>
+        </div>
+
+        <!-- Obstacles Section -->
+        <div class="type-group">
+          <h3 class="font-medium text-lg mb-3">Obstacles</h3>
+          <ul class="space-y-2 ml-4">
+            {#each slides.filter(s => s.type === "Obstacles").sort((a, b) => a.name.localeCompare(b.name)) as slide}
+              <li>
+                <button
+                  class="text-sm hover:text-primary text-left w-full truncate"
+                  on:click={() => {
+                    document.getElementById(`slide-${slide.id}`)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {slide.name}
+                </button>
+              </li>
+            {/each}
+          </ul>
+        </div>
       {:else}
-        <p class="text-gray-500 text-sm">No categories available.</p>
+        <p class="text-gray-500 text-sm">No slides available.</p>
       {/if}
     </nav>
   </aside>
