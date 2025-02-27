@@ -185,7 +185,7 @@
           <a href="/obstacles" class="text-muted-foreground hover:text-foreground flex items-center gap-4">
             <Pyramid class="h-6 w-6" />
             <div>
-              <h2 class="text-xl font-semibold">Obstacle Course</h2>
+              <h2 class="text-xl font-semibold">Course Detials</h2>
               <p class="text-muted-foreground">Course layout and features</p>
             </div>
           </a>
@@ -374,7 +374,7 @@
       <div class="flex items-center gap-4">
         <Pyramid class="h-6 w-6" />
         <div>
-          <h2 class="text-xl font-semibold">Obstacle Course</h2>
+          <h2 class="text-xl font-semibold">Course Detials</h2>
           <p class="text-muted-foreground">Course layout and features</p>
         </div>
       </div>

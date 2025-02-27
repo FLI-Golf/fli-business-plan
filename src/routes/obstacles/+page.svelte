@@ -45,6 +45,14 @@
       <h2 class="font-semibold text-xl">Navigation</h2>
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-6">
+      <!-- Overview Link -->
+      <a 
+        href="/overview" 
+        class="block font-medium text-lg hover:text-primary"
+      >
+        Overview
+      </a>
+
       {#if slides.length}
         <!-- Advertising Section -->
         <div class="type-group">
@@ -88,7 +96,6 @@
       {/if}
     </nav>
   </aside>
-
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <div class="w-full flex-1 flex items-center gap-4">
@@ -103,9 +110,16 @@
             />
           </div>
         </form>
+        
+        <a
+          href="/overview"
+          class="text-foreground hover:text-foreground transition-colors flex items-center gap-3"
+        >
+          <img src="/logos/fli_logo.png" alt="FLI Logo" class="h-12 w-12" />
+          Overview
+        </a>
       </div>
     </header>
-
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       <Breadcrumb
         items={[
@@ -119,20 +133,20 @@
           <div class="absolute top-1/2 -translate-y-1/2 left-4 z-10">
             <Carousel.Previous />
           </div>
-          
           <Carousel.Content>
             {#each slides as slide (slide.id)}
-              <Carousel.Item id="slide-category-{slide.expand?.category?.id}">
+              <Carousel.Item id="slide-{slide.id}">
                 <div class="p-1">
                   <Card.Root>
                     <Card.Header>
-                      <Card.Title>{slide.expand?.category?.name || 'Uncategorized'}</Card.Title>
+                      <Card.Title>{slide.type}</Card.Title>
+                      <Card.Description>{slide.name}</Card.Description>
                     </Card.Header>
                     <Card.Content>
                       {#if slide.expand?.avatar}
                         <img
                           src={getImageUrl(slide)}
-                          alt={slide.expand?.category?.name}
+                          alt={slide.name}
                           class="w-full h-48 object-cover rounded-md mb-4"
                         />
                       {/if}
@@ -143,7 +157,6 @@
               </Carousel.Item>
             {/each}
           </Carousel.Content>
-          
           <div class="absolute top-1/2 -translate-y-1/2 right-4 z-10">
             <Carousel.Next />
           </div>
