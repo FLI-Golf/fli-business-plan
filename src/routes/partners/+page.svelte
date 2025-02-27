@@ -7,32 +7,33 @@
   import { Handshake } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import { pb } from '$lib/pocketbase';
+  import { Badge } from "$lib/components/ui/badge";
 
   let partners: any[] = [];
   let selectedCategory = "Partner";
   let searchQuery = "";
   let showBackToTop = false;
   let isMobileMenuOpen = false;
-
-  async function fetchPartners() {
-    try {
-      const response = await fetch('/api/partners');
-      const data = await response.json();
-      partners = data.partners;
-      console.log("Full partner data:", data.partners[0]);
-      console.log("Collection ID:", data.partners[0]?.collectionId);
-      console.log("Avatar field:", data.partners[0]?.avatar);
-    } catch (error) {
-      console.error("Failed to fetch partners data", error);
-    }
-  }
-
   $: getImageUrl = (partner) => {
     if (partner?.expand?.avatar) {
       return `https://few-likely.pockethost.io/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`;
     }
     return null;
   };
+
+  async function fetchPartners() {
+    try {
+      const response = await pb.collection('partners').getList(1, 50, {
+        expand: 'avatar',
+        sort: '-created'
+      });
+      partners = response.items;
+      console.log("Partners loaded:", partners);
+    } catch (error) {
+      console.error("Failed to fetch partners data", error);
+    }
+  }
+  
 
   function handleScroll() {
     showBackToTop = window.scrollY > 300;
@@ -80,7 +81,6 @@
       </div>
     </nav>
   </aside>
-
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <button
@@ -122,32 +122,30 @@
         ]}
       />
       {#if partners.length}
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
           {#each filteredPartners as partner}
-            <div class="bg-muted/40 p-4 rounded-lg flex flex-col gap-3">
-              <div class="flex items-center gap-3">
+            <div class="bg-card border-2 border-primary rounded-lg p-6 shadow-lg">
+              <div class="flex flex-col items-center gap-6">
                 {#if partner.expand?.avatar}
                   <img
-                    src={getImageUrl(partner)}
+                    src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
                     alt={partner.name}
-                    class="h-12 w-12 rounded-full object-cover"
+                    class="w-48 h-48 object-cover"
                   />
                 {/if}
-                <div>
-                  <h2 class="text-xl font-semibold">{partner.name}</h2>
-                  <p class="text-sm text-muted-foreground capitalize">{partner.type}</p>
+                <div class="text-center space-y-3">
+                  <h2 class="text-2xl font-bold">{partner.name}</h2>
+                  <Badge variant="outline">{partner.type}</Badge>
+                  <a 
+                    href={partner.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="text-primary hover:underline"
+                  >
+                    Visit Website
+                  </a>
                 </div>
               </div>
-              {#if partner.website}
-                <a 
-                  href={partner.website}
-                  target="_blank"
-                  rel="noopener noreferrer" 
-                  class="text-sm text-blue-400 hover:underline"
-                >
-                  {partner.website}
-                </a>
-              {/if}
             </div>
           {/each}
         </div>
@@ -202,3 +200,4 @@
     </nav>
   </div>
 {/if}
+
