@@ -7,7 +7,7 @@ const pb = new PocketBase('https://few-likely.pockethost.io');
 export const GET: RequestHandler = async () => {
     const records = await pb.collection('slides').getFullList({
         sort: '-created',
-        expand: 'avatar'
+        expand: 'slide_image'
     });
 
     return json(records);

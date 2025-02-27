@@ -13,17 +13,19 @@
 
   async function fetchSlides() {
     try {
-      const response = await fetch("/api/obstacles");  // Note: we're using the obstacles endpoint
+      const response = await fetch("/api/obstacles");
       const data = await response.json();
-      console.log('Fetched slides:', data);  // Let's see what we're getting
+      console.log('Fetched slides:', data);
       slides = data.sort((a: any, b: any) => {
         return new Date(b.created).getTime() - new Date(a.created).getTime();
       });
-      console.log('Processed slides:', slides);  // And what we're setting
+      console.log('Processed slides:', slides);
     } catch (error) {
       console.error("Failed to fetch slides data", error);
     }
-}  onMount(fetchSlides);
+  }
+  
+  onMount(fetchSlides);
 
   $: filteredSlides = slides?.filter(slide =>
     slide?.description?.toLowerCase().includes(searchQuery?.toLowerCase() || '') ||
@@ -31,8 +33,8 @@
   );
 
   $: getImageUrl = (slide: any) => {
-    if (slide?.expand?.avatar) {
-      return `https://few-likely.pockethost.io/api/files/${slide.expand.avatar.collectionId}/${slide.expand.avatar.id}/${slide.expand.avatar.image}`;
+    if (slide?.expand?.slide_ref) {
+      return `https://few-likely.pockethost.io/api/files/${slide.expand.slide_ref.collectionId}/${slide.expand.slide_ref.id}/${slide.expand.slide_ref.slideImage}`;
     }
     return null;
   };
@@ -96,6 +98,7 @@
       {/if}
     </nav>
   </aside>
+
   <div class="flex flex-col">
     <header class="bg-muted/40 flex h-14 items-center gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <div class="w-full flex-1 flex items-center gap-4">
@@ -120,6 +123,7 @@
         </a>
       </div>
     </header>
+
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       <Breadcrumb
         items={[
@@ -143,7 +147,7 @@
                       <Card.Description>{slide.name}</Card.Description>
                     </Card.Header>
                     <Card.Content>
-                      {#if slide.expand?.avatar}
+                      {#if slide.slide_ref}
                         <img
                           src={getImageUrl(slide)}
                           alt={slide.name}
@@ -156,8 +160,7 @@
                 </div>
               </Carousel.Item>
             {/each}
-          </Carousel.Content>
-          <div class="absolute top-1/2 -translate-y-1/2 right-4 z-10">
+          </Carousel.Content>          <div class="absolute top-1/2 -translate-y-1/2 right-4 z-10">
             <Carousel.Next />
           </div>
         </Carousel.Root>
