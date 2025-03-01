@@ -48,14 +48,7 @@
     </div>
     <nav class="flex-1 overflow-y-auto p-4 space-y-6">
       <!-- Overview Link -->
-      <a 
-        href="/overview" 
-        class="block font-medium text-lg hover:text-primary"
-      >
-        Overview
-      </a>
-
-      {#if slides.length}
+  {#if slides.length}
         <!-- Advertising Section -->
         <div class="type-group">
           <h3 class="font-medium text-lg mb-3">Advertising</h3>
@@ -132,7 +125,7 @@
         ]}
       />
 
-      <div class="w-full p-4 relative max-w-2xl mx-auto">
+      <div class="w-full p-4 relative max-w-xl mx-auto">
         <Carousel.Root class="w-full">
           <div class="absolute top-1/2 -translate-y-1/2 left-4 z-10">
             <Carousel.Previous />
