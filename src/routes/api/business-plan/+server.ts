@@ -5,10 +5,20 @@ import type { BusinessPlan, Section, Subsection } from '$lib/types';
 
 const POCKETBASE_URL = 'https://few-likely.pockethost.io';
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ request, url }) => {
     try {
         const pb = new PocketBase(POCKETBASE_URL);
         
+        // Get the auth token and load it into PocketBase
+        const authHeader = request.headers.get('Authorization');
+        if (authHeader) {
+            const token = authHeader.replace('Bearer ', '');
+            pb.authStore.save(token);
+        }
+
+        console.log("✅ DEBUG: API Auth Status:", pb.authStore.isValid);
+        console.log("✅ DEBUG: API Current User:", pb.authStore.model);
+
         // Get all plans
         const plans = await pb.collection('business_plan').getFullList<BusinessPlan>(500, {
             sort: '-created'
@@ -55,8 +65,34 @@ export const GET: RequestHandler = async ({ url }) => {
             sections: sectionsWithSubsections
         });
 
-    } catch (error: any) {
-        console.error("❌ ERROR: Fetching data failed:", error.message);
+    } catch (error: unknown) {
+        console.error("❌ ERROR: Fetching data failed:", error instanceof Error ? error.message : String(error));
         return json({ error: 'Failed to fetch data' }, { status: 500 });
     }
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const fetchBusinessPlanDocs = async (pb: any) => {
+    try {
+      // First verify we have a valid auth token
+      if (!pb.authStore.isValid) {
+        throw new Error('Not authenticated');
+      }
+
+      const response = await fetch('/api/business-plan', {
+        headers: {
+          'Authorization': pb.authStore.token
+        }
+      });
+
+      console.log("✅ DEBUG: Auth Token:", pb.authStore.token);
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log("✅ DEBUG: Auth Status:", pb.authStore.isValid);
+      console.log("✅ DEBUG: Current User:", pb.authStore.model);
+      throw error;
+    }
+  };
+  

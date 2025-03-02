@@ -9,7 +9,7 @@
   import Section from "$lib/components/ui/Section.svelte";
   import { Home, Scale } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
-
+  import { pb } from '$lib/pocketbase';
 
   let legalDocs = null;
   let sections = [];
@@ -17,27 +17,28 @@
   let currentHash = "";
   let showBackToTop = false;
   let isMobileMenuOpen = false;
-
-
+  let isAuthenticated = pb.authStore.isValid;
+  let userData = pb.authStore.model;
 
   async function fetchLegalDocs() {
     console.log("Fetching legal documents...");
     try {
-      const response = await fetch('/api/legal');
+      const response = await fetch('/api/business-plan?type=Legal', {
+        headers: {
+          'Authorization': `Bearer ${pb.authStore.token}`
+        }
+      });
       const data = await response.json();
       
-      legalDocs = data.legalDocs;
+      legalDocs = data.businessPlan;
       sections = data.sections;
 
-
-
-
+      console.log("✅ DEBUG: Current User:", userData);
       console.log("✅ Legal Documents Updated!");
     } catch (error) {
       console.error("❌ ERROR: Failed to fetch legal documents", error);
     }
   }
-
 
   function updateHash() {
     currentHash = window.location.hash.slice(1);
@@ -60,7 +61,9 @@
   }
 
   onMount(() => {
-    fetchLegalDocs();
+    if (isAuthenticated) {
+      fetchLegalDocs();
+    }
     updateHash();
     window.addEventListener("hashchange", updateHash);
     window.addEventListener("scroll", handleScroll);
@@ -80,6 +83,7 @@
     }))
     .filter(section => section.subsections.length > 0 || !searchQuery);
 </script>
+
 
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
   <!-- Rest of the template remains the same, just replace businessPlan with legalDocs -->
