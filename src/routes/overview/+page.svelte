@@ -130,7 +130,7 @@
             <Users class="h-6 w-6" />
             <div>
               <h2 class="text-xl font-semibold">Partners</h2>
-              <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+              <p class="text-muted-foreground">{partners.length} Current & Pending</p>
             </div>
           </div>
 
@@ -285,7 +285,7 @@
       <Handshake class="h-6 w-6" />
       <div>
         <h2 class="text-xl font-semibold">Partners</h2>
-        <p class="text-muted-foreground">{partners.length} Current active partnerships</p>
+        <p class="text-muted-foreground">{partners.length} Current & Pending</p>
       </div>
     </div>
   </a>  <!-- Teams -->
