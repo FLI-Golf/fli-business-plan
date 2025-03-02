@@ -131,7 +131,7 @@ async function fetchSlides() {
         ]}
       />
 
-      <div class="w-full p-4 relative max-w-xl mx-auto">
+      <div class="w-full p-4 relative max-w-3xl mx-auto">
         <Carousel.Root class="w-full">
           <div class="absolute top-1/2 -translate-y-1/2 left-4 z-10">
             <Carousel.Previous />
@@ -150,7 +150,7 @@ async function fetchSlides() {
                         <img
                           src={getImageUrl(slide)}
                           alt={slide.name}
-                          class="w-full h-48 object-cover rounded-md mb-4"
+                          class="w-full h-72 object-cover rounded-md mb-4"
                         />
                       {/if}
                       {@html slide.description}

@@ -40,10 +40,11 @@
             class="flex items-center gap-4 w-full hover:bg-muted p-2 rounded-lg transition-colors"
             on:click={() => viewPartnerDetails(partner)}
           >
+            <!-- List view avatar -->
             <img
               src={partner.expand?.avatar ? pb.files.getUrl(partner.expand.avatar, partner.expand.avatar.avatar) : '/placeholder-avatar.png'}
               alt={partner.name}
-              class="h-10 w-10 rounded-full object-cover"
+              class="h-3 w-3 rounded-full object-cover"
             />
             <div class="text-left">
               <p class="font-medium leading-none">{partner.name}</p>
@@ -65,7 +66,7 @@
               <img
                 src={selectedPartner.expand?.avatar ? pb.files.getUrl(selectedPartner.expand.avatar, selectedPartner.expand.avatar.avatar) : '/placeholder-avatar.png'}
                 alt={selectedPartner.name}
-                class="h-24 w-24 rounded-full object-cover mx-auto"
+                class="h-16 w-16 lg:h-12 lg:w-12 rounded-full object-cover mx-auto"
               />
               <div class="text-center">
                 <h3 class="text-lg font-semibold">{selectedPartner.name}</h3>

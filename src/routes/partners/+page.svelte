@@ -17,7 +17,7 @@
 
   $: getImageUrl = (partner) => {
     if (partner?.expand?.avatar) {
-      return `https://few-likely.pockethost.io/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`;
+      return `${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`;
     }
     return null;
   };
@@ -36,9 +36,9 @@
   }
 
   function handleScroll() {
-    showBackToTop = window.scrollY > 300;
+    showBackToTop = window.scrollY > 100; // Lowered from 300 to 100
+    console.log("Scroll position:", window.scrollY, "Show button:", showBackToTop);
   }
-
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -51,8 +51,8 @@
 
   $: filteredPartners = partners.filter(partner =>
     partner.name?.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (partner.categories === selectedCategory || 
-     (selectedCategory === 'Pending Venues' && partner.categories === 'Pending Venue'))
+    (partner.categories === selectedCategory ||
+     (selectedCategory === 'Pending Venue' && partner.categories === 'Pending Venue'))
   );
 </script>
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
@@ -136,7 +136,7 @@
                   <img
                     src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
                     alt={partner.name}
-                    class="w-38 h-24 object-cover"
+                    class="w-18 h-18 object-cover"
                   />
                 {/if}
                 <div class="text-center space-y-3">
@@ -207,3 +207,16 @@
   </div>
 {/if}
 
+
+{#if showBackToTop}
+  <button
+    class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
+    on:click={scrollToTop}
+  >
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m18 15-6-6-6 6"/></svg>
+      Back to top
+    </div>
+    <img src="/logos/fli_logo.png" alt="Back to top" class="h-14 w-14" />
+  </button>
+{/if}
