@@ -14,6 +14,7 @@
   let searchQuery = "";
   let showBackToTop = false;
   let isMobileMenuOpen = false;
+
   $: getImageUrl = (partner) => {
     if (partner?.expand?.avatar) {
       return `https://few-likely.pockethost.io/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`;
@@ -33,7 +34,6 @@
       console.error("Failed to fetch partners data", error);
     }
   }
-  
 
   function handleScroll() {
     showBackToTop = window.scrollY > 300;
@@ -51,32 +51,38 @@
 
   $: filteredPartners = partners.filter(partner =>
     partner.name?.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    partner.categories === selectedCategory
+    (partner.categories === selectedCategory || 
+     (selectedCategory === 'Pending Venues' && partner.categories === 'Pending Venue'))
   );
 </script>
-
-
 <div class="grid min-h-screen w-full md:grid-cols-[280px_1fr]">
   <aside class="bg-muted/40 border-r hidden md:flex flex-col">
     <div class="h-14 border-b px-4 flex items-center lg:px-6">
       <div class="flex items-center gap-2">
         <Handshake class="h-5 w-5" />
-        <h2 class="font-semibold text-xl">Partners</h2>
+        <h2 class="font-semibold text-xl">Partners & Venues</h2>
       </div>
     </div>
+    <!-- Single Desktop Navigation -->
     <nav class="flex-1 overflow-y-auto p-4">
       <div class="space-y-2">
-        <button 
+        <button
           class={`block w-full px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition ${selectedCategory === 'Partner' ? 'bg-muted' : ''}`}
           on:click={() => selectedCategory = 'Partner'}
         >
           Partners
         </button>
-        <button 
+        <button
           class={`block w-full px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition ${selectedCategory === 'Pendending Partner' ? 'bg-muted' : ''}`}
           on:click={() => selectedCategory = 'Pendending Partner'}
         >
           Pending Partners
+        </button>
+        <button
+          class={`block w-full px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition ${selectedCategory === 'Pending Venues' ? 'bg-muted' : ''}`}
+          on:click={() => selectedCategory = 'Pending Venue'}
+        >
+          Pending Venues
         </button>
       </div>
     </nav>

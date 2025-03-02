@@ -129,8 +129,8 @@
           <div class="text-muted-foreground hover:text-foreground flex items-center gap-4">
             <Users class="h-6 w-6" />
             <div>
-              <h2 class="text-xl font-semibold">Partners</h2>
-              <p class="text-muted-foreground">{partners.length} Current & Pending</p>
+              <h2 class="text-xl font-semibold">Partners & Venues</h2>
+              <p class="text-muted-foreground">{partners.length} Current & Pending Partners & Venues</p>
             </div>
           </div>
 
@@ -284,8 +284,8 @@
     <div class="flex items-center gap-4">
       <Handshake class="h-6 w-6" />
       <div>
-        <h2 class="text-xl font-semibold">Partners</h2>
-        <p class="text-muted-foreground">{partners.length} Current & Pending</p>
+        <h2 class="text-xl font-semibold">Partners & Venues</h2>
+        <p class="text-muted-foreground">Partners & Potential Venues</p>
       </div>
     </div>
   </a>  <!-- Teams -->
