@@ -10,11 +10,10 @@
   interface FAQ {
     id: string;
     question: string;
+    new_answer: string;
     answer: string;
     order: number;
-  }
-
-  export let data: { faqs: FAQ[] };
+}  export let data: { faqs: FAQ[] };
   let searchQuery = "";
   let isMobileMenuOpen = false;
   let showBackToTop = false;
@@ -34,7 +33,7 @@
 
   $: filteredFaqs = data.faqs.filter(faq => 
     faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+    faq.new_answer.toLowerCase().includes(searchQuery.toLowerCase())
   );
 </script>
 
@@ -106,7 +105,7 @@
               {faq.question}
             </AccordionTrigger>
             <AccordionContent>
-              {faq.answer}
+              {@html faq.new_answer}
             </AccordionContent>
           </AccordionItem>
         {/each}

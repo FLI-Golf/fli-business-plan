@@ -42,13 +42,6 @@
   </div>
 
   <AlertDialog.Root>
-    <AlertDialog.Trigger>
-      <Button size="sm" class="gap-1">
-        View All
-        <ArrowUpRight class="h-4 w-4" />
-      </Button>
-    </AlertDialog.Trigger>
-
     <AlertDialog.Content class="sm:max-w-[800px]">
       <AlertDialog.Header>
         <AlertDialog.Title>Our Broadcasting Team</AlertDialog.Title>
