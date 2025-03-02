@@ -177,9 +177,6 @@
           ]} />
       {#if legalDocs}
         <h1 class="text-2xl font-bold">{legalDocs.name}</h1>
-        <p class="text-sm text-gray-500">
-          Version {legalDocs.version} | Updated: {new Date(legalDocs.updated).toLocaleDateString()}
-        </p>
 
         {#each filteredSections as section}
           <Section id={`section-${section.id}`} {section} />
