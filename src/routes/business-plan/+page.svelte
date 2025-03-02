@@ -10,7 +10,7 @@
   import { Home } from "lucide-svelte";
   import BpIcon from "lucide-svelte/icons/layout-panel-top";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
-  
+  import { pb } from '$lib/pocketbase';
 
   let businessDocs = null;
   let sections = [];
@@ -22,7 +22,11 @@
   async function fetchBusinessPlanDocs() {
     console.log("Fetching business-plan documents...");
     try {
-      const response = await fetch('/api/business-plan');
+        const response = await fetch('/api/business-plan', {
+            headers: {
+                'Authorization': `Bearer ${pb.authStore.token}`
+            }
+        });
       const data = await response.json();
       
       // Update to match the API response structure
@@ -76,6 +80,8 @@
     updateHash();
     window.addEventListener("hashchange", updateHash);
     window.addEventListener("scroll", handleScroll);
+    const currentUser = pb.authStore.model;
+    console.log("✅ DEBUG: Current User in Business Plan:", currentUser);
     return () => {
       window.removeEventListener("hashchange", updateHash);
       window.removeEventListener("scroll", handleScroll);
