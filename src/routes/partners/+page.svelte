@@ -130,7 +130,7 @@
                   <img
                     src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
                     alt={partner.name}
-                    class="w-48 h-48 object-cover"
+                    class="w-38 h-24 object-cover"
                   />
                 {/if}
                 <div class="text-center space-y-3">
