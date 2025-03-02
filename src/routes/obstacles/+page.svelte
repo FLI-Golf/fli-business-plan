@@ -6,25 +6,31 @@
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import * as Card from "$lib/components/ui/card";
   import * as Carousel from "$lib/components/ui/carousel";
+  import { pb } from '$lib/pocketbase';
 
   let slides = [];
   let searchQuery = "";
   let isMobileMenuOpen = false;
 
-  async function fetchSlides() {
-    try {
-      const response = await fetch("/api/obstacles");
-      const data = await response.json();
-      console.log('Fetched slides:', data);
-      slides = data.sort((a: any, b: any) => {
-        return new Date(b.created).getTime() - new Date(a.created).getTime();
-      });
-      console.log('Processed slides:', slides);
-    } catch (error) {
-      console.error("Failed to fetch slides data", error);
+
+async function fetchSlides() {
+  try {
+    console.log("🔄 Fetching slides...");
+    const response = await fetch("/api/slides", {
+      headers: {
+        'Authorization': `Bearer ${pb.authStore.token}`
+      }
+    });
+    const data = await response.json();
+    slides = data.slides;
+  } catch (error) {
+    console.error("❌ Fetch error:", error);
+    if (error.status === 401) {
+      goto('/login');
     }
   }
-  
+}
+
   onMount(fetchSlides);
 
   $: filteredSlides = slides?.filter(slide =>
