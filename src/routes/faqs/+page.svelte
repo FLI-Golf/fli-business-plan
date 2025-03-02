@@ -6,17 +6,53 @@
   import { Input } from "$lib/components/ui/input";
   import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "$lib/components/ui/accordion";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
-
-  interface FAQ {
+  import { pb } from '$lib/pocketbase';
+  interface Section {
     id: string;
-    question: string;
-    new_answer: string;
-    answer: string;
+    title: string;
     order: number;
-}  export let data: { faqs: FAQ[] };
+    business_plan: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    updated: string;
+  }
+
+  interface Subsection {
+    id: string;
+    title: string;
+    content: string;
+    order: number;
+    section: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    updated: string;
+  }
+
+  let faqs: Section[] = [];
   let searchQuery = "";
   let isMobileMenuOpen = false;
   let showBackToTop = false;
+  let isAuthenticated = pb.authStore.isValid;
+
+  async function fetchFaqs() {
+    const response = await fetch('/api/business-plan?type=FAQs', {
+      headers: {
+        'Authorization': `Bearer ${pb.authStore.token}`
+      }
+    });
+    const data = await response.json();
+    faqs = data.sections;
+  }
+
+  onMount(async () => {
+    if (isAuthenticated) {
+      await fetchFaqs();
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   function handleScroll() {
     showBackToTop = window.scrollY > 300;
@@ -26,14 +62,12 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  onMount(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
-
-  $: filteredFaqs = data.faqs.filter(faq => 
-    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    faq.new_answer.toLowerCase().includes(searchQuery.toLowerCase())
+  $: filteredFaqs = faqs.filter(section => 
+    section.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    section.subsections.some(subsection => 
+      subsection.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      subsection.content.toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 </script>
 
@@ -50,7 +84,7 @@
 
     <nav class="flex-1 overflow-y-auto p-4">
       <div class="space-y-2">
-        {#each data.faqs as faq}
+        {#each faqs as faq}
           <a href={`#faq-${faq.id}`} class="block px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition">
             {faq.question}
           </a>
