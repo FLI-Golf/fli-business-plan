@@ -9,6 +9,7 @@
   import { Handshake } from 'lucide-svelte';
   import { Disc3 } from 'lucide-svelte';
   import FileText from "lucide-svelte/icons/file-text";
+  import { Globe } from 'lucide-svelte';
   import Box from "lucide-svelte/icons/box";
   import { Pyramid } from 'lucide-svelte';
   import Scale from "lucide-svelte/icons/scale";
@@ -408,6 +409,18 @@
       </div>
     </a>
   </div>
+  <!-- Global (Full Width) -->
+<div class="mt-4">
+  <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground col-span-full flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <Globe class="h-6 w-6" />
+      <div>
+        <h2 class="text-xl font-semibold">Global Overview</h2>
+        <p class="text-muted-foreground">International expansion and growth</p>
+      </div>
+    </div>
+  </a>
+</div>
 
   <!-- Three-column layout for team cards -->
   <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
