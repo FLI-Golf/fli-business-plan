@@ -136,7 +136,7 @@
             <Play class="h-4 w-4" />
             Play Honor March
           </Button>
-          <audio id="honorMarch" src="/audio/Lets Fly_ Honor March.m4a" />
+          <audio id="honorMarch" controls src="/audio/Lets Fly_ Honor March.m4a" />
         </div>
 
         <div id="section-2" class="space-y-4">
@@ -149,7 +149,7 @@
             <Play class="h-4 w-4" />
             Play Lift Off
           </Button>
-          <audio id="liftOff" src="/audio/Lets Fly_ Lift Off.m4a" />
+          <audio id="liftOff" controls src="/audio/Lets Fly_ Lift Off.m4a" />
         </div>
 
         <div id="section-3" class="space-y-4">
@@ -162,11 +162,10 @@
             <Play class="h-4 w-4" />
             Play March
           </Button>
-          <audio id="march" src="/audio/Lets Fly_ March.m4a" />
+          <audio id="march" controls src="/audio/Lets Fly_ March.m4a" />
         </div>
       </div>
-    </main>  </div>
-</div>
+    </main>  </div></div>
 
 {#if showBackToTop}
   <button
