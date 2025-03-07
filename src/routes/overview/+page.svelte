@@ -14,6 +14,7 @@
   import { Pyramid } from 'lucide-svelte';
   import Scale from "lucide-svelte/icons/scale";
   import HelpCircle from "lucide-svelte/icons/help-circle";
+  import { AudioLines } from 'lucide-svelte';
 
   // UI Components
   import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -409,14 +410,24 @@
       </div>
     </a>
   </div>
-  <!-- Global (Full Width) -->
-<div class="mt-4">
-  <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground col-span-full flex justify-center text-center">
+<!-- Global and Theme Songs (Full Width) -->
+<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-2">
+  <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
       <Globe class="h-6 w-6" />
       <div>
         <h2 class="text-xl font-semibold">Global Overview</h2>
         <p class="text-muted-foreground">International expansion and growth</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="/songs" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <AudioLines class="h-6 w-6" />
+      <div>
+        <h2 class="text-xl font-semibold">Theme Songs</h2>
+        <p class="text-muted-foreground">Listen to FLI's official music</p>
       </div>
     </div>
   </a>
