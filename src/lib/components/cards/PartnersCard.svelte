@@ -1,4 +1,4 @@
-<script lang="ts">
+Dialog avatarselectedPartner<script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
   import { Button } from "$lib/components/ui/button/index.js";
 
@@ -66,7 +66,7 @@
               <img
                 src={selectedPartner.expand?.avatar ? pb.files.getUrl(selectedPartner.expand.avatar, selectedPartner.expand.avatar.avatar) : '/placeholder-avatar.png'}
                 alt={selectedPartner.name}
-                class="h-16 w-16 lg:h-12 lg:w-12 rounded-full object-cover mx-auto"
+                class="h14 w-28 lg:h-12 lg:w-12 object-cover mx-auto"
               />
               <div class="text-center">
                 <h3 class="text-lg font-semibold">{selectedPartner.name}</h3>
