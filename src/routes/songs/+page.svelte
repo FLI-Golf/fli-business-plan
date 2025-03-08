@@ -128,40 +128,16 @@
       <div class="space-y-8 max-w-4xl">
         <div id="section-1" class="space-y-4">
           <h2 class="text-2xl font-bold">Let's FLI Honor March</h2>
-          <Button 
-            variant="outline" 
-            class="flex items-center gap-2"
-            on:click={() => document.getElementById('honorMarch').play()}
-          >
-            <Play class="h-4 w-4" />
-            Play Honor March
-          </Button>
           <audio id="honorMarch" controls src="/audio/Lets Fly_ Honor March.m4a" />
         </div>
 
         <div id="section-2" class="space-y-4">
           <h2 class="text-2xl font-bold">Let's FLI Lift Off</h2>
-          <Button 
-            variant="outline" 
-            class="flex items-center gap-2"
-            on:click={() => document.getElementById('liftOff').play()}
-          >
-            <Play class="h-4 w-4" />
-            Play Lift Off
-          </Button>
           <audio id="liftOff" controls src="/audio/Lets Fly_ Lift Off.m4a" />
         </div>
 
         <div id="section-3" class="space-y-4">
           <h2 class="text-2xl font-bold">Let's FLI March</h2>
-          <Button 
-            variant="outline" 
-            class="flex items-center gap-2"
-            on:click={() => document.getElementById('march').play()}
-          >
-            <Play class="h-4 w-4" />
-            Play March
-          </Button>
           <audio id="march" controls src="/audio/Lets Fly_ March.m4a" />
         </div>
       </div>

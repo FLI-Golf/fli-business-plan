@@ -15,16 +15,8 @@
   let showBackToTop = false;
   let isMobileMenuOpen = false;
 
-  $: getImageUrl = (partner) => {
-    if (partner?.expand?.avatar) {
-      return `${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`;
-    }
-    return null;
-  };
-
   async function fetchPartners() {
-    try {
-      const response = await pb.collection('partners').getList(1, 50, {
+    try {      const response = await pb.collection('partners').getList(1, 50, {
         expand: 'avatar',
         sort: '-created'
       });
@@ -128,23 +120,23 @@
         ]}
       />
       {#if partners.length}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
           {#each filteredPartners as partner}
-            <div class="bg-card border-2 border-primary rounded-lg p-6 shadow-lg">
-              <div class="flex flex-col items-center gap-6">
+            <div class="bg-card border-2 border-primary rounded-lg p-4 shadow-lg">
+              <div class="flex flex-col items-center gap-4">
                 {#if partner.expand?.avatar}
                   <img
                     src={`${pb.baseUrl}/api/files/${partner.expand.avatar.collectionId}/${partner.expand.avatar.id}/${partner.expand.avatar.image}`}
                     alt={partner.name}
-                    class="w-18 h-18 object-cover"
+                    class="w-32 h-18 object-cover"
                   />
                 {/if}
-                <div class="text-center space-y-3">
+                <div class="text-center space-y-2.5">
                   <h2 class="text-2xl font-bold">{partner.name}</h2>
                   <Badge variant="outline">{partner.type}</Badge>
-                  <a 
-                    href={partner.website} 
-                    target="_blank" 
+                  <a
+                    href={partner.website}
+                    target="_blank"
                     rel="noopener noreferrer"
                     class="text-primary hover:underline"
                   >
