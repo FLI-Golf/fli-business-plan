@@ -70,7 +70,7 @@
 
       const recordsBroadcasters = await pb.collection('broadcaster').getList(1, 50, {
         expand: 'avatar',
-        sort: '-created'
+        sort: 'order'
       });
       broadcasters = recordsBroadcasters.items;
 

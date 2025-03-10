@@ -122,7 +122,6 @@
         </a>
       </div>
     </header>
-
     <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       <Breadcrumb
         items={[
@@ -130,6 +129,10 @@
           { label: 'Investment', href: '/investment' }
         ]}
       />
+
+      <h1 class="text-4xl font-bold text-center mb-6">
+        An Exciting New Era in Disc Golf & Sports Entertainment
+      </h1>
 
       {#if filteredRecords.length}
         {#each filteredRecords as record}
