@@ -7,7 +7,7 @@
   import BpIcon from "lucide-svelte/icons/layout-panel-top";
   import Chart from "lucide-svelte/icons/chart-no-axes-combined";
   import { Handshake } from 'lucide-svelte';
-  import { Disc3 } from 'lucide-svelte';
+  import { Disc3, DollarSign } from 'lucide-svelte';
   import FileText from "lucide-svelte/icons/file-text";
   import { Globe } from 'lucide-svelte';
   import Box from "lucide-svelte/icons/box";
@@ -70,7 +70,7 @@
 
       const recordsBroadcasters = await pb.collection('broadcaster').getList(1, 50, {
         expand: 'avatar',
-        sort: '-created'
+        sort: 'order'
       });
       broadcasters = recordsBroadcasters.items;
 
@@ -410,14 +410,24 @@
       </div>
     </a>
   </div>
-<!-- Global and Theme Songs (Full Width) -->
-<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-2">
+<!-- Global, Investment and Theme Songs (Full Width) -->
+<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
   <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
       <Globe class="h-6 w-6" />
       <div>
         <h2 class="text-xl font-semibold">Global Overview</h2>
         <p class="text-muted-foreground">International expansion and growth</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="/investment" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <DollarSign class="h-6 w-6" />
+      <div>
+        <h2 class="text-xl font-semibold">Investment</h2>
+        <p class="text-muted-foreground">10 Sections</p>
       </div>
     </div>
   </a>
@@ -432,7 +442,6 @@
     </div>
   </a>
 </div>
-
   <!-- Three-column layout for team cards -->
   <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
     <!-- Team cards -->
