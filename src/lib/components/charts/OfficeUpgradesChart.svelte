@@ -25,19 +25,19 @@
     },
     {
       year: '2025/2026',
-      category: 'Scottsdale',
+      category: 'San Diego',
       value: 30000,
       explanation: 'Full office furniture staging for professional hosting'
     },
     {
       year: '2027',
-      category: 'Scottsdale',
+      category: 'San Diego',
       value: 5000,
       explanation: 'Office maintenance and updates'
     },
     {
       year: '2028',
-      category: 'Scottsdale',
+      category: 'San Diego',
       value: 5000,
       explanation: 'Continued office improvements'
     },

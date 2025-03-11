@@ -12,8 +12,8 @@
       values: [286000, 300300, 315315]
     },
     {
-      category: "Consultants",
-      values: [800000, 800000, 800000]
+      category: "Gambling Licensing",
+      values: [800000, 200000, 200000]
     }
   ];
 
@@ -72,7 +72,7 @@ expenseData.forEach((category, i) => {
         .duration(200)
         .style("opacity", 0.9)
         .style("background-color", color(category.category));
-      tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${currentYear}<br/>Revenue: $${d3.format(",.0f")(d)}</div>`)
+      tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${currentYear}<br/>Expense: $${d3.format(",.0f")(d)}</div>`)
         .style("left", (event.pageX + 10) + "px")
         .style("top", (event.pageY - 28) + "px");
     })

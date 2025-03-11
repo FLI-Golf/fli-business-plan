@@ -16,7 +16,7 @@
       explanation: 'Studio in San Diego for producing content and managing broadcasting needs'
     },
     {
-      category: 'Scottsdale',
+      category: 'San Diego',
       value: 48000,
       explanation: 'Office overseeing course buildout and local sponsor acquisition'
     },

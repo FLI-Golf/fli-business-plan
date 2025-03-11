@@ -27,13 +27,13 @@
       year: '2025/2026',
       category: 'Rooms',
       value: 100000,
-      explanation: 'Flat rate agreement with Chicken Ranch'
+      explanation: 'Flat rate arrangment'
     },
     {
       year: '2027',
       category: 'Rooms',
       value: 100000,
-      explanation: 'Continued flat rate agreement'
+      explanation: 'Continued flat rate arrangment'
     },
     {
       year: '2028',
@@ -57,7 +57,7 @@
       year: '2028',
       category: 'Car',
       value: 50000,
-      explanation: 'Maintained car service agreement'
+      explanation: 'Maintained car service arrangment'
     },
     {
       year: '2025/2026',

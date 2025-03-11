@@ -45,7 +45,7 @@
       year: '2025/2026',
       category: 'Relocation',
       value: 40000,
-      explanation: 'One-time Relocation to Scottsdale'
+      explanation: 'One-time Relocation to San Diego'
     },
     {
       year: '2027',
