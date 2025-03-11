@@ -68,12 +68,18 @@ revenueData.forEach((category, i) => {
     .attr("width", barWidth)
     .attr("height", d => height - margin.bottom - y(d))
     .attr("fill", color(category.category))
-    .on("mouseover", function(event, d) {
+
+
+
+    .on("mouseover", function(event, d, j) {
+      const yearIndex = this.getAttribute('x').indexOf(years[0]);
+      const currentYear = years[Math.floor((this.x.baseVal.value - margin.left) / x.step())];
       d3.select(this).style("opacity", 0.8);
       tooltip.transition()
         .duration(200)
-        .style("opacity", 0.9);
-      tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Revenue: ${d3.format(",.0f")(d)}</div>`)
+        .style("opacity", 0.9)
+        .style("background-color", color(category.category));
+      tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${currentYear}<br/>Revenue: $${d3.format(",.0f")(d)}</div>`)
         .style("left", (event.pageX + 10) + "px")
         .style("top", (event.pageY - 28) + "px");
     })
@@ -83,8 +89,7 @@ revenueData.forEach((category, i) => {
         .duration(500)
         .style("opacity", 0);
     });
-});
-    // Add axes
+});    // Add axes
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x));

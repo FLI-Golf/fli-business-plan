@@ -60,7 +60,7 @@
           tooltip.transition()
             .duration(200)
             .style("opacity", 0.9);
-          tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Revenue: ${d3.format(",.0f")(d)}</div>`)
+          tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Revenue: $${d3.format(",.0f")(d)}</div>`)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px");
         })

@@ -9,7 +9,7 @@
       year: '2025/2026',
       category: 'Materials',
       value: 250000,
-      explanation: 'Expected expense for on-course materials needed to build out the course at Chicken Ranch'
+      explanation: 'Expected expense for on-course materials needed to build out the course'
     },
     {
       year: '2027',
@@ -150,11 +150,13 @@
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.year))
       .on('mouseover', function(event, d) {
+        const barColor = color(d.year);
         d3.select(this).style('opacity', 0.8);
         tooltip.transition()
           .duration(200)
-          .style('opacity', .9);
-        tooltip.html(`<div style="color: black">${d.year}<br/>${d.category}<br/>${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
+          .style('opacity', .9)
+          .style('background-color', barColor);
+        tooltip.html(`<div style="color: black">Year ${d.year}<br/>${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })

@@ -86,7 +86,8 @@
       .attr('width', x.bandwidth())
       .attr('height', d => height - y(d.value))
       .attr('fill', (d, i) => ['#FF6B6B', '#4ECDC4'][i])
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function(event, d, i) {
+        const barColor = ['#FF6B6B', '#4ECDC4'][data.indexOf(d)];
         d3.select(this)
           .transition()
           .duration(200)
@@ -94,9 +95,10 @@
         
         tooltip.transition()
           .duration(200)
-          .style('opacity', .9);
+          .style('opacity', .9)
+          .style('background-color', barColor);
         
-        tooltip.html(`<div style="color: black">${d.category}<br/>${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
+        tooltip.html(`<div style="color: black">${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
