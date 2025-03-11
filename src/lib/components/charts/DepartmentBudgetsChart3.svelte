@@ -88,7 +88,7 @@
           .duration(200)
           .style('opacity', .9);
         
-        tooltip.html(`${d.department}<br/>${d3.format(',')(d.value)}`)
+        tooltip.html(`${d.department}<br/>$${d3.format(',')(d.value)}`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })

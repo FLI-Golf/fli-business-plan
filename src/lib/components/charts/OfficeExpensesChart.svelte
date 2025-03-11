@@ -106,16 +106,13 @@
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.category))
       .on('mouseover', function(event, d) {
-        d3.select(this)
-          .transition()
-          .duration(200)
-          .style('opacity', 0.8);
-        
+        const barColor = color(d.category);
+        d3.select(this).style('opacity', 0.8);
         tooltip.transition()
           .duration(200)
-          .style('opacity', .9);
-        
-        tooltip.html(`${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small>`)
+          .style('opacity', .9)
+          .style('background-color', barColor);
+        tooltip.html(`<div style="color: black">${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
