@@ -6,44 +6,44 @@
 
   const data = [
     {
-      year: '2025 / 2026',
-      value: -2500000,
+      year: '2025/2026',
+      value: 13456800,
       details: {
-        revenue: 6000000,
-        expenses: 8500000,
+        revenue: 21960000,
+        expenses: 8503200,
         keyFactors: [
+          'Strong sponsorship model',
           'Initial infrastructure investment',
-          'Prize purses establishment',
-          'Documentary production',
-          'Marketing and brand development'
+          'Marketing channels established',
+          'Brand presence development'
         ]
       }
     },
     {
       year: '2027',
-      value: 1800000,
+      value: 16558000,
       details: {
-        revenue: 9000000,
-        expenses: 7200000,
+        revenue: 23760000,
+        expenses: 7202000,
         keyFactors: [
           'Streamlined operations',
-          'Reduced one-time expenses',
-          'Revenue growth',
-          'Market traction'
+          'Reduced marketing budget',
+          'Continued revenue growth',
+          'Increased league traction'
         ]
       }
     },
     {
       year: '2028',
-      value: 4200000,
+      value: 21753500,
       details: {
-        revenue: 12000000,
-        expenses: 7800000,
+        revenue: 29550000,
+        expenses: 7796500,
         keyFactors: [
           'Established revenue streams',
           'Larger audience engagement',
-          'Market expansion',
-          'Operational efficiency'
+          'Expanded market presence',
+          'Previous investment benefits'
         ]
       }
     }
@@ -94,7 +94,7 @@
     // Add Y axis
     svg.append('g')
       .call(d3.axisLeft(y)
-        .tickFormat(d => `$${d3.format(',.0f')(d)}`))
+        .tickFormat(d => `${d3.format(',.0f')(d)}`))
       .selectAll('text')
       .style('fill', 'white');
 
@@ -169,7 +169,7 @@ tooltip.html(`
       .attr('y', d => d.value >= 0 ? y(d.value) - 5 : y(d.value) + 15)
       .attr('text-anchor', 'middle')
       .style('fill', 'white')
-      .text(d => `$${d3.format(',.0f')(d.value)}`);
+      .text(d => `${d3.format(',.0f')(d.value)}`);
   });
 </script>
 

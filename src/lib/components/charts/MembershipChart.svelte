@@ -1,13 +1,11 @@
 <script lang="ts">
   import * as d3 from 'd3';
   import { onMount } from 'svelte';
-
   const data = [
-    { year: '2026', value: 20000 },
-    { year: '2027', value: 50000 },
-    { year: '2028', value: 100000 }
+    { year: '2026', value: 238800 },
+    { year: '2027', value: 597000 },
+    { year: '2028', value: 1194000 }
   ];
-
   let chart: HTMLDivElement;
 
   onMount(() => {
