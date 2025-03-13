@@ -88,7 +88,7 @@
       .attr('text-anchor', 'middle')
       .style('font-size', '16px')
       .style('fill', 'white')
-      .text('Office Expenses - Annual Cost: $175,800');
+      .text('Office Expenses - Annual Cost: $151,800');
 
     // Add bars
     svg.selectAll('rect')
