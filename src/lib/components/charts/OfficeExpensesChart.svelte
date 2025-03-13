@@ -6,11 +6,6 @@
 
   const data = [
     {
-      category: 'San Diego',
-      value: 24000,
-      explanation: 'Costs for maintaining the corporate office in San Diego, strategically located near other sports brand offices'
-    },
-    {
       category: 'Production',
       value: 19800,
       explanation: 'Studio in San Diego for producing content and managing broadcasting needs'
