@@ -5,7 +5,7 @@
   const revenueData = [
     {
       category: "Total Revenue",
-      values: [17179000, 22618000, 28811000]
+      values: [21960000, 23760000, 29550000]
     }
   ];
 
@@ -60,7 +60,7 @@
           tooltip.transition()
             .duration(200)
             .style("opacity", 0.9);
-          tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Revenue: $${d3.format(",.0f")(d)}</div>`)
+          tooltip.html(`<div style="color: black">${category.category}<br/>Year: ${years[i]}<br/>Revenue: ${d3.format(",.0f")(d)}</div>`)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px");
         })
@@ -71,6 +71,7 @@
             .style("opacity", 0);
         });
     });
+
     // Add axes
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -78,7 +79,7 @@
 
     svg.append("g")
       .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(y).tickFormat(d => `$${d3.format(",.0f")(d)}`));
+      .call(d3.axisLeft(y).tickFormat(d => `${d3.format(",.0f")(d)}`));
 
     // Add legend
     const legend = svg.append("g")
