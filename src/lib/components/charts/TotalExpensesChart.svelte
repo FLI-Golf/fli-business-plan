@@ -7,7 +7,7 @@
   const data = [
     {
       year: '2025 / 2026',
-      value: 8500000,
+      value: 14060002,
       categories: [
         'Staff Expenses',
         'Department Budgets',
@@ -21,7 +21,7 @@
     },
     {
       year: '2027',
-      value: 7200000,
+      value: 13422402,
       categories: [
         'Staff Expenses',
         'Department Budgets',
@@ -34,7 +34,7 @@
     },
     {
       year: '2028',
-      value: 7800000,
+      value: 14743758,
       categories: [
         'Staff Expenses',
         'Department Budgets',
@@ -50,7 +50,7 @@
   let chart: HTMLDivElement;
 
   onMount(() => {
-    const margin = { top: 60, right: 30, bottom: 50, left: 90 };
+    const margin = { top: 60, right: 30, bottom: 70, left: 90 };
     const width = chart.clientWidth - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
@@ -77,8 +77,10 @@
       .domain(data.map(d => d.year))
       .padding(0.3);
 
+    // Ensure the y-axis starts from 0 and has enough room at the top
+    const maxValue = d3.max(data, d => d.value);
     const y = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.value)])
+      .domain([0, maxValue * 1.1]) // Add 10% padding at the top
       .range([height, 0]);
 
     // Add X axis
@@ -88,10 +90,10 @@
       .selectAll('text')
       .style('fill', 'white');
 
-    // Add Y axis
+    // Add Y axis with better formatting for millions
     svg.append('g')
       .call(d3.axisLeft(y)
-        .tickFormat(d => `$${d3.format(',.0f')(d)}`))
+        .tickFormat(d => `$${d3.format(',.1f')(d / 1000000)}M`))
       .selectAll('text')
       .style('fill', 'white');
 
@@ -142,7 +144,7 @@
           .style('opacity', .9);
         
         const categoriesList = d.categories.map(cat => `• ${cat}`).join('<br/>');
-        tooltip.html(`<div style="color: black">${d.year}<br/>Total: ${d3.format(',.0f')(d.value)}<br/><br/>Categories:<br/>${categoriesList}</div>`)
+        tooltip.html(`<div style="color: black"><strong>${d.year}</strong><br/>Total: $${d3.format(',.2f')(d.value / 1000000)}M<br/><br/><strong>Categories:</strong><br/>${categoriesList}</div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
@@ -157,18 +159,34 @@
           .style('opacity', 0);
       });
 
-    // Add value labels
+    // Add value labels with improved formatting for millions
     svg.selectAll('.value')
       .data(data)
       .enter()
       .append('text')
       .attr('class', 'value')
       .attr('x', d => x(d.year) + x.bandwidth() / 2)
-      .attr('y', d => y(d.value) - 5)
+      .attr('y', d => y(d.value) - 10)
       .attr('text-anchor', 'middle')
+      .style('font-size', '14px')
+      .style('font-weight', 'bold')
       .style('fill', 'white')
-      .text(d => `$${d3.format(',.0f')(d.value)}`);
+      .text(d => `$${d3.format(',.1f')(d.value / 1000000)}M`);
+    
+    // Calculate percentage changes
+    const baseValue = data[0].value;
+    const change2027 = ((data[1].value - baseValue) / baseValue * 100).toFixed(1);
+    const change2028 = ((data[2].value - baseValue) / baseValue * 100).toFixed(1);
+    
+    // Add comparison text at the bottom
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', height + 40)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '13px')
+      .style('fill', 'white')
+      .text(`2027: $${d3.format(',.1f')(data[1].value / 1000000)}M (${change2027}%), 2028: $${d3.format(',.1f')(data[2].value / 1000000)}M (${change2028}%)`);
   });
 </script>
 
-<div class="w-full h-[400px]" bind:this={chart}></div>
+<div class="w-full h-[450px]" bind:this={chart}></div>

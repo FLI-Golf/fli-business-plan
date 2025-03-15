@@ -7,10 +7,10 @@
   const data = [
     {
       year: '2025/2026',
-      value: 13456800,
+      value: 7896798,
       details: {
-        revenue: 21960000,
-        expenses: 8503200,
+        revenue: 21956800,
+        expenses: 14060002,
         keyFactors: [
           'Strong sponsorship model',
           'Initial infrastructure investment',
@@ -21,10 +21,10 @@
     },
     {
       year: '2027',
-      value: 16558000,
+      value: 10335598,
       details: {
-        revenue: 23760000,
-        expenses: 7202000,
+        revenue: 23758000,
+        expenses: 13422402,
         keyFactors: [
           'Streamlined operations',
           'Reduced marketing budget',
@@ -35,10 +35,10 @@
     },
     {
       year: '2028',
-      value: 21753500,
+      value: 14809742,
       details: {
-        revenue: 29550000,
-        expenses: 7796500,
+        revenue: 29553500,
+        expenses: 14743758,
         keyFactors: [
           'Established revenue streams',
           'Larger audience engagement',
@@ -52,7 +52,7 @@
   let chart: HTMLDivElement;
 
   onMount(() => {
-    const margin = { top: 60, right: 30, bottom: 50, left: 90 };
+    const margin = { top: 60, right: 30, bottom: 70, left: 90 };
     const width = chart.clientWidth - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
@@ -79,8 +79,12 @@
       .domain(data.map(d => d.year))
       .padding(0.3);
 
+    // Add some padding to the y-axis range
+    const maxValue = d3.max(data, d => d.value) * 1.1; // 10% padding at the top
+    const minValue = d3.min(data, d => d.value) * 1.1; // 10% padding at the bottom if negative
+
     const y = d3.scaleLinear()
-      .domain([d3.min(data, d => d.value), d3.max(data, d => d.value)])
+      .domain([minValue < 0 ? minValue : 0, maxValue])
       .range([height, 0])
       .nice();
 
@@ -91,10 +95,10 @@
       .selectAll('text')
       .style('fill', 'white');
 
-    // Add Y axis
+    // Add Y axis with better formatting for millions
     svg.append('g')
       .call(d3.axisLeft(y)
-        .tickFormat(d => `${d3.format(',.0f')(d)}`))
+        .tickFormat(d => `$${d3.format(',.1f')(d / 1000000)}M`))
       .selectAll('text')
       .style('fill', 'white');
 
@@ -136,15 +140,16 @@
         tooltip.transition()
           .duration(200)
           .style('opacity', .9);
-tooltip.html(`
-  <div style="color: black">
-    ${d.year}<br/>
-    Profit/Loss: ${d3.format(',.0f')(d.value)}<br/>
-    Revenue: ${d3.format(',.0f')(d.details.revenue)}<br/>
-    Expenses: ${d3.format(',.0f')(d.details.expenses)}<br/>
-    <br/>Key Factors:<br/>${factorsList}
-  </div>
-`)
+        
+        tooltip.html(`
+          <div style="color: black">
+            <strong>${d.year}</strong><br/>
+            <strong>Profit:</strong> $${d3.format(',.2f')(d.value / 1000000)}M<br/>
+            <strong>Revenue:</strong> $${d3.format(',.2f')(d.details.revenue / 1000000)}M<br/>
+            <strong>Expenses:</strong> $${d3.format(',.2f')(d.details.expenses / 1000000)}M<br/>
+            <br/><strong>Key Factors:</strong><br/>${factorsList}
+          </div>
+        `)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
@@ -159,18 +164,34 @@ tooltip.html(`
           .style('opacity', 0);
       });
 
-    // Add value labels
+    // Add value labels with improved formatting for millions
     svg.selectAll('.value')
       .data(data)
       .enter()
       .append('text')
       .attr('class', 'value')
       .attr('x', d => x(d.year) + x.bandwidth() / 2)
-      .attr('y', d => d.value >= 0 ? y(d.value) - 5 : y(d.value) + 15)
+      .attr('y', d => d.value >= 0 ? y(d.value) - 10 : y(d.value) + 20)
       .attr('text-anchor', 'middle')
+      .style('font-size', '14px')
+      .style('font-weight', 'bold')
       .style('fill', 'white')
-      .text(d => `${d3.format(',.0f')(d.value)}`);
+      .text(d => `$${d3.format(',.1f')(d.value / 1000000)}M`);
+    
+    // Calculate growth percentages
+    const baseProfit = data[0].value;
+    const growth2027 = ((data[1].value - baseProfit) / baseProfit * 100).toFixed(1);
+    const growth2028 = ((data[2].value - baseProfit) / baseProfit * 100).toFixed(1);
+    
+    // Add growth information at the bottom
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', height + 40)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '13px')
+      .style('fill', 'white')
+      .text(`Profit Growth: 2027 (+${growth2027}%), 2028 (+${growth2028}%) from 2025/26 baseline`);
   });
 </script>
 
-<div class="w-full h-[400px]" bind:this={chart}></div>
+<div class="w-full h-[450px]" bind:this={chart}></div>
