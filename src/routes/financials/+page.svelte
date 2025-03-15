@@ -10,6 +10,7 @@
   import LicensingChart from '$lib/components/charts/LicensingChart.svelte';
   import TotalRevenueChart from '$lib/components/charts/TotalRevenueChart.svelte';
   import StaffExpensesChart from '$lib/components/charts/StaffExpensesChart.svelte';
+  import FullSeasonChart from '$lib/components/charts/FullSeasonChart.svelte';
   import DepartmentBudgetsChart1 from '$lib/components/charts/DepartmentBudgetsChart1.svelte';
   import DepartmentBudgetsChart2 from '$lib/components/charts/DepartmentBudgetsChart2.svelte';
   import DepartmentBudgetsChart3 from '$lib/components/charts/DepartmentBudgetsChart3.svelte';
@@ -152,8 +153,9 @@
                    section.id === '6q2137mu62l2irz' ? PrizePursesChart :
                    section.id === '8b30z7t22021q9q' ? PlayerExpensesChart :
                    section.id === '7b48hp26wwh5709' ? TotalExpensesChart :
-                   section.id === 'h506us6u31g3bw4' ? ProfitLossChart :
+                   section.id === '8e9e9tfeb20gt1y' ? FullSeasonChart :
                    section.id === 'gm64n82p933w2c2' ? PerEventChart :
+                   section.id === 'h506us6u31g3bw4' ? ProfitLossChart :
                    null}
               {section}
             />

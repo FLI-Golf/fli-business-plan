@@ -26,19 +26,19 @@
     },
     {
       year: '2025/2026',
-      category: 'Event Staffing',
+      category: 'Staffing',
       value: 117500,
       explanation: 'Course marshals, security, and event management personnel'
     },
     {
       year: '2027',
-      category: 'Event Staffing',
+      category: 'Staffing',
       value: 131600,
       explanation: 'Additional staff for larger venues and crowds'
     },
     {
       year: '2028',
-      category: 'Event Staffing',
+      category: 'Staffing',
       value: 146875,
       explanation: 'Full professional staffing for premier events'
     },
@@ -62,19 +62,19 @@
     },
     {
       year: '2025/2026',
-      category: 'Advertising & Branding',
+      category: 'Branding',
       value: 90000,
       explanation: 'Sponsor signage, course branding, and promotional materials'
     },
     {
       year: '2027',
-      category: 'Advertising & Branding',
+      category: 'Branding',
       value: 100800,
       explanation: 'Digital displays and enhanced sponsor activations'
     },
     {
       year: '2028',
-      category: 'Advertising & Branding',
+      category: 'Branding',
       value: 112500,
       explanation: 'Premium branding with interactive sponsor experiences'
     },
@@ -110,7 +110,7 @@
     },
     {
       year: '2028',
-      category: 'Event Entertainment',
+      category: 'Entertainment',
       value: 125000,
       explanation: 'Headline entertainment and premium fan experiences'
     }
@@ -257,7 +257,7 @@ const yearTotals = years.map(year => {
 // Increase the y value to add more spacing between the chart and this text
 svg.append('text')
   .attr('x', width / 2)
-  .attr('y', height + 50) // You can increase this value to add more space, e.g., to height + 60
+  .attr('y', height + 200) // You can increase this value to add more space, e.g., to height + 60
   .attr('text-anchor', 'middle')
   .style('font-size', '14px')
   .style('fill', 'white')
