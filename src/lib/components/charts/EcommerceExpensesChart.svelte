@@ -6,6 +6,16 @@
 
   const data = [
     {
+      category: 'Clothing',
+      value: 20000,
+      explanation: 'Annual investment in clothing product line with drop shipping agreements'
+    },
+    {
+      category: 'Accessories',
+      value: 10000,
+      explanation: 'Annual investment in accessories product line with drop shipping agreements'
+    },
+    {
       category: 'Shoes',
       value: 5000,
       explanation: 'Annual investment in footwear product line with drop shipping agreements'
@@ -76,6 +86,11 @@
       .style('fill', 'white')
       .text('E-commerce Annual Expenses - Total: $55,000');
 
+    // Color scale for 4 categories
+    const colorScale = d3.scaleOrdinal()
+      .domain(data.map(d => d.category))
+      .range(['#FF6B6B', '#4ECDC4', '#FFD166', '#6A0572']);
+
     // Add bars
     svg.selectAll('rect')
       .data(data)
@@ -85,19 +100,19 @@
       .attr('y', d => y(d.value))
       .attr('width', x.bandwidth())
       .attr('height', d => height - y(d.value))
-      .attr('fill', (d, i) => ['#FF6B6B', '#4ECDC4'][i])
-      .on('mouseover', function(event, d, i) {
-        const barColor = ['#FF6B6B', '#4ECDC4'][data.indexOf(d)];
+      .attr('fill', d => colorScale(d.category))
+      .on('mouseover', function(event, d) {
+        const barColor = colorScale(d.category);
         d3.select(this)
           .transition()
           .duration(200)
           .style('opacity', 0.8);
-        
+       
         tooltip.transition()
           .duration(200)
           .style('opacity', .9)
           .style('background-color', barColor);
-        
+       
         tooltip.html(`<div style="color: black">${d.category}<br/>$${d3.format(',')(d.value)}<br/><small>${d.explanation}</small></div>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
@@ -107,7 +122,7 @@
           .transition()
           .duration(500)
           .style('opacity', 1);
-        
+       
         tooltip.transition()
           .duration(500)
           .style('opacity', 0);

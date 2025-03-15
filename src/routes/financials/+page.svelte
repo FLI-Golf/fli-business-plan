@@ -21,6 +21,7 @@
   import EcommerceExpensesChart from '$lib/components/charts/EcommerceExpensesChart.svelte';
   import DocumentaryExpensesChart from '$lib/components/charts/DocumentaryExpensesChart.svelte';
   import OfficeUpgradesChart from '$lib/components/charts/OfficeUpgradesChart.svelte';
+  import PerEventChart from '$lib/components/charts/PerEventChart.svelte';
   import MiscExpensesChart from '$lib/components/charts/MiscExpensesChart.svelte';
   import PrizePursesChart from '$lib/components/charts/PrizePursesChart.svelte';
   import PlayerExpensesChart from '$lib/components/charts/PlayerExpensesChart.svelte';
@@ -152,6 +153,7 @@
                    section.id === '8b30z7t22021q9q' ? PlayerExpensesChart :
                    section.id === '7b48hp26wwh5709' ? TotalExpensesChart :
                    section.id === 'h506us6u31g3bw4' ? ProfitLossChart :
+                   section.id === 'gm64n82p933w2c2' ? PerEventChart :
                    null}
               {section}
             />
