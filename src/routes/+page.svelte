@@ -57,7 +57,7 @@
   <footer class="bg-gray-800 text-gray-400 py-4 border-t border-gray-700">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-2 text-sm">
       <Copyright class="h-4 w-4" />
-      <span>2024 FLI Golf. All rights reserved.</span>
+      <span>2025 FLI Golf. All rights reserved.</span>
     </div>
   </footer>
 </div>
