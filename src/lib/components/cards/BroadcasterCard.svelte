@@ -8,11 +8,6 @@
   import { ArrowUpRight } from 'lucide-svelte';
 
 
-
-
-
-
-
   interface Broadcaster {
     name: string;
     role?: string;
@@ -36,79 +31,113 @@
 
 <Card.Header class="flex flex-row items-center justify-between">
   <div class="grid gap-2">
-    <Card.Title>Broadcasting Team</Card.Title>
-    <img src="/logos/fli_logo.png" alt="FLI Logo" class="w-68 h-32" />
-    <Card.Description class="-mt-7">Our professional broadcasting staff</Card.Description>
+    <Card.Title>Broadcasters</Card.Title>
+    <Card.Description>Our media partners.</Card.Description>
   </div>
 
   <AlertDialog.Root>
+    <AlertDialog.Trigger>
+      <Button size="sm" class="gap-1">
+        Social Media
+        <ArrowUpRight class="h-4 w-4" />
+      </Button>
+    </AlertDialog.Trigger>
+
     <AlertDialog.Content class="sm:max-w-[800px]">
       <AlertDialog.Header>
-        <AlertDialog.Title>Our Broadcasting Team</AlertDialog.Title>
+        <AlertDialog.Title>Social Media</AlertDialog.Title>
         <AlertDialog.Description>
-          Complete list of our professional broadcasters.
+          Complete list of our media partners.
         </AlertDialog.Description>
       </AlertDialog.Header>
 
       <div class="overflow-y-auto max-h-[60vh]">
-        <div class="grid grid-cols-2 gap-4 p-4">
-          {#each broadcasters as broadcaster}
-            <AlertDialog.Root>
-              <AlertDialog.Trigger class="w-full">
-                <div class="flex items-center gap-4 p-3 hover:bg-muted rounded border w-full h-full">
-                  {#if broadcaster.expand?.avatar}
-                    <Avatar.Root class="h-10 w-10">
-                      <Avatar.Image
-                        src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
-                        alt={broadcaster.name}
-                      />
-                    </Avatar.Root>
-                  {/if}
-                  <div class="text-left">
-                    <div class="font-medium">{broadcaster.name}</div>
-                    <div class="text-sm text-muted-foreground">{broadcaster.role || 'Broadcaster'}</div>
-                  </div>
-                </div>
-              </AlertDialog.Trigger>
-
-              <AlertDialog.Content>
-                <AlertDialog.Header class="flex justify-between items-start">
-                  <div>
-                    <AlertDialog.Title>{broadcaster.name}</AlertDialog.Title>
-                    <AlertDialog.Description>
-                      Professional Broadcaster
-                    </AlertDialog.Description>
-                  </div>
-                  {#if broadcaster.expand?.avatar}
-                    <Avatar.Root class="h-24 w-24">
-                      <Avatar.Image
-                        src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
-                        alt={broadcaster.name}
-                      />
-                    </Avatar.Root>
-                  {/if}
-                </AlertDialog.Header>
-
-                <div class="overflow-y-auto max-h-[60vh]">
-                  <div class="grid gap-4 py-4">
-                    <div class="space-y-2">
-                      <div class="flex items-center gap-2">
-                        <Badge variant="outline">{broadcaster.role || 'Broadcaster'}</Badge>
-                        <Badge>{broadcaster.gender}</Badge>
-                      </div>
-                      <p class="text-sm text-muted-foreground">{broadcaster.bio || 'Professional Broadcaster'}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <AlertDialog.Footer>
-                  <AlertDialog.Cancel>
-                    <Button variant="outline">Close</Button>
-                  </AlertDialog.Cancel>
-                </AlertDialog.Footer>
-              </AlertDialog.Content>
-            </AlertDialog.Root>
-          {/each}
+        <div class="p-4">
+          <h3 class="text-lg font-medium mb-4">Player Social Media Totals</h3>
+          <Table.Root class="w-full">
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Division</Table.Head>
+                <Table.Head class="text-right">Instagram</Table.Head>
+                <Table.Head class="text-right">YouTube</Table.Head>
+                <Table.Head class="text-right">Facebook</Table.Head>
+                <Table.Head class="text-right">Total Followers</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>FPO</Table.Cell>
+                <Table.Cell class="text-right">1,224,000</Table.Cell>
+                <Table.Cell class="text-right">82,000</Table.Cell>
+                <Table.Cell class="text-right">155,000</Table.Cell>
+                <Table.Cell class="text-right">1,461,000</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>MPO</Table.Cell>
+                <Table.Cell class="text-right">689,000</Table.Cell>
+                <Table.Cell class="text-right">370,000</Table.Cell>
+                <Table.Cell class="text-right">449,000</Table.Cell>
+                <Table.Cell class="text-right">1,508,000</Table.Cell>
+              </Table.Row>
+              <Table.Row class="font-medium">
+                <Table.Cell>Combined</Table.Cell>
+                <Table.Cell class="text-right">1,913,000</Table.Cell>
+                <Table.Cell class="text-right">452,000</Table.Cell>
+                <Table.Cell class="text-right">604,000</Table.Cell>
+                <Table.Cell class="text-right">2,969,000</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table.Root>
+          
+          <h3 class="text-lg font-medium mt-8 mb-4">Estimated Total Social Media Reach</h3>
+          <Table.Root class="w-full">
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Name</Table.Head>
+                <Table.Head class="text-right">Instagram</Table.Head>
+                <Table.Head class="text-right">YouTube</Table.Head>
+                <Table.Head class="text-right">Facebook</Table.Head>
+                <Table.Head class="text-right">Podcast Platform</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>Paul Ulibarri</Table.Cell>
+                <Table.Cell class="text-right">102K</Table.Cell>
+                <Table.Cell class="text-right">~10K est.</Table.Cell>
+                <Table.Cell class="text-right">14K</Table.Cell>
+                <Table.Cell class="text-right">38K (Tour Life)</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Kona Star Montgomery</Table.Cell>
+                <Table.Cell class="text-right">101K</Table.Cell>
+                <Table.Cell class="text-right">~5K est.</Table.Cell>
+                <Table.Cell class="text-right">14K</Table.Cell>
+                <Table.Cell class="text-right">—</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Kevin Barnett</Table.Cell>
+                <Table.Cell class="text-right">2.4K</Table.Cell>
+                <Table.Cell class="text-right">~1K est.</Table.Cell>
+                <Table.Cell class="text-right">229</Table.Cell>
+                <Table.Cell class="text-right">—</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Disc Golf World (team)</Table.Cell>
+                <Table.Cell class="text-right">~2K est.</Table.Cell>
+                <Table.Cell class="text-right">~3K est.</Table.Cell>
+                <Table.Cell class="text-right">—</Table.Cell>
+                <Table.Cell class="text-right">~2K Spotify</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table.Root>
+          
+          <div class="mt-6">
+            <p class="text-sm font-medium">Cumulative Estimated Reach: ~330,000 followers/subscribers across listed platforms</p>
+            <p class="text-sm text-muted-foreground mt-2">
+              This data represents the total social media following across different platforms for our broadcasters and players.
+            </p>
+          </div>
         </div>
       </div>
 
