@@ -5,8 +5,7 @@
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
-  import { ArrowUpRight } from 'lucide-svelte';
-
+  import { ArrowUpRight, Instagram, Facebook, Youtube, Mic, Trophy, Users, Globe } from 'lucide-svelte';
 
   interface Broadcaster {
     name: string;
@@ -38,22 +37,63 @@
   <AlertDialog.Root>
     <AlertDialog.Trigger>
       <Button size="sm" class="gap-1">
-        Social Media
+        Social Media Reach
         <ArrowUpRight class="h-4 w-4" />
       </Button>
     </AlertDialog.Trigger>
 
     <AlertDialog.Content class="sm:max-w-[800px]">
       <AlertDialog.Header>
-        <AlertDialog.Title>Social Media</AlertDialog.Title>
+        <AlertDialog.Title>Social Media Reach</AlertDialog.Title>
         <AlertDialog.Description>
-          Complete list of our media partners.
+          Complete analysis of our media partners and their social reach.
         </AlertDialog.Description>
       </AlertDialog.Header>
 
-      <div class="overflow-y-auto max-h-[60vh]">
+      <div class="overflow-y-auto max-h-[70vh]">
         <div class="p-4">
-          <h3 class="text-lg font-medium mb-4">Player Social Media Totals</h3>
+          <div class="bg-muted p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold mb-2 text-center">FLI Golf Social Media Reach</h2>
+            <p class="text-lg mb-4 text-center font-semibold">
+              TOTAL SOCIAL MEDIA REACH WITH PLAYERS, BROADCASTING STAFF & MEDIA PARTNER: 3.7+ MILLION FOLLOWERS/SUBSCRIBERS!!
+            </p>
+            <p class="text-sm text-muted-foreground mb-4 text-center">
+              This is only considering Instagram, Facebook, YouTube, and Spotify. An estimated 250,000+ additional followers exist across other social platforms.
+              These numbers represent the reach accessible to FLI Golf marketing efforts through players and employee contracts.
+              This means FLI Golf will be immediately introduced to over 3.7 million active disc golf fans across the world.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+              <div class="bg-primary/10 p-4 rounded-lg text-center">
+                <div class="flex justify-center mb-2">
+                  <Instagram class="h-6 w-6 text-pink-500" />
+                </div>
+                <h3 class="font-bold">Instagram</h3>
+                <p class="text-2xl font-bold">1.9M+</p>
+                <p class="text-xs text-muted-foreground">Followers</p>
+              </div>
+              <div class="bg-primary/10 p-4 rounded-lg text-center">
+                <div class="flex justify-center mb-2">
+                  <Youtube class="h-6 w-6 text-red-500" />
+                </div>
+                <h3 class="font-bold">YouTube</h3>
+                <p class="text-2xl font-bold">452K+</p>
+                <p class="text-xs text-muted-foreground">Subscribers</p>
+              </div>
+              <div class="bg-primary/10 p-4 rounded-lg text-center">
+                <div class="flex justify-center mb-2">
+                  <Facebook class="h-6 w-6 text-blue-500" />
+                </div>
+                <h3 class="font-bold">Facebook</h3>
+                <p class="text-2xl font-bold">604K+</p>
+                <p class="text-xs text-muted-foreground">Followers</p>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="text-lg font-medium mb-4 flex items-center gap-2">
+            <Users class="h-5 w-5" />
+            Player Social Media Totals
+          </h3>
           <Table.Root class="w-full">
             <Table.Header>
               <Table.Row>
@@ -89,7 +129,10 @@
             </Table.Body>
           </Table.Root>
           
-          <h3 class="text-lg font-medium mt-8 mb-4">Estimated Total Social Media Reach</h3>
+          <h3 class="text-lg font-medium mt-8 mb-4 flex items-center gap-2">
+            <Mic class="h-5 w-5" />
+            Broadcast Team Social Media Totals
+          </h3>
           <Table.Root class="w-full">
             <Table.Header>
               <Table.Row>
@@ -134,8 +177,124 @@
           
           <div class="mt-6">
             <p class="text-sm font-medium">Cumulative Estimated Reach: ~330,000 followers/subscribers across listed platforms</p>
-            <p class="text-sm text-muted-foreground mt-2">
+          </div>
+          
+          <h3 class="text-lg font-medium mt-8 mb-4 flex items-center gap-2">
+            <Globe class="h-5 w-5" />
+            Go Throw League (League Marketing Partner) Social Media Totals
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="border rounded-lg p-4 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <Youtube class="h-5 w-5 text-red-500" />
+                <h4 class="font-bold">YouTube</h4>
+              </div>
+              <p class="text-xl font-bold">147,000</p>
+              <p class="text-sm text-muted-foreground">Subscribers</p>
+              <p class="text-sm mt-2">~54 million views across 1,539 videos</p>
+            </div>
+            <div class="border rounded-lg p-4 shadow-sm">
+              <div class="flex items-center gap-2 mb-2">
+                <Instagram class="h-5 w-5 text-pink-500" />
+                <h4 class="font-bold">Instagram</h4>
+              </div>
+              <p class="text-xl font-bold">39,000</p>
+              <p class="text-sm text-muted-foreground">Followers</p>
+            </div>
+            <div class="border rounded-lg p-4 shadow-sm">
+              <h4 class="font-bold mb-2">Popular Content</h4>
+              <p class="text-sm">The "OTB Skins Series" featuring professional players like Kevin Jones has garnered significant attention, with some videos reaching over 500,000 views.</p>
+            </div>
+          </div>
+          
+          <h3 class="text-xl font-bold mt-8 mb-4 flex items-center gap-2">
+            <Trophy class="h-6 w-6 text-yellow-500" />
+            FLI Golf Broadcast Team Summary
+          </h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="border rounded-lg p-4 shadow-sm">
+              <h4 class="font-bold mb-2 flex items-center gap-2">
+                <Mic class="h-4 w-4" />
+                1. Paul Ulibarri – Analyst / Co-Anchor
+              </h4>
+              <p class="mb-2">Role: Color commentary, player insights, host of Tour Life Podcast</p>
+              <ul class="list-disc pl-5 mb-2">
+                <li>Instagram: 102K</li>
+                <li>Facebook: 14K</li>
+                <li>YouTube: ~Tour Life Podcast</li>
+                <li>Tour Life Podcast YouTube: 38K subscribers, 15K–35K avg views/ep</li>
+              </ul>
+              <p class="font-semibold mt-2">Strengths:</p>
+              <ul class="list-disc pl-5">
+                <li>Most recognized analyst in disc golf</li>
+                <li>Insightful, experienced, engaging</li>
+                <li>Highly connected with both fans and players</li>
+              </ul>
+              <p class="text-sm mt-2">Engagement: Strong podcast interaction, especially during controversy or player interviews</p>
+            </div>
+
+            <div class="border rounded-lg p-4 shadow-sm">
+              <h4 class="font-bold mb-2 flex items-center gap-2">
+                <Mic class="h-4 w-4" />
+                2. Kona Star Montgomery – Co-Anchor / Analyst
+              </h4>
+              <ul class="list-disc pl-5 mb-2">
+                <li>Instagram: 101K</li>
+                <li>Facebook: 14K</li>
+                <li>YouTube: Occasionally active</li>
+              </ul>
+              <p class="font-semibold mt-2">Strengths:</p>
+              <ul class="list-disc pl-5">
+                <li>Player-fan favorite with high relatability</li>
+                <li>Knowledgeable and well-spoken on the mic</li>
+                <li>Brings balance and representation to the booth</li>
+              </ul>
+              <p class="text-sm mt-2">Engagement: High comment and like volume per post, especially around live coverage and personal stories</p>
+            </div>
+            
+            <div class="border rounded-lg p-4 shadow-sm">
+              <h4 class="font-bold mb-2 flex items-center gap-2">
+                <Mic class="h-4 w-4" />
+                3. Kevin Barnett – Play-by-Play / Anchor
+              </h4>
+              <ul class="list-disc pl-5 mb-2">
+                <li>Instagram: 2.4K</li>
+                <li>Twitter: 1.3K</li>
+                <li>Facebook: 229</li>
+              </ul>
+              <p class="mb-2">Background: Former Olympic volleyball player, experienced sports broadcaster</p>
+              <p class="font-semibold mt-2">Strengths:</p>
+              <ul class="list-disc pl-5">
+                <li>Brings high-end professional broadcasting energy</li>
+                <li>Strong storytelling and pacing</li>
+                <li>Great at simplifying the technical for casual fans</li>
+              </ul>
+              <p class="text-sm mt-2">Engagement: Low follower count but high credibility; connects well during live shows</p>
+            </div>
+
+            <div class="border rounded-lg p-4 shadow-sm">
+                           <h4 class="font-bold mb-2 flex items-center gap-2">
+                <Mic class="h-4 w-4" />
+                4. Swiss & Jefferson ("Disc Golf World") – Podcast Analysts
+              </h4>
+              <p class="mb-2">Platform: Disc Golf World Podcast</p>
+              <p class="mb-2">YouTube / Spotify: Likely 1K–4K average views per episode</p>
+              <p class="mb-2">Style: Informal, comedic, culturally tuned-in</p>
+              <p class="font-semibold mt-2">Strengths:</p>
+              <ul class="list-disc pl-5">
+                <li>Inject humor and authenticity into coverage</li>
+                <li>Fan-first voice in media</li>
+                <li>Perfect for pre-show, in-game, and post game betting coverage</li>
+              </ul>
+              <p class="text-sm mt-2">Engagement: Small but loyal and rapidly growing base; ideal for betting fans and younger audience segments</p>
+            </div>
+          </div>
+          
+          <div class="mt-6">
+            <p class="text-sm text-muted-foreground">
               This data represents the total social media following across different platforms for our broadcasters and players.
+              Through these channels, FLI Golf will be immediately introduced to over 3.7 million active disc golf fans across the world.
             </p>
           </div>
         </div>
