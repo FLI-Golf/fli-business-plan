@@ -411,7 +411,7 @@
     </a>
   </div>
 <!-- Global, Investment and Theme Songs (Full Width) -->
-<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
+<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-4">
   <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
       <Globe class="h-6 w-6" />
@@ -428,6 +428,16 @@
       <div>
         <h2 class="text-xl font-semibold">Investment</h2>
         <p class="text-muted-foreground">12 Sections</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="/tech" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <span class="text-xl">🚀</span>
+      <div>
+        <h2 class="text-xl font-semibold">Technology & Digital Innovation</h2>
+        <p class="text-muted-foreground">Digital ecosystem & platforms</p>
       </div>
     </div>
   </a>
