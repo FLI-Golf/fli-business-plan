@@ -452,6 +452,19 @@
     </div>
   </a>
 </div>
+
+<!-- FLI Golf Membership Program (Full Width) -->
+<div class="mt-4 grid gap-4 grid-cols-1">
+  <a href="/membership" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <span class="text-xl">🏆</span>
+      <div>
+        <h2 class="text-xl font-semibold">FLI Golf Membership Program</h2>
+        <p class="text-muted-foreground">Exclusive membership benefits and access</p>
+      </div>
+    </div>
+  </a>
+</div>
   <!-- Three-column layout for team cards -->
   <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
     <!-- Team cards -->
