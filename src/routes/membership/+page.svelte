@@ -124,7 +124,7 @@
         />
         <div class="text-center mb-6">
           <h1 class="text-4xl font-bold flex items-center justify-center gap-2">
-            <span>🏌️ Membership & Community</span>
+            <span> 👥 Membership & Community</span>
           </h1>
           <p class="text-xl mt-2 italic">"Join the future of golf entertainment."</p>
           <div class="max-w-3xl mx-auto mt-4 text-muted-foreground">

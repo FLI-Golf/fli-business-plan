@@ -454,7 +454,6 @@
 </div>
 
 <!-- 7-Part Documentary and FLI Golf Membership Program -->
-
 <div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
   <a href="/series" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
