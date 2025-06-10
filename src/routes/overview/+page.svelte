@@ -453,14 +453,35 @@
   </a>
 </div>
 
-<!-- FLI Golf Membership Program (Full Width) -->
-<div class="mt-4 grid gap-4 grid-cols-1">
+<!-- 7-Part Documentary and FLI Golf Membership Program -->
+
+<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
+  <a href="/series" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <span class="text-xl">🎬</span>
+      <div>
+        <h2 class="text-xl font-semibold">7-Part Documentary</h2>
+        <p class="text-muted-foreground">Behind the scenes documentary series</p>
+      </div>
+    </div>
+  </a>
+
   <a href="/membership" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
       <span class="text-xl">🏆</span>
       <div>
         <h2 class="text-xl font-semibold">FLI Golf Membership Program</h2>
         <p class="text-muted-foreground">Exclusive membership benefits and access</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="/discord" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <span class="text-xl">💬</span>
+      <div>
+        <h2 class="text-xl font-semibold">Discord Community</h2>
+        <p class="text-muted-foreground">Connect, communicate, and collaborate with our community</p>
       </div>
     </div>
   </a>
