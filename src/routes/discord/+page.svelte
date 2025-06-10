@@ -7,11 +7,11 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import Search from "lucide-svelte/icons/search";
     import Section from "$lib/components/ui/Section.svelte";
-    import { Home, Users } from "lucide-svelte";
+    import { Home, MessageCircle } from "lucide-svelte";
     import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
     import { pb } from '$lib/pocketbase';
   
-    let membershipRecords = [];
+    let discordRecords = [];
     let searchQuery = "";
     let currentHash = "";
     let showBackToTop = false;
@@ -19,15 +19,15 @@
     let isAuthenticated = pb.authStore.isValid;
     let userData = pb.authStore.model;
   
-    async function fetchMembershipRecords() {
+    async function fetchDiscordRecords() {
       try {
-        const records = await pb.collection('membership').getList(1, 50, {
+        const records = await pb.collection('discord').getList(1, 50, {
           sort: 'order'
         });
-        membershipRecords = records.items;
-        console.log("✅ Membership Records Updated!");
+        discordRecords = records.items;
+        console.log("✅ Discord Records Updated!");
       } catch (error) {
-        console.error("❌ ERROR: Failed to fetch membership records", error);
+        console.error("❌ ERROR: Failed to fetch discord records", error);
       }
     }
   
@@ -40,14 +40,14 @@
     }
   
     onMount(() => {
-      fetchMembershipRecords();
+      fetchDiscordRecords();
       window.addEventListener("scroll", handleScroll);
       return () => {
         window.removeEventListener("scroll", handleScroll);
       };
     });
   
-    $: filteredRecords = membershipRecords.filter(record =>
+    $: filteredRecords = discordRecords.filter(record =>
       record.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       record.body?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -57,14 +57,14 @@
     <aside class="bg-muted/40 border-r hidden md:flex flex-col">
       <div class="h-14 border-b px-4 flex items-center lg:px-6">
         <div class="flex items-center gap-2">
-          <Users class="h-5 w-5" />
-          <span class="font-semibold text-xl">Membership</span>
+          <MessageCircle class="h-5 w-5" />
+          <span class="font-semibold text-xl">Discord</span>
         </div>
       </div>
       <nav class="flex-1 overflow-y-auto p-4">
-        {#if membershipRecords.length}
+        {#if discordRecords.length}
           <div class="space-y-2">
-            {#each membershipRecords as record}
+            {#each discordRecords as record}
               <div class="space-y-1">
                 <a
                   href={`#section-${record.id}`}
@@ -76,7 +76,7 @@
             {/each}
           </div>
         {:else}
-          <p class="text-sm text-muted-foreground">No membership records available</p>
+          <p class="text-sm text-muted-foreground">No discord records available</p>
         {/if}
       </nav>
     </aside>
@@ -99,7 +99,7 @@
               <Search class="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
               <Input
                 type="search"
-                placeholder="Search membership content..."
+                placeholder="Search discord content..."
                 class="bg-background w-full appearance-none pl-8 shadow-none md:w-2/3 lg:w-1/3"
                 bind:value={searchQuery}
               />
@@ -119,16 +119,16 @@
         <Breadcrumb
           items={[
             { label: 'Home', href: '/overview' },
-            { label: 'Membership', href: '/membership' }
+            { label: 'Discord', href: '/discord' }
           ]}
         />
         <div class="text-center mb-6">
           <h1 class="text-4xl font-bold flex items-center justify-center gap-2">
-            <span> 👥 Membership & Community</span>
+            <span>💬 Discord Community</span>
           </h1>
-          <p class="text-xl mt-2 italic">"Join the future of golf entertainment."</p>
+          <p class="text-xl mt-2 italic">"Connect, communicate, and collaborate with our community."</p>
           <div class="max-w-3xl mx-auto mt-4 text-muted-foreground">
-            <p>Become part of the FLI Golf League community and unlock exclusive access to events, content, and experiences. Our membership program is designed to connect golf enthusiasts with the sport they love in entirely new ways.</p>
+            <p>Join our Discord community to stay connected with fellow members, participate in discussions, and get the latest updates. Our Discord server is the hub for real-time communication and community engagement.</p>
           </div>
         </div>
         
@@ -142,11 +142,12 @@
             </div>
           {/each}
         {:else}
-          <p class="text-gray-600">No membership content found</p>
+          <p class="text-gray-600">No discord content found</p>
         {/if}
       </main>
     </div>
   </div>
+  
   {#if showBackToTop}
     <button
       class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
@@ -163,14 +164,14 @@
   {#if isMobileMenuOpen}
     <div class="fixed inset-0 z-50 bg-background md:hidden">
       <div class="h-14 border-b px-4 flex items-center justify-between">
-        <span class="font-semibold text-xl">Membership</span>
+        <span class="font-semibold text-xl">Discord</span>
         <button class="p-2" on:click={() => isMobileMenuOpen = false}>
           ✕
         </button>
       </div>
       <nav class="flex-1 overflow-y-auto p-4 space-y-2">
-        {#if membershipRecords.length}
-          {#each membershipRecords as record}
+        {#if discordRecords.length}
+          {#each discordRecords as record}
             <a
               href={`#section-${record.id}`}
               class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition"
