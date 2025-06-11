@@ -454,7 +454,8 @@
 </div>
 
 <!-- 7-Part Documentary and FLI Golf Membership Program -->
-<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-3">
+
+<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-4">
   <a href="/series" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
     <div class="flex items-center gap-4">
       <span class="text-xl">🎬</span>
@@ -481,6 +482,16 @@
       <div>
         <h2 class="text-xl font-semibold">Discord Community</h2>
         <p class="text-muted-foreground">Connect, communicate, and collaborate with our community</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="/trend" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
+    <div class="flex items-center gap-4">
+      <span class="text-xl">📈</span>
+      <div>
+        <h2 class="text-xl font-semibold">Emerging Sports Are Booming</h2>
+        <p class="text-muted-foreground">Explore the growth of emerging sports markets</p>
       </div>
     </div>
   </a>
