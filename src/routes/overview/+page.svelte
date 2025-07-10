@@ -4,7 +4,6 @@
   import Search from "lucide-svelte/icons/search";
  
   // Icons for main cards
-  import BpIcon from "lucide-svelte/icons/layout-panel-top";
   import Chart from "lucide-svelte/icons/chart-no-axes-combined";
   import { Handshake } from 'lucide-svelte';
   import { Disc3, DollarSign } from 'lucide-svelte';
@@ -87,7 +86,6 @@
   }
 </script>
 
-
 <div class="flex min-h-screen w-full flex-col">
   <header class="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6">
     <nav class="hidden flex-col gap-6 text-xl font-medium md:flex md:flex-row md:items-center md:gap-6 md:text-base lg:gap-7">
@@ -112,24 +110,8 @@
       </Sheet.Trigger>
       <Sheet.Content side="left">
         <nav class="grid gap-6 text-lg font-medium p-6">
-          <a href="/business-plan" class="text-muted-foreground hover:text-foreground flex items-center gap-4">
-            <BpIcon class="h-6 w-6" />
-            <div>
-              <h2 class="text-xl font-semibold">Business Plan</h2>
-              <p class="text-muted-foreground">8 Sections</p>
-            </div>
-          </a>
-
-          <a href="/financials" class="text-muted-foreground hover:text-foreground flex items-center gap-4">
-            <Chart class="h-6 w-6" />
-            <div>
-              <h2 class="text-xl font-semibold">Financials</h2>
-              <p class="text-muted-foreground">View financial projections and metrics</p>
-            </div>
-          </a>
-
           <div class="text-muted-foreground hover:text-foreground flex items-center gap-4">
-            <Users class="h-6 w-6" />
+            <Handshake class="h-6 w-6" />
             <div>
               <h2 class="text-xl font-semibold">Partners & Venues</h2>
               <p class="text-muted-foreground">{partners.length} Current & Pending Partners & Venues</p>
@@ -187,7 +169,7 @@
           <a href="/obstacles" class="text-muted-foreground hover:text-foreground flex items-center gap-4">
             <Pyramid class="h-6 w-6" />
             <div>
-              <h2 class="text-xl font-semibold">Course Detials</h2>
+              <h2 class="text-xl font-semibold">Course Details</h2>
               <p class="text-muted-foreground">Course layout and features</p>
             </div>
           </a>
@@ -209,7 +191,8 @@
           </a>
         </nav>
       </Sheet.Content>
-    </Sheet.Root>    <div class="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+    </Sheet.Root>
+    <div class="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
       <form class="ml-auto flex-1 sm:flex-initial">
         <div class="relative">
           <Search class="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
@@ -245,294 +228,267 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </div>
-</header>
-<main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-  <Breadcrumb 
-    items={[
-      { label: 'Home', href: '/overview' },
-      { label: 'Overview', href: '/overview' }
-    ]} />
-    
+  </header>
 
-<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
-  <!-- Business Plan -->
-  <a href="/business-plan" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <div class="flex items-center gap-4">
-      <BpIcon class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Business Plan</h2>
-        <p class="text-muted-foreground">8 Sections</p>
-      </div>
+  <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <Breadcrumb 
+      items={[
+        { label: 'Home', href: '/overview' },
+        { label: 'Overview', href: '/overview' }
+      ]} />
 
+    <!-- First Grid: Core Sections (3 columns) -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
+      <!-- Partners -->
+      <a href="/partners" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+        <div class="flex items-center gap-4">
+          <Handshake class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Partners & Venues</h2>
+            <p class="text-muted-foreground">Partners & Potential Venues</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Teams -->
+      <a href="/teams" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+        <div class="flex items-center gap-4">
+          <Disc3 class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Teams</h2>
+            <p class="text-muted-foreground">View team structure and roles</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Worldwide Growth -->
+      <a href="https://udisc.com/disc-golf-growth-report" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+        <div class="flex items-center gap-4">
+          <Chart class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Worldwide Growth</h2>
+            <p class="text-muted-foreground">View 2024 Growth Report</p>
+          </div>
+        </div>
+      </a>
     </div>
-  </a>
 
+    <!-- Second Grid: PDF Resources (3 columns) -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
+      <!-- Gambling Breakdown PDF -->
+      <a href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
+        <div class="flex items-center gap-4">
+          <FileText class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Gambling Breakdown PDF</h2>
+            <p class="text-muted-foreground">Click to download</p>
+          </div>
+        </div>
+      </a>
 
-  <!-- Financials -->
-  <a href="/financials" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <div class="flex items-center gap-4">
-      <Chart class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Financials</h2>
-        <p class="text-muted-foreground">View financial projections and metrics</p>
-      </div>
-
-    </div>
-  </a>
-
-
-  <!-- Partners -->
-  <a href="/partners" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <div class="flex items-center gap-4">
-      <Handshake class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Partners & Venues</h2>
-        <p class="text-muted-foreground">Partners & Potential Venues</p>
-      </div>
-    </div>
-  </a>  <!-- Teams -->
-  <a href="/teams" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <div class="flex items-center gap-4">
-      <Disc3 class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Teams</h2>
-        <p class="text-muted-foreground">View team structure and roles</p>
-      </div>
-
-    </div>
-  </a>
-  <!-- Worldwide Growth -->
-  <a href="https://udisc.com/disc-golf-growth-report" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
-    <div class="flex items-center gap-4">
-      <Chart class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Worldwide Growth</h2>
-        <p class="text-muted-foreground">View 2024 Growth Report</p>
-      </div>
-    </div>
-  </a>
-
-  <!-- Gambling Breakdown PDF -->
-  <a href="https://few-likely.pockethost.io/api/files/pbc_3332084752/55smu1wvcn40q3s/betting_breakdown_dmqb1jf6xg.pdf" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
-    <div class="flex items-center gap-4">
-      <FileText class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Gambling Breakdown PDF</h2>
-        <p class="text-muted-foreground">Click to download</p>
-      </div>
-    </div>
-  </a>
-
-  <!-- Team Franchising PDF -->
-  <a href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
-    <div class="flex items-center gap-4">
-      <FileText class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
-        <p class="text-muted-foreground">Click to download</p>
-      </div>
-    </div>
-  </a>
-
-  <!-- Broadcasting & Production PDF -->
-  <a href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
-    <div class="flex items-center gap-4">
-      <FileText class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
-        <p class="text-muted-foreground">Click to download</p>
-      </div>
-    </div>
-  </a>
-</div>
-  <!-- Single grid for all cards -->
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
-    <!-- Business Plan Card -->
-    <!-- Financials Card -->
-    <!-- Partners Card -->
-    <!-- Teams Card -->
-    <!-- Growth Report Card -->
-    <!-- PDF Cards -->
+            <!-- Team Franchising PDF -->
+            <a href="https://few-likely.pockethost.io/api/files/pbc_3332084752/gf4h7738sl0n5o0/fgl_league_1_f68pj8fdbo.pdf" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
+              <div class="flex items-center gap-4">
+                <FileText class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Team Franchising PDF</h2>
+                  <p class="text-muted-foreground">Click to download</p>
+                </div>
+              </div>
+            </a>
       
-    <!-- Video Card -->
-    <a
-      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-      on:click={() => $showVideo = true}
-    >
-      <div class="flex items-center gap-4">
-        <Box class="h-6 w-6" />
-        <div>
-          <h2 class="text-xl font-semibold">Watch Presentation</h2>
-          <p class="text-muted-foreground">3D Video Overview</p>
+            <!-- Broadcasting & Production PDF -->
+            <a href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
+              <div class="flex items-center gap-4">
+                <FileText class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
+                  <p class="text-muted-foreground">Click to download</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      
+          <!-- Third Grid: Interactive Features (4 columns) -->
+          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+            <!-- Video Card -->
+            <a
+              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground cursor-pointer"
+              on:click={() => $showVideo = true}
+            >
+              <div class="flex items-center gap-4">
+                <Box class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Watch Presentation</h2>
+                  <p class="text-muted-foreground">3D Video Overview</p>
+                </div>
+              </div>
+            </a>
+      
+            <!-- Obstacle Course Card -->
+            <a
+              href="/obstacles"
+              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+            >
+              <div class="flex items-center gap-4">
+                <Pyramid class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Course Details</h2>
+                  <p class="text-muted-foreground">Course layout and features</p>
+                </div>
+              </div>
+            </a>
+      
+            <!-- Legal Card -->
+            <a
+              href="/legal"
+              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+            >
+              <div class="flex items-center gap-4">
+                <Scale class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Legal Documents</h2>
+                  <p class="text-muted-foreground">View legal information</p>
+                </div>
+              </div>
+            </a>
+      
+            <!-- FAQ Card -->
+            <a
+              href="/faqs"
+              class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground"
+            >
+              <div class="flex items-center gap-4">
+                <HelpCircle class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">FAQ Guide</h2>
+                  <p class="text-muted-foreground">Detailed answers and support</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      
+          <!-- Fourth Grid: Strategic Sections (4 columns) -->
+          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+            <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <Globe class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Global Overview</h2>
+                  <p class="text-muted-foreground">International expansion and growth</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/investment" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <DollarSign class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Investment</h2>
+                  <p class="text-muted-foreground">12 Sections</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/tech" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <span class="text-xl">🚀</span>
+                <div>
+                  <h2 class="text-xl font-semibold">Technology & Digital Innovation</h2>
+                  <p class="text-muted-foreground">Digital ecosystem & platforms</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/songs" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <AudioLines class="h-6 w-6" />
+                <div>
+                  <h2 class="text-xl font-semibold">Theme Songs</h2>
+                  <p class="text-muted-foreground">Listen to FLI's official music</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      
+          <!-- Fifth Grid: Community & Content (4 columns) -->
+          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
+            <a href="/series" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <span class="text-xl">🎬</span>
+                <div>
+                  <h2 class="text-xl font-semibold">7-Part Documentary</h2>
+                  <p class="text-muted-foreground">Behind the scenes documentary series</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/membership" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <span class="text-xl">🏆</span>
+                <div>
+                  <h2 class="text-xl font-semibold">FLI Golf Membership Program</h2>
+                  <p class="text-muted-foreground">Exclusive membership benefits and access</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/discord" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <span class="text-xl">💬</span>
+                <div>
+                  <h2 class="text-xl font-semibold">Discord Community</h2>
+                  <p class="text-muted-foreground">Connect, communicate, and collaborate with our community</p>
+                </div>
+              </div>
+            </a>
+      
+            <a href="/trend" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+              <div class="flex items-center gap-4">
+                <span class="text-xl">📈</span>
+                <div>
+                  <h2 class="text-xl font-semibold">Emerging Sports Are Booming</h2>
+                  <p class="text-muted-foreground">Explore the growth of emerging sports markets</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      
+          <!-- Team Cards Section -->
+          <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
+            <Card.Root>
+              <ProsCard {loading} {pros} {pb} />
+            </Card.Root>
+            <Card.Root>
+              <ExecutiveCard {loading} {exe} {pb} />
+            </Card.Root>
+            <Card.Root>
+              <BroadcasterCard {loading} {broadcasters} {pb} />
+            </Card.Root>
+          </div>
+        </main>
+      </div>
+      
+      {#if $showVideo}
+        <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div class="bg-background p-4 rounded-lg max-w-4xl w-full">
+            <div class="flex justify-end mb-2">
+              <button
+                on:click={() => $showVideo = false}
+                class="text-muted-foreground hover:text-foreground"
+              >
+                Close
+              </button>
+            </div>
+            <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+              <iframe
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://drive.google.com/file/d/1C895DZEMAJ4vuY77iiRkc-ikS8p5hHeM/preview"
+                allow="autoplay"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>      
         </div>
-      </div>
-    </a>
-
-    <!-- Obstacle Course Card -->
-    <a
-      href="/obstacles"
-      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-    >
-      <div class="flex items-center gap-4">
-        <Pyramid class="h-6 w-6" />
-        <div>
-          <h2 class="text-xl font-semibold">Course Detials</h2>
-          <p class="text-muted-foreground">Course layout and features</p>
-        </div>
-      </div>
-    </a>
-
-    <!-- Legal Card -->
-    <a
-      href="/legal"
-      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-    >
-      <div class="flex items-center gap-4">
-        <Scale class="h-6 w-6" />
-        <div>
-          <h2 class="text-xl font-semibold">Legal Documents</h2>
-          <p class="text-muted-foreground">View legal information</p>
-        </div>
-      </div>
-    </a>
-
-    <!-- FAQ Card -->
-    <a
-      href="/faqs"
-      class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground -mt-6"
-    >
-      <div class="flex items-center gap-4">
-        <HelpCircle class="h-6 w-6" />
-        <div>
-          <h2 class="text-xl font-semibold">FAQ Guide</h2>
-          <p class="text-muted-foreground">Detailed answers and support</p>
-        </div>
-      </div>
-    </a>
-  </div>
-<!-- Global, Investment and Theme Songs (Full Width) -->
-<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-4">
-  <a href="/global" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <Globe class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Global Overview</h2>
-        <p class="text-muted-foreground">International expansion and growth</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/investment" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <DollarSign class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Investment</h2>
-        <p class="text-muted-foreground">12 Sections</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/tech" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <span class="text-xl">🚀</span>
-      <div>
-        <h2 class="text-xl font-semibold">Technology & Digital Innovation</h2>
-        <p class="text-muted-foreground">Digital ecosystem & platforms</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/songs" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <AudioLines class="h-6 w-6" />
-      <div>
-        <h2 class="text-xl font-semibold">Theme Songs</h2>
-        <p class="text-muted-foreground">Listen to FLI's official music</p>
-      </div>
-    </div>
-  </a>
-</div>
-
-<!-- 7-Part Documentary and FLI Golf Membership Program -->
-
-<div class="mt-4 grid gap-4 grid-cols-1 md:grid-cols-4">
-  <a href="/series" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <span class="text-xl">🎬</span>
-      <div>
-        <h2 class="text-xl font-semibold">7-Part Documentary</h2>
-        <p class="text-muted-foreground">Behind the scenes documentary series</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/membership" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <span class="text-xl">🏆</span>
-      <div>
-        <h2 class="text-xl font-semibold">FLI Golf Membership Program</h2>
-        <p class="text-muted-foreground">Exclusive membership benefits and access</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/discord" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <span class="text-xl">💬</span>
-      <div>
-        <h2 class="text-xl font-semibold">Discord Community</h2>
-        <p class="text-muted-foreground">Connect, communicate, and collaborate with our community</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="/trend" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground flex justify-center text-center">
-    <div class="flex items-center gap-4">
-      <span class="text-xl">📈</span>
-      <div>
-        <h2 class="text-xl font-semibold">Emerging Sports Are Booming</h2>
-        <p class="text-muted-foreground">Explore the growth of emerging sports markets</p>
-      </div>
-    </div>
-  </a>
-</div>
-  <!-- Three-column layout for team cards -->
-  <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
-    <!-- Team cards -->
-  </div>
-  <!-- Three-column layout for team cards -->
-  <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
-    <Card.Root>
-      <ProsCard {loading} {pros} {pb} />
-    </Card.Root>
-    <Card.Root>
-      <ExecutiveCard {loading} {exe} {pb} />
-    </Card.Root>
-    <Card.Root>
-      <BroadcasterCard {loading} {broadcasters} {pb} />
-    </Card.Root>
-  </div>
-</main>
-</div>
-{#if $showVideo}
-  <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    <div class="bg-background p-4 rounded-lg max-w-4xl w-full">
-      <div class="flex justify-end mb-2">
-        <button
-          on:click={() => $showVideo = false}
-          class="text-muted-foreground hover:text-foreground"
-        >
-          Close
-        </button>
-      </div>
-      <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-        <iframe
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-          src="https://drive.google.com/file/d/1C895DZEMAJ4vuY77iiRkc-ikS8p5hHeM/preview"
-          allow="autoplay"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </div>      
-  </div>
-{/if}
+      {/if}
+      
