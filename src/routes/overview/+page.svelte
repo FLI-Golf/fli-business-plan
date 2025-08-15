@@ -298,7 +298,7 @@
             </a>
       
             <!-- Broadcasting & Production PDF -->
-            <a href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf?rlkey=ih81zfm4ntcfj8cv5r523givi&st=difjk1ja&dl=1" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
+            <a href="https://sites.google.com/fligolf.com/broadcasting/home" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
               <div class="flex items-center gap-4">
                 <FileText class="h-6 w-6" />
                 <div>
