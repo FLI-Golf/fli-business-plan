@@ -298,7 +298,7 @@
             </a>
       
             <!-- Broadcasting & Production PDF -->
-            <a href="https://sites.google.com/fligolf.com/broadcasting/home" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
+            <a href="https://fli-golf-sports-pptx.tiiny.site/" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground" target="_blank">
               <div class="flex items-center gap-4">
                 <FileText class="h-6 w-6" />
                 <div>
