@@ -150,7 +150,7 @@
             </div>
           </a>
 
-          <a href="https://sites.google.com/fligolf.com/broadcasting/home">
+          <a href="https://fli-golf-sports-pptx.tiiny.site/">
             <FileText class="h-6 w-6" />
             <div>
               <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
