@@ -150,7 +150,7 @@
             </div>
           </a>
 
-          <a href="https://www.dropbox.com/scl/fi/yunchs9z5i70pelvwlogs/FLI-Golf-Sports.pdf" class="text-muted-foreground hover:text-foreground flex items-center gap-4">
+          <a href="https://sites.google.com/fligolf.com/broadcasting/home">
             <FileText class="h-6 w-6" />
             <div>
               <h2 class="text-xl font-semibold">Broadcasting & Production PDF</h2>
