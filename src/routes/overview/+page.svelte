@@ -385,7 +385,7 @@
                 <DollarSign class="h-6 w-6" />
                 <div>
                   <h2 class="text-xl font-semibold">Investment</h2>
-                  <p class="text-muted-foreground">12 Sections</p>
+                  <p class="text-muted-foreground">11 Sections</p>
                 </div>
               </div>
             </a>
