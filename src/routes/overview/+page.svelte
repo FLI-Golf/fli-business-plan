@@ -13,7 +13,7 @@
   import { Pyramid } from 'lucide-svelte';
   import Scale from "lucide-svelte/icons/scale";
   import HelpCircle from "lucide-svelte/icons/help-circle";
-  import { AudioLines } from 'lucide-svelte';
+  import { AudioLines, MapPin } from 'lucide-svelte';
 
   // UI Components
   import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -237,8 +237,8 @@
         { label: 'Overview', href: '/overview' }
       ]} />
 
-    <!-- First Grid: Core Sections (3 columns) -->
-    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
+    <!-- First Grid: Core Sections (4 columns) -->
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mt-4">
       <!-- Partners -->
       <a href="/partners" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
         <div class="flex items-center gap-4">
@@ -268,6 +268,16 @@
           <div>
             <h2 class="text-xl font-semibold">Worldwide Growth</h2>
             <p class="text-muted-foreground">View 2024 Growth Report</p>
+          </div>
+        </div>
+      </a>
+      <!-- Compact Par-3 Disc Golf Facilities -->
+      <a href="/compact" class="group rounded-lg border p-4 transition-colors hover:bg-muted text-foreground dark:text-foreground">
+        <div class="flex items-center gap-4">
+          <MapPin class="h-6 w-6" />
+          <div>
+            <h2 class="text-xl font-semibold">Compact Par-3 Disc Golf Facilities</h2>
+            <p class="text-muted-foreground">A Scalable Model for Schools, Gyms, and Urban Spaces</p>
           </div>
         </div>
       </a>
