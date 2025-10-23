@@ -2,15 +2,40 @@
   import { onMount } from "svelte";
   import { Input } from "$lib/components/ui/input";
   import Search from "lucide-svelte/icons/search";
-  import { ChartColumnStacked } from 'lucide-svelte';
+  import { ChartColumnStacked, Pyramid, AlertTriangle, Target, Zap, Shield, TrendingUp, Award, Flag } from 'lucide-svelte';
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import * as Card from "$lib/components/ui/card";
-  import * as Carousel from "$lib/components/ui/carousel";
   import { pb } from '$lib/pocketbase';
+
+  // Icon mapping function for obstacles/advertising
+  function getIconForSlide(name: string, type: string) {
+    const nameLower = name.toLowerCase();
+    if (type === "Advertising") {
+      if (nameLower.includes('target') || nameLower.includes('audience')) return Target;
+      if (nameLower.includes('growth') || nameLower.includes('reach')) return TrendingUp;
+      if (nameLower.includes('brand') || nameLower.includes('logo')) return Award;
+      return Flag;
+    }
+    // Obstacles
+    if (nameLower.includes('challenge') || nameLower.includes('issue') || nameLower.includes('problem')) return AlertTriangle;
+    if (nameLower.includes('solution') || nameLower.includes('fix') || nameLower.includes('resolve')) return Shield;
+    if (nameLower.includes('performance') || nameLower.includes('speed')) return Zap;
+    if (nameLower.includes('goal') || nameLower.includes('target')) return Target;
+    return Pyramid; // Default icon
+  }
 
   let slides = [];
   let searchQuery = "";
   let isMobileMenuOpen = false;
+  let showBackToTop = false;
+
+  function handleScroll() {
+    showBackToTop = window.scrollY > 300;
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
 
 async function fetchSlides() {
@@ -31,7 +56,13 @@ async function fetchSlides() {
   }
 }
 
-  onMount(fetchSlides);
+  onMount(() => {
+    fetchSlides();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   $: filteredSlides = slides?.filter(slide =>
     slide?.description?.toLowerCase().includes(searchQuery?.toLowerCase() || '') ||
@@ -127,43 +158,127 @@ async function fetchSlides() {
       <Breadcrumb
         items={[
           { label: 'Home', href: '/overview' },
-          { label: 'Slides', href: '/slides' }
+          { label: 'Course Details', href: '/obstacles' }
         ]}
       />
 
-      <div class="w-full p-4 relative max-w-3xl mx-auto">
-        <Carousel.Root class="w-full">
-          <div class="absolute top-1/2 -translate-y-1/2 left-4 z-10">
-            <Carousel.Previous />
-          </div>
-          <Carousel.Content>
-            {#each slides as slide (slide.id)}
-              <Carousel.Item id="slide-{slide.id}">
-                <div class="p-1">
-                  <Card.Root>
-                    <Card.Header>
-                      <Card.Title>{slide.type}</Card.Title>
-                      <Card.Description>{slide.name}</Card.Description>
-                    </Card.Header>
-                    <Card.Content>
-                      {#if slide.slide_ref}
-                        <img
-                          src={getImageUrl(slide)}
-                          alt={slide.name}
-                          class="w-full h-72 object-cover rounded-md mb-4"
-                        />
-                      {/if}
-                      {@html slide.description}
-                    </Card.Content>
-                  </Card.Root>
-                </div>
-              </Carousel.Item>
-            {/each}
-          </Carousel.Content>          <div class="absolute top-1/2 -translate-y-1/2 right-4 z-10">
-            <Carousel.Next />
-          </div>
-        </Carousel.Root>
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 shadow-xl mb-4">
+          <Pyramid class="h-10 w-10 text-white" />
+        </div>
+        <h1 class="text-4xl font-bold mb-2">
+          Course Details & Features
+        </h1>
+        <div class="h-1 w-32 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto"></div>
       </div>
+
+      {#if filteredSlides.length}
+        <!-- Advertising Section -->
+        {#if filteredSlides.some(s => s.type === "Advertising")}
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+              <Flag class="h-6 w-6 text-amber-600" />
+              Advertising Opportunities
+            </h2>
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {#each filteredSlides.filter(s => s.type === "Advertising") as slide}
+                <div id="slide-{slide.id}" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+                  <!-- Card Header -->
+                  <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 p-4 border-b-2">
+                    <div class="flex items-center gap-3">
+                      <div class="shrink-0">
+                        <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                          <svelte:component this={getIconForSlide(slide.name, slide.type)} class="h-6 w-6 text-white" />
+                        </div>
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="text-lg font-bold text-blue-900 dark:text-blue-100">{slide.name}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Card Content -->
+                  <div class="p-4">
+                    {#if slide.slide_ref}
+                      <img
+                        src={getImageUrl(slide)}
+                        alt={slide.name}
+                        class="w-full h-48 object-cover rounded-lg mb-4 shadow-md"
+                      />
+                    {/if}
+                    <div class="prose prose-sm dark:prose-invert max-w-none">
+                      {@html slide.description}
+                    </div>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
+
+        <!-- Obstacles Section -->
+        {#if filteredSlides.some(s => s.type === "Obstacles")}
+          <div>
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+              <Pyramid class="h-6 w-6 text-amber-600" />
+              Course Obstacles
+            </h2>
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {#each filteredSlides.filter(s => s.type === "Obstacles") as slide}
+                <div id="slide-{slide.id}" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+                  <!-- Card Header -->
+                  <div class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 p-4 border-b-2">
+                    <div class="flex items-center gap-3">
+                      <div class="shrink-0">
+                        <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg">
+                          <svelte:component this={getIconForSlide(slide.name, slide.type)} class="h-6 w-6 text-white" />
+                        </div>
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="text-lg font-bold text-amber-900 dark:text-amber-100">{slide.name}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Card Content -->
+                  <div class="p-4">
+                    {#if slide.slide_ref}
+                      <img
+                        src={getImageUrl(slide)}
+                        alt={slide.name}
+                        class="w-full h-48 object-cover rounded-lg mb-4 shadow-md"
+                      />
+                    {/if}
+                    <div class="prose prose-sm dark:prose-invert max-w-none">
+                      {@html slide.description}
+                    </div>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
+      {:else}
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+            <Pyramid class="h-8 w-8 text-muted-foreground" />
+          </div>
+          <p class="text-muted-foreground text-lg">No content found</p>
+        </div>
+      {/if}
     </main>
   </div>
 </div>
+
+{#if showBackToTop}
+  <button
+    class="fixed bottom-4 right-4 p-2 rounded-full bg-background/80 hover:bg-background/90 transition-all flex flex-col items-center gap-2"
+    on:click={scrollToTop}
+  >
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m18 15-6-6-6 6"/></svg>
+      Back to top
+    </div>
+    <img src="/logos/fli_logo.png" alt="Back to top" class="h-14 w-14" />
+  </button>
+{/if}

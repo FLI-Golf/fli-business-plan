@@ -10,13 +10,13 @@
   export let exe: any[];
   export let pb: any;
 </script>
-<Card.Header class="flex flex-col items-center text-center gap-4 pb-6">
+<Card.Header class="bg-gradient-to-br from-emerald-600 to-teal-600 text-white flex flex-col items-center text-center gap-4 pb-6 pt-6 rounded-t-lg">
   <div class="p-4 rounded-full bg-white shadow-lg">
     <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-20 h-20 object-contain" />
   </div>
   <div class="grid gap-2">
-    <Card.Title class="text-2xl font-bold">Executive Staff</Card.Title>
-    <Card.Description class="text-base">Key Members of the Organization</Card.Description>
+    <Card.Title class="text-2xl font-bold text-white">Executive Staff</Card.Title>
+    <Card.Description class="text-base text-emerald-50">Key Members of the Organization</Card.Description>
   </div>
 </Card.Header>
 <Card.Content>

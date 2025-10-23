@@ -12,18 +12,18 @@
   export let pb: any;
 </script>
 
-<Card.Header class="flex flex-col items-center text-center gap-4 pb-6">
+<Card.Header class="bg-gradient-to-br from-blue-600 to-cyan-600 text-white flex flex-col items-center text-center gap-4 pb-6 pt-6 rounded-t-lg">
   <div class="p-4 rounded-full bg-white shadow-lg">
     <img src="/logos/wdr.png" alt="Pros Logo" class="w-20 h-20 object-contain" />
   </div>
   <div class="grid gap-2">
-    <Card.Title class="text-2xl font-bold">Committed Pros</Card.Title>
-    <Card.Description class="text-base">Complete list of professional disc golfers.</Card.Description>
+    <Card.Title class="text-2xl font-bold text-white">Committed Pros</Card.Title>
+    <Card.Description class="text-base text-blue-50">Complete list of professional disc golfers.</Card.Description>
   </div>
 
   <AlertDialog.Root>
     <AlertDialog.Trigger>
-      <Button size="sm" class="gap-1">
+      <Button size="sm" class="gap-1 bg-white text-blue-700 hover:bg-blue-50">
         View All
         <ArrowUpRight class="h-4 w-4" />
       </Button>

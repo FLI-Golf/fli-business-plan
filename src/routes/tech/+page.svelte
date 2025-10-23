@@ -7,9 +7,25 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
-  import { Home, Cpu } from "lucide-svelte";
+  import { Home, Cpu, Smartphone, Wifi, Cloud, Database, Code, Zap, Monitor, Rocket, Globe, Server } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import { pb } from '$lib/pocketbase';
+
+  // Icon mapping function for technology sections
+  function getIconForSection(title: string) {
+    const titleLower = title.toLowerCase();
+    if (titleLower.includes('app') || titleLower.includes('mobile') || titleLower.includes('phone')) return Smartphone;
+    if (titleLower.includes('stream') || titleLower.includes('broadcast') || titleLower.includes('live')) return Wifi;
+    if (titleLower.includes('cloud') || titleLower.includes('infrastructure') || titleLower.includes('hosting')) return Cloud;
+    if (titleLower.includes('data') || titleLower.includes('analytics') || titleLower.includes('database')) return Database;
+    if (titleLower.includes('code') || titleLower.includes('development') || titleLower.includes('software')) return Code;
+    if (titleLower.includes('performance') || titleLower.includes('speed') || titleLower.includes('fast')) return Zap;
+    if (titleLower.includes('platform') || titleLower.includes('web') || titleLower.includes('website')) return Monitor;
+    if (titleLower.includes('innovation') || titleLower.includes('future') || titleLower.includes('next')) return Rocket;
+    if (titleLower.includes('network') || titleLower.includes('global') || titleLower.includes('worldwide')) return Globe;
+    if (titleLower.includes('server') || titleLower.includes('backend') || titleLower.includes('api')) return Server;
+    return Cpu; // Default icon
+  }
 
   let techRecords = [];
   let searchQuery = "";
@@ -122,27 +138,55 @@
           { label: 'Technology', href: '/tech' }
         ]}
       />
-      <div class="text-center mb-6">
-        <h1 class="text-4xl font-bold flex items-center justify-center gap-2">
-          <span>🚀 Technology & Digital Innovation</span>
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 shadow-xl mb-4">
+          <Rocket class="h-10 w-10 text-white" />
+        </div>
+        <h1 class="text-4xl font-bold mb-2">
+          Technology & Digital Innovation
         </h1>
-        <p class="text-xl mt-2 italic">"A sport you can play, stream, bet, build, and bring home."</p>
-        <div class="max-w-3xl mx-auto mt-4 text-muted-foreground">
+        <p class="text-xl italic text-muted-foreground mb-4">"A sport you can play, stream, bet, build, and bring home."</p>
+        <div class="max-w-3xl mx-auto text-muted-foreground">
           <p>FLI Golf League is building more than a sports property — we're engineering a full-spectrum entertainment ecosystem. Every piece of our technology strategy connects fans with the game across digital, in-person, mobile, broadcast, and even gaming platforms.</p>
         </div>
+        <div class="h-1 w-32 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full mx-auto mt-4"></div>
       </div>
       
       {#if filteredRecords.length}
-        {#each filteredRecords as record}
-          <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">{record.title}</h2>
-            <div class="prose max-w-none">
-              {@html record.body}
+        <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+          {#each filteredRecords as record}
+            <div id={`section-${record.id}`} class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+              <!-- Card Header with Icon and Title -->
+              <div class="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/30 dark:to-purple-950/30 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="shrink-0">
+                    <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-xl">
+                      <svelte:component this={getIconForSection(record.title)} class="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl font-bold text-violet-900 dark:text-violet-100">{record.title}</h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full mt-2"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card Content -->
+              <div class="p-8 bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-950/50">
+                <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-violet-900 dark:prose-headings:text-violet-100 prose-a:text-violet-600 dark:prose-a:text-violet-400">
+                  {@html record.body}
+                </div>
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       {:else}
-        <p class="text-gray-600">No technology content found</p>
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+            <Cpu class="h-8 w-8 text-muted-foreground" />
+          </div>
+          <p class="text-muted-foreground text-lg">No technology content found</p>
+        </div>
       {/if}
     </main>
   </div>
