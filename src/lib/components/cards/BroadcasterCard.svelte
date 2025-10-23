@@ -28,10 +28,13 @@
   };
 </script>
 
-<Card.Header class="flex flex-row items-center justify-between">
+<Card.Header class="flex flex-col items-center text-center gap-4 pb-6">
+  <div class="p-4 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 shadow-lg">
+    <Mic class="h-12 w-12 text-white" />
+  </div>
   <div class="grid gap-2">
-    <Card.Title>Broadcasters</Card.Title>
-    <Card.Description>Our media partners.</Card.Description>
+    <Card.Title class="text-2xl font-bold">Broadcasters</Card.Title>
+    <Card.Description class="text-base">Our media partners.</Card.Description>
   </div>
 
   <AlertDialog.Root>
@@ -311,85 +314,82 @@
 
 <Card.Content>
   {#if loading}
-    <div class="space-y-4">
+    <div class="space-y-3">
       {#each Array(5) as _}
-        <div class="flex items-center space-x-4">
-          <div class="h-10 w-10 bg-muted rounded-full animate-pulse"></div>
+        <div class="flex items-center space-x-4 p-3 border rounded-lg">
+          <div class="h-12 w-12 bg-muted rounded-full animate-pulse"></div>
           <div class="h-6 bg-muted rounded animate-pulse w-1/3"></div>
         </div>
       {/each}
     </div>
   {:else}
-    <Table.Root class="w-full">
-      <Table.Header>
-        <Table.Row>
-          <Table.Head class="w-[70%]">Name</Table.Head>
-          <Table.Head class="w-[30%] text-right">Role</Table.Head>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {#each broadcasters as broadcaster}
-          <Table.Row class="cursor-pointer hover:bg-muted">
-            <Table.Cell class="w-[70%]">
-              <AlertDialog.Root>
-                <AlertDialog.Trigger class="w-full">
-                  <div class="flex items-center space-x-4">
-                    {#if broadcaster.expand?.avatar}
-                      <Avatar.Root class="h-10 w-10">
-                        <Avatar.Image
-                          src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
-                          alt={broadcaster.name}
-                        />
-                      </Avatar.Root>
-                    {/if}
-                    <div class="font-medium">{broadcaster.name}</div>
+    <div class="space-y-3">
+      {#each broadcasters as broadcaster}
+        <AlertDialog.Root>
+          <AlertDialog.Trigger class="w-full">
+            <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors cursor-pointer group">
+              <div class="flex items-center gap-4">
+                {#if broadcaster.expand?.avatar}
+                  <Avatar.Root class="h-12 w-12 rounded-full shadow-sm">
+                    <Avatar.Image
+                      src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
+                      alt={broadcaster.name}
+                    />
+                  </Avatar.Root>
+                {:else}
+                  <Avatar.Root class="h-12 w-12">
+                    <Avatar.Fallback>{broadcaster.name?.charAt(0)}</Avatar.Fallback>
+                  </Avatar.Root>
+                {/if}
+                <div class="text-left">
+                  <div class="font-semibold text-base">{broadcaster.name}</div>
+                  <div class="text-sm text-muted-foreground">{broadcaster.role || 'Broadcaster'}</div>
+                </div>
+              </div>
+              <Badge variant="outline" class="shrink-0">{broadcaster.role || 'Broadcaster'}</Badge>
+            </div>
+          </AlertDialog.Trigger>
+
+          <AlertDialog.Content>
+            <AlertDialog.Header class="flex justify-between items-start">
+              <div>
+                <AlertDialog.Title>{broadcaster.name}</AlertDialog.Title>
+                <AlertDialog.Description>
+                  Detailed information about {broadcaster.name}
+                </AlertDialog.Description>
+              </div>
+              {#if broadcaster.expand?.avatar}
+                <Avatar.Root class="h-24 w-24">
+                  <Avatar.Image
+                    src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
+                    alt={broadcaster.name}
+                  />
+                </Avatar.Root>
+              {/if}
+            </AlertDialog.Header>
+
+            <div class="overflow-y-auto max-h-[60vh]">
+              <div class="grid gap-4 py-4">
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <Badge variant="outline">{broadcaster.role || 'Broadcaster'}</Badge>
+                    <Badge>{broadcaster.gender}</Badge>
                   </div>
-                </AlertDialog.Trigger>
+                  <p class="text-sm text-muted-foreground">
+                    {@html broadcaster.bio || 'Professional Broadcaster'}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                <AlertDialog.Content>
-                  <AlertDialog.Header class="flex justify-between items-start">
-                    <div>
-                      <AlertDialog.Title>{broadcaster.name}</AlertDialog.Title>
-                      <AlertDialog.Description>
-                        Detailed information about {broadcaster.name}
-                      </AlertDialog.Description>
-                    </div>
-                    {#if broadcaster.expand?.avatar}
-                      <Avatar.Root class="h-24 w-24">
-                        <Avatar.Image
-                          src={`${pb.baseUrl}/api/files/${broadcaster.expand.avatar.collectionId}/${broadcaster.expand.avatar.id}/${broadcaster.expand.avatar.image}`}
-                          alt={broadcaster.name}
-                        />
-                      </Avatar.Root>
-                    {/if}
-                  </AlertDialog.Header>
-
-                  <div class="overflow-y-auto max-h-[60vh]">
-                    <div class="grid gap-4 py-4">
-                      <div class="space-y-2">
-                        <div class="flex items-center gap-2">
-                          <Badge variant="outline">{broadcaster.role || 'Broadcaster'}</Badge>
-                          <Badge>{broadcaster.gender}</Badge>
-                        </div>
-                        <p class="text-sm text-muted-foreground">
-                          {@html broadcaster.bio || 'Professional Broadcaster'}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <AlertDialog.Footer>
-                    <AlertDialog.Cancel>
-                      <Button variant="outline">Close</Button>
-                    </AlertDialog.Cancel>
-                  </AlertDialog.Footer>
-                </AlertDialog.Content>
-              </AlertDialog.Root>
-            </Table.Cell>
-            <Table.Cell class="w-[30%] text-right">{broadcaster.role || 'Broadcaster'}</Table.Cell>
-          </Table.Row>
-        {/each}
-      </Table.Body>
-    </Table.Root>
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel>
+                <Button variant="outline">Close</Button>
+              </AlertDialog.Cancel>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
+      {/each}
+    </div>
   {/if}
 </Card.Content>
