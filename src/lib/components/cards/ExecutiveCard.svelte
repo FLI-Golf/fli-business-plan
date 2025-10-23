@@ -10,97 +10,91 @@
   export let exe: any[];
   export let pb: any;
 </script>
-<Card.Header class="flex flex-row items-center justify-between">
+<Card.Header class="flex flex-col items-center text-center gap-4 pb-6">
+  <div class="p-4 rounded-full bg-white shadow-lg">
+    <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-20 h-20 object-contain" />
+  </div>
   <div class="grid gap-2">
-    <Card.Title>Executive Staff</Card.Title>
-    <img src="/logos/fliGolf_rwb.png" alt="Exe Logo" class="w-32 h-35" />
-    <Card.Description class="-mt-5">Key Members of the Organization</Card.Description>
+    <Card.Title class="text-2xl font-bold">Executive Staff</Card.Title>
+    <Card.Description class="text-base">Key Members of the Organization</Card.Description>
   </div>
 </Card.Header>
 <Card.Content>
   {#if loading}
-    <div class="space-y-4">
+    <div class="space-y-3">
       {#each Array(4) as _}
-        <div class="flex items-center space-x-4">
-          <div class="h-10 w-14 bg-muted rounded animate-pulse"></div>
+        <div class="flex items-center space-x-4 p-3 border rounded-lg">
+          <div class="h-12 w-12 bg-muted rounded-full animate-pulse"></div>
           <div class="h-6 bg-muted rounded animate-pulse w-1/2"></div>
         </div>
       {/each}
     </div>
   {:else}
-    <Table.Root>
-      <Table.Header>
-        <Table.Row>
-          <Table.Head>Name</Table.Head>
-          <Table.Head class="xl:table.-column hidden">Type</Table.Head>
-          <Table.Head class="xl:table.-column hidden">Status</Table.Head>
-          <Table.Head class="xl:table.-column hidden">Date</Table.Head>
-          <Table.Head class="text-right">Role</Table.Head>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {#each exe as executive}
-          <Table.Row>
-            <Table.Cell>
-              <AlertDialog.Root>
-                <AlertDialog.Trigger class="w-full">
-                  <div class="flex items-center space-x-4">
-                    {#if executive.avatar}
-                      <Avatar.Root class="h-10 w-14 rounded-lg">
-                        <Avatar.Image
-                          src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
-                          alt={executive.name}
-                        />
-                      </Avatar.Root>
-                    {:else}
-                      <Avatar.Fallback>{executive.name?.charAt(0)}</Avatar.Fallback>
-                    {/if}
-                    <div class="font-medium">{executive.name}</div>
+    <div class="space-y-3">
+      {#each exe as executive}
+        <AlertDialog.Root>
+          <AlertDialog.Trigger class="w-full">
+            <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-muted transition-colors cursor-pointer group">
+              <div class="flex items-center gap-4">
+                {#if executive.avatar}
+                  <Avatar.Root class="h-12 w-12 rounded-full shadow-sm">
+                    <Avatar.Image
+                      src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
+                      alt={executive.name}
+                    />
+                  </Avatar.Root>
+                {:else}
+                  <Avatar.Root class="h-12 w-12">
+                    <Avatar.Fallback>{executive.name?.charAt(0)}</Avatar.Fallback>
+                  </Avatar.Root>
+                {/if}
+                <div class="text-left">
+                  <div class="font-semibold text-base">{executive.name}</div>
+                  <div class="text-sm text-muted-foreground">{executive.role}</div>
+                </div>
+              </div>
+              <Badge variant="outline" class="shrink-0">{executive.role}</Badge>
+            </div>
+          </AlertDialog.Trigger>
+
+          <AlertDialog.Content>
+            <AlertDialog.Header class="flex justify-between items-start">
+              <div>
+                <AlertDialog.Title>{executive.name}</AlertDialog.Title>
+                <AlertDialog.Description>
+                  {executive.title}
+                </AlertDialog.Description>
+              </div>
+              {#if executive.avatar}
+                <Avatar.Root class="h-24 w-32 rounded-none">
+                  <Avatar.Image
+                    src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
+                    alt={executive.name}
+                  />
+                </Avatar.Root>
+              {/if}
+            </AlertDialog.Header>
+
+            <div class="overflow-y-auto max-h-[60vh]">
+              <div class="grid gap-4 py-4">
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2">
+                    <Badge variant="outline">{executive.role}</Badge>
+                    <span class="text-sm text-muted-foreground">{executive.email}</span>
                   </div>
-                </AlertDialog.Trigger>
+                  <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
+                </div>
+              </div>
+            </div>
 
-                <AlertDialog.Content>
-                  <AlertDialog.Header class="flex justify-between items-start">
-                    <div>
-                      <AlertDialog.Title>{executive.name}</AlertDialog.Title>
-                      <AlertDialog.Description>
-                        {executive.title}
-                      </AlertDialog.Description>
-                    </div>
-                    {#if executive.avatar}
-                      <Avatar.Root class="h-24 w-32 rounded-none">
-                        <Avatar.Image
-                          src={`${pb.baseUrl}/api/files/${executive.expand.avatar.collectionId}/${executive.expand.avatar.id}/${executive.expand.avatar.image}`}
-                          alt={executive.name}
-                        />
-                      </Avatar.Root>
-                    {/if}
-                  </AlertDialog.Header>
-
-                  <div class="overflow-y-auto max-h-[60vh]">
-                    <div class="grid gap-4 py-4">
-                      <div class="space-y-2">
-                        <div class="flex items-center gap-2">
-                          <Badge variant="outline">{executive.role}</Badge>
-                          <span class="text-sm text-muted-foreground">{executive.email}</span>
-                        </div>
-                        <p class="text-sm text-muted-foreground">{executive.bio || 'Executive Staff Member'}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <AlertDialog.Footer>
-                    <AlertDialog.Cancel>
-                      <Button variant="outline">Close</Button>
-                    </AlertDialog.Cancel>
-                  </AlertDialog.Footer>
-                </AlertDialog.Content>
-              </AlertDialog.Root>
-            </Table.Cell>
-            <Table.Cell class="text-right">{executive.role}</Table.Cell>
-          </Table.Row>
-        {/each}
-      </Table.Body>
-    </Table.Root>
+            <AlertDialog.Footer>
+              <AlertDialog.Cancel>
+                <Button variant="outline">Close</Button>
+              </AlertDialog.Cancel>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog.Root>
+      {/each}
+    </div>
   {/if}
 </Card.Content>
