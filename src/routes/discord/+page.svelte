@@ -7,7 +7,7 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import Search from "lucide-svelte/icons/search";
     import Section from "$lib/components/ui/Section.svelte";
-    import { Home, MessageCircle } from "lucide-svelte";
+    import { Home, MessageCircle, MessageSquare } from "lucide-svelte";
     import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
     import { pb } from '$lib/pocketbase';
   
@@ -133,16 +133,32 @@
         </div>
         
         {#if filteredRecords.length}
-          {#each filteredRecords as record}
-            <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-              <h2 class="text-2xl font-bold">{record.title}</h2>
-              <div class="prose max-w-none">
-                {@html record.body}
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+            {#each filteredRecords as record}
+              <div 
+                id={`section-${record.id}`} 
+                class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card"
+              >
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 border-b-2">
+                  <div class="flex items-center gap-4">
+                    <div class="h-14 w-14 rounded-xl bg-white text-indigo-600 flex items-center justify-center shadow-lg">
+                      <MessageSquare class="h-7 w-7" />
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">{record.title}</h2>
+                  </div>
+                </div>
+                <div class="p-6 bg-white">
+                  <div class="prose prose-sm max-w-none text-gray-900 [&_p]:text-gray-900 [&_li]:text-gray-900 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_strong]:text-gray-900">
+                    {@html record.body}
+                  </div>
+                </div>
               </div>
-            </div>
-          {/each}
+            {/each}
+          </div>
         {:else}
-          <p class="text-gray-600">No discord content found</p>
+          <div class="text-center py-12">
+            <p class="text-muted-foreground text-lg">No discord content found</p>
+          </div>
         {/if}
       </main>
     </div>
