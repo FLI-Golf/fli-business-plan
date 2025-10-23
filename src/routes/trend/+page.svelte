@@ -7,7 +7,7 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import Search from "lucide-svelte/icons/search";
     import Section from "$lib/components/ui/Section.svelte";
-    import { Home, TrendingUp } from "lucide-svelte";
+    import { Home, TrendingUp, BarChart3 } from "lucide-svelte";
     import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
     import { pb } from '$lib/pocketbase';
   
@@ -152,46 +152,78 @@
         </div>
   
         {#if filteredRecords.length}
-          {#each filteredRecords as record}
-            <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-              <h2 class="text-2xl font-bold">{record.title}</h2>
-              <div class="prose max-w-none">
-                {@html record.body}
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+            {#each filteredRecords as record}
+              <div 
+                id={`section-${record.id}`} 
+                class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card"
+              >
+                <div class="bg-gradient-to-r from-green-600 to-emerald-600 p-6 border-b-2">
+                  <div class="flex items-center gap-4">
+                    <div class="h-14 w-14 rounded-xl bg-white text-green-600 flex items-center justify-center shadow-lg">
+                      <BarChart3 class="h-7 w-7" />
+                    </div>
+                    <h2 class="text-2xl font-bold text-white">{record.title}</h2>
+                  </div>
+                </div>
+                <div class="p-6 bg-white">
+                  <div class="prose prose-sm max-w-none text-gray-900 [&_p]:text-gray-900 [&_li]:text-gray-900 [&_h1]:text-gray-900 [&_h2]:text-gray-900 [&_h3]:text-gray-900 [&_strong]:text-gray-900">
+                    {@html record.body}
+                  </div>
+                </div>
               </div>
-            </div>
-          {/each}
+            {/each}
+          </div>
         {:else}
           <!-- Default content when no records are found -->
-          <div id="market-overview" class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">Market Overview</h2>
-            <div class="prose max-w-none">
-              <p>The emerging sports market has experienced explosive growth over the past decade. Traditional sports are being challenged by innovative, accessible alternatives that appeal to younger demographics and offer unique entertainment value.</p>
-              
-              <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-6">
-                <div class="p-4 border rounded-lg text-center">
-                  <div class="text-2xl font-bold text-green-600">+47%</div>
-                  <div class="text-sm text-muted-foreground">Annual growth in participation</div>
+          <div class="space-y-6">
+            <div id="market-overview" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl transition-all bg-card">
+              <div class="bg-gradient-to-r from-green-600 to-emerald-600 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="h-14 w-14 rounded-xl bg-white text-green-600 flex items-center justify-center shadow-lg">
+                    <BarChart3 class="h-7 w-7" />
+                  </div>
+                  <h2 class="text-2xl font-bold text-white">Market Overview</h2>
                 </div>
-                <div class="p-4 border rounded-lg text-center">
-                  <div class="text-2xl font-bold text-blue-600">12.3M</div>
-                  <div class="text-sm text-muted-foreground">New participants in 2024</div>
-                </div>
-                <div class="p-4 border rounded-lg text-center">
-                  <div class="text-2xl font-bold text-purple-600">$2.8B</div>
-                  <div class="text-sm text-muted-foreground">Investment in startups</div>
-                </div>
-                <div class="p-4 border rounded-lg text-center">
-                  <div class="text-2xl font-bold text-orange-600">85+</div>
-                  <div class="text-sm text-muted-foreground">Countries with leagues</div>
+              </div>
+              <div class="p-6 bg-white">
+                <div class="prose prose-sm max-w-none text-gray-900">
+                  <p class="text-gray-900">The emerging sports market has experienced explosive growth over the past decade. Traditional sports are being challenged by innovative, accessible alternatives that appeal to younger demographics and offer unique entertainment value.</p>
+                  
+                  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 my-6">
+                    <div class="p-4 border-2 border-green-200 rounded-lg text-center bg-green-50">
+                      <div class="text-2xl font-bold text-green-600">+47%</div>
+                      <div class="text-sm text-gray-600">Annual growth in participation</div>
+                    </div>
+                    <div class="p-4 border-2 border-blue-200 rounded-lg text-center bg-blue-50">
+                      <div class="text-2xl font-bold text-blue-600">12.3M</div>
+                      <div class="text-sm text-gray-600">New participants in 2024</div>
+                    </div>
+                    <div class="p-4 border-2 border-purple-200 rounded-lg text-center bg-purple-50">
+                      <div class="text-2xl font-bold text-purple-600">$2.8B</div>
+                      <div class="text-sm text-gray-600">Investment in startups</div>
+                    </div>
+                    <div class="p-4 border-2 border-orange-200 rounded-lg text-center bg-orange-50">
+                      <div class="text-2xl font-bold text-orange-600">85+</div>
+                      <div class="text-sm text-gray-600">Countries with leagues</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
   
-          <div id="trending-sports" class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">Top Emerging Sports by Growth</h2>
-            <div class="prose max-w-none">
-              <div class="space-y-4">
+            <div id="trending-sports" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl transition-all bg-card">
+              <div class="bg-gradient-to-r from-blue-600 to-cyan-600 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="h-14 w-14 rounded-xl bg-white text-blue-600 flex items-center justify-center shadow-lg">
+                    <TrendingUp class="h-7 w-7" />
+                  </div>
+                  <h2 class="text-2xl font-bold text-white">Top Emerging Sports by Growth</h2>
+                </div>
+              </div>
+              <div class="p-6 bg-white">
+                <div class="prose prose-sm max-w-none text-gray-900">
+                  <div class="space-y-4">
                 <div class="flex items-center justify-between p-4 border rounded-lg">
                   <div class="flex items-center gap-4">
                     <div class="text-2xl">🥏</div>
@@ -249,12 +281,19 @@
                 </div>
               </div>
             </div>
-          </div>
   
-          <div id="investment-opportunities" class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">Investment Opportunities</h2>
-            <div class="prose max-w-none">
-              <div class="grid gap-6 md:grid-cols-2">
+            <div id="investment-opportunities" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl transition-all bg-card">
+              <div class="bg-gradient-to-r from-amber-600 to-orange-600 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="h-14 w-14 rounded-xl bg-white text-amber-600 flex items-center justify-center shadow-lg">
+                    <TrendingUp class="h-7 w-7" />
+                  </div>
+                  <h2 class="text-2xl font-bold text-white">Investment Opportunities</h2>
+                </div>
+              </div>
+              <div class="p-6 bg-white">
+                <div class="prose prose-sm max-w-none text-gray-900">
+                  <div class="grid gap-6 md:grid-cols-2">
                 <div class="space-y-4">
                   <h4 class="font-semibold">Why Emerging Sports Are Thriving</h4>
                   <ul class="space-y-3">
@@ -301,14 +340,23 @@
                     </li>
                   </ul>
                 </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
   
-          <div id="fli-position" class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">🏌️ FLI Golf's Strategic Position</h2>
-            <div class="prose max-w-none">
-              <p class="text-lg mb-6">How FLI Golf capitalizes on the emerging sports boom</p>
+            <div id="fli-position" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl transition-all bg-card">
+              <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="h-14 w-14 rounded-xl bg-white text-purple-600 flex items-center justify-center shadow-lg text-3xl">
+                    🏌️
+                  </div>
+                  <h2 class="text-2xl font-bold text-white">FLI Golf's Strategic Position</h2>
+                </div>
+              </div>
+              <div class="p-6 bg-white">
+                <div class="prose prose-sm max-w-none text-gray-900">
+                  <p class="text-lg mb-6">How FLI Golf capitalizes on the emerging sports boom</p>
               
               <div class="grid gap-4 md:grid-cols-2 p-6 border-2 border-primary/20 bg-primary/5 rounded-lg">
                 <div class="space-y-4">
@@ -353,16 +401,25 @@
                     </div>
                   </div>
                 </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
   
-          <div id="industry-reports" class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">📊 Industry Reports & Resources</h2>
-            <div class="prose max-w-none">
-              <p class="mb-6">External research and data supporting emerging sports growth</p>
+            <div id="industry-reports" class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl transition-all bg-card">
+              <div class="bg-gradient-to-r from-teal-600 to-cyan-600 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="h-14 w-14 rounded-xl bg-white text-teal-600 flex items-center justify-center shadow-lg text-3xl">
+                    📊
+                  </div>
+                  <h2 class="text-2xl font-bold text-white">Industry Reports & Resources</h2>
+                </div>
+              </div>
+              <div class="p-6 bg-white">
+                <div class="prose prose-sm max-w-none text-gray-900">
+                  <p class="mb-6 text-gray-900">External research and data supporting emerging sports growth</p>
               
-              <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <a 
                   href="https://udisc.com/disc-golf-growth-report" 
                   target="_blank"
@@ -400,10 +457,14 @@
                     <span class="text-xl">📈</span>
                     <h4 class="font-semibold">Statista Market Outlook</h4>
                   </div>
-                  <p class="text-sm text-muted-foreground">
+                  <p class="text-sm text-gray-600">
                     Global alternative sports market size and projections
                   </p>
                 </a>
+              </div>
+                  </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
