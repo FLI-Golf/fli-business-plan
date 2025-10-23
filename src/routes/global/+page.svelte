@@ -7,9 +7,23 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
-  import { Home, Globe } from "lucide-svelte";
+  import { Home, Globe, MapPin, Users, TrendingUp, Building2, Lightbulb, Target, Rocket, Award } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import { pb } from '$lib/pocketbase';
+
+  // Icon mapping function
+  function getIconForSection(name: string) {
+    const nameLower = name.toLowerCase();
+    if (nameLower.includes('market') || nameLower.includes('growth')) return TrendingUp;
+    if (nameLower.includes('location') || nameLower.includes('region') || nameLower.includes('geographic')) return MapPin;
+    if (nameLower.includes('team') || nameLower.includes('people') || nameLower.includes('staff')) return Users;
+    if (nameLower.includes('partner') || nameLower.includes('venue') || nameLower.includes('facility')) return Building2;
+    if (nameLower.includes('strategy') || nameLower.includes('plan') || nameLower.includes('approach')) return Lightbulb;
+    if (nameLower.includes('goal') || nameLower.includes('objective') || nameLower.includes('target')) return Target;
+    if (nameLower.includes('launch') || nameLower.includes('expansion') || nameLower.includes('future')) return Rocket;
+    if (nameLower.includes('success') || nameLower.includes('achievement') || nameLower.includes('milestone')) return Award;
+    return Globe; // Default icon
+  }
 
   let globalRecords = [];
   let searchQuery = "";
@@ -147,16 +161,40 @@
       />
 
       {#if filteredRecords.length}
-        {#each filteredRecords as record}
-          <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">{record.name}</h2>
-            <div class="prose max-w-none">
-              {@html record.description}
+        <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+          {#each filteredRecords as record}
+            <div id={`section-${record.id}`} class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+              <!-- Card Header with Icon and Title -->
+              <div class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="shrink-0">
+                    <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-xl">
+                      <svelte:component this={getIconForSection(record.name)} class="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl font-bold text-emerald-900 dark:text-emerald-100">{record.name}</h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mt-2"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card Content -->
+              <div class="p-8 bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-950/50">
+                <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-emerald-900 dark:prose-headings:text-emerald-100 prose-a:text-emerald-600 dark:prose-a:text-emerald-400">
+                  {@html record.description}
+                </div>
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       {:else}
-        <p class="text-gray-600">No global content found</p>
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+            <Globe class="h-8 w-8 text-muted-foreground" />
+          </div>
+          <p class="text-muted-foreground text-lg">No global content found</p>
+        </div>
       {/if}
     </main>
   </div>

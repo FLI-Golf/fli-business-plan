@@ -7,9 +7,25 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
-  import { Home, Film } from "lucide-svelte";
+  import { Home, Film, Video, Camera, Clapperboard, Play, Eye, Users, Mic, Sparkles } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import { pb } from '$lib/pocketbase';
+
+  // Icon mapping function for documentary episodes
+  function getIconForEpisode(title: string, index: number) {
+    const titleLower = title.toLowerCase();
+    if (titleLower.includes('intro') || titleLower.includes('beginning') || titleLower.includes('start')) return Play;
+    if (titleLower.includes('behind') || titleLower.includes('scene') || titleLower.includes('making')) return Camera;
+    if (titleLower.includes('interview') || titleLower.includes('talk') || titleLower.includes('conversation')) return Mic;
+    if (titleLower.includes('team') || titleLower.includes('people') || titleLower.includes('staff')) return Users;
+    if (titleLower.includes('production') || titleLower.includes('filming') || titleLower.includes('shoot')) return Clapperboard;
+    if (titleLower.includes('vision') || titleLower.includes('future') || titleLower.includes('dream')) return Eye;
+    if (titleLower.includes('highlight') || titleLower.includes('best') || titleLower.includes('special')) return Sparkles;
+    
+    // Default to episode number icons
+    const icons = [Play, Camera, Clapperboard, Video, Mic, Eye, Sparkles];
+    return icons[index % icons.length];
+  }
 
   let seriesRecords = [];
   let searchQuery = "";
@@ -122,27 +138,58 @@
           { label: '7-Part Documentary', href: '/series' }
         ]}
       />
-      <div class="text-center mb-6">
-        <h1 class="text-4xl font-bold flex items-center justify-center gap-2">
-          <span>🎬 7-Part Documentary</span>
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-rose-500 to-pink-600 shadow-xl mb-4">
+          <Film class="h-10 w-10 text-white" />
+        </div>
+        <h1 class="text-4xl font-bold mb-2">
+          7-Part Documentary Series
         </h1>
-        <p class="text-xl mt-2 italic">"Behind the scenes documentary series"</p>
-        <div class="max-w-3xl mx-auto mt-4 text-muted-foreground">
+        <p class="text-xl italic text-muted-foreground mb-4">"Behind the scenes documentary series"</p>
+        <div class="max-w-3xl mx-auto text-muted-foreground">
           <p>Dive deep into the world of FLI Golf with our comprehensive 7-part documentary series. Get an exclusive behind-the-scenes look at our journey, the people who make it happen, and the vision that drives us forward.</p>
         </div>
+        <div class="h-1 w-32 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full mx-auto mt-4"></div>
       </div>
       
       {#if filteredRecords.length}
-        {#each filteredRecords as record}
-          <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">{record.title}</h2>
-            <div class="prose max-w-none">
-              {@html record.body}
+        <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+          {#each filteredRecords as record, index}
+            <div id={`section-${record.id}`} class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+              <!-- Card Header with Icon and Title -->
+              <div class="bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-950/30 dark:to-pink-950/30 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="shrink-0">
+                    <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 flex items-center justify-center shadow-xl">
+                      <svelte:component this={getIconForEpisode(record.title, index)} class="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <Badge class="bg-rose-500 text-white">Episode {index + 1}</Badge>
+                    </div>
+                    <h2 class="text-3xl font-bold text-rose-900 dark:text-rose-100">{record.title}</h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full mt-2"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card Content -->
+              <div class="p-8 bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-950/50">
+                <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-rose-900 dark:prose-headings:text-rose-100 prose-a:text-rose-600 dark:prose-a:text-rose-400">
+                  {@html record.body}
+                </div>
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       {:else}
-        <p class="text-gray-600">No documentary content found</p>
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+            <Film class="h-8 w-8 text-muted-foreground" />
+          </div>
+          <p class="text-muted-foreground text-lg">No documentary content found</p>
+        </div>
       {/if}
     </main>
   </div>

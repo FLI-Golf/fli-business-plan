@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { Search, Home, HelpCircle } from "lucide-svelte";
+  import { Search, Home, HelpCircle, MessageCircle } from "lucide-svelte";
   import { Input } from "$lib/components/ui/input";
   import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "$lib/components/ui/accordion";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
@@ -96,20 +96,45 @@
           { label: 'FAQs', href: '/faqs' }
         ]} />
 
-      <h1 class="text-2xl font-bold">Frequently Asked Questions</h1>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-3 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg">
+          <HelpCircle class="h-8 w-8 text-white" />
+        </div>
+        <h1 class="text-3xl font-bold">Frequently Asked Questions</h1>
+      </div>
 
-      <Accordion type="single" collapsible class="w-full">
+      <div class="space-y-4">
         {#each filteredFaqs as faq}
-          <AccordionItem value={faq.id} id={`faq-${faq.id}`}>
-            <AccordionTrigger class="text-left">
-              {faq.question}
-            </AccordionTrigger>
-            <AccordionContent>
-              {@html faq.new_answer}
-            </AccordionContent>
-          </AccordionItem>
+          <div id={`faq-${faq.id}`} class="border rounded-xl overflow-hidden hover:shadow-lg transition-all bg-card">
+            <Accordion type="single" collapsible class="w-full">
+              <AccordionItem value={faq.id} class="border-none">
+                <AccordionTrigger class="text-left px-6 py-4 bg-green-50 dark:bg-green-950/30 hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors">
+                  <div class="flex items-start gap-3">
+                    <div class="shrink-0 mt-1">
+                      <div class="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                        <HelpCircle class="h-4 w-4 text-green-600 dark:text-green-400" />
+                      </div>
+                    </div>
+                    <span class="font-semibold text-base">{faq.question}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent class="px-6 pb-4 pt-4 bg-blue-50 dark:bg-blue-950/30">
+                  <div class="flex items-start gap-3">
+                    <div class="shrink-0 mt-1">
+                      <div class="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                        <MessageCircle class="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                      </div>
+                    </div>
+                    <div class="prose prose-base dark:prose-invert max-w-none text-base">
+                      {@html faq.new_answer}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
         {/each}
-      </Accordion>
+      </div>
     </main>
   </div>
 </div>

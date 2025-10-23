@@ -7,9 +7,24 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import Search from "lucide-svelte/icons/search";
   import Section from "$lib/components/ui/Section.svelte";
-  import { Home, DollarSign } from "lucide-svelte";
+  import { Home, DollarSign, TrendingUp, PieChart, Wallet, Target, BarChart3, LineChart, Coins, CreditCard, Banknote } from "lucide-svelte";
   import Breadcrumb from "$lib/components/ui/breadcrumb/breadcrumb.svelte";
   import { pb } from '$lib/pocketbase';
+
+  // Icon mapping function for investment sections
+  function getIconForSection(name: string) {
+    const nameLower = name.toLowerCase();
+    if (nameLower.includes('revenue') || nameLower.includes('income') || nameLower.includes('earning')) return TrendingUp;
+    if (nameLower.includes('market') || nameLower.includes('analysis') || nameLower.includes('breakdown')) return PieChart;
+    if (nameLower.includes('funding') || nameLower.includes('capital') || nameLower.includes('investment')) return Wallet;
+    if (nameLower.includes('goal') || nameLower.includes('objective') || nameLower.includes('target')) return Target;
+    if (nameLower.includes('growth') || nameLower.includes('projection') || nameLower.includes('forecast')) return BarChart3;
+    if (nameLower.includes('financial') || nameLower.includes('finance') || nameLower.includes('budget')) return LineChart;
+    if (nameLower.includes('return') || nameLower.includes('roi') || nameLower.includes('profit')) return Coins;
+    if (nameLower.includes('payment') || nameLower.includes('transaction')) return CreditCard;
+    if (nameLower.includes('cost') || nameLower.includes('expense') || nameLower.includes('price')) return Banknote;
+    return DollarSign; // Default icon
+  }
 
   let investmentRecords = [];
   let searchQuery = "";
@@ -130,21 +145,51 @@
         ]}
       />
 
-      <h1 class="text-4xl font-bold text-center mb-6">
-        An Exciting New Era in Disc Golf & Sports Entertainment
-      </h1>
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500 to-amber-600 shadow-xl mb-4">
+          <DollarSign class="h-10 w-10 text-white" />
+        </div>
+        <h1 class="text-4xl font-bold mb-2">
+          An Exciting New Era in Disc Golf & Sports Entertainment
+        </h1>
+        <div class="h-1 w-32 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full mx-auto"></div>
+      </div>
 
       {#if filteredRecords.length}
-        {#each filteredRecords as record}
-          <div id={`section-${record.id}`} class="space-y-4 max-w-4xl">
-            <h2 class="text-2xl font-bold">{record.name}</h2>
-            <div class="prose max-w-none">
-              {@html record.description}
+        <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+          {#each filteredRecords as record}
+            <div id={`section-${record.id}`} class="border-2 rounded-2xl overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all bg-card">
+              <!-- Card Header with Icon and Title -->
+              <div class="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/30 dark:to-amber-950/30 p-6 border-b-2">
+                <div class="flex items-center gap-4">
+                  <div class="shrink-0">
+                    <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center shadow-xl">
+                      <svelte:component this={getIconForSection(record.name)} class="h-8 w-8 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl font-bold text-yellow-900 dark:text-yellow-100">{record.name}</h2>
+                    <div class="h-1 w-20 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full mt-2"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card Content -->
+              <div class="p-8 bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-950/50">
+                <div class="prose prose-lg dark:prose-invert max-w-none prose-headings:text-yellow-900 dark:prose-headings:text-yellow-100 prose-a:text-yellow-600 dark:prose-a:text-yellow-400">
+                  {@html record.description}
+                </div>
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       {:else}
-        <p class="text-gray-600">No investment content found</p>
+        <div class="text-center py-12">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+            <DollarSign class="h-8 w-8 text-muted-foreground" />
+          </div>
+          <p class="text-muted-foreground text-lg">No investment content found</p>
+        </div>
       {/if}
     </main>
   </div>

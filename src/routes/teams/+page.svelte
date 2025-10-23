@@ -21,7 +21,8 @@
   async function fetchTeams() {
     try {
       const response = await pb.collection('teams').getList(1, 50, {
-        expand: 'avatar,mini_logo'
+        expand: 'avatar,mini_logo',
+        fields: '*,expand.avatar.*,expand.mini_logo.*'
       });
       teams = response.items;
     } catch (error) {
@@ -64,26 +65,71 @@
               {team.name}
             </AlertDialog.Trigger>
 
-            <AlertDialog.Content>
-              <AlertDialog.Header class="flex justify-between items-start">
-                <AlertDialog.Title>{team.name}</AlertDialog.Title>
+            <AlertDialog.Content class="max-w-3xl max-h-[90vh] overflow-y-auto">
+              <AlertDialog.Header>
+                <div class="flex items-center justify-between">
+                  <AlertDialog.Title class="text-2xl">{team.name}</AlertDialog.Title>
+                  <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-xs text-muted-foreground">Powered by</span>
+                      <img
+                        src="/logos/hyzer_heros_mini.png"
+                        alt="Hyzer Heros Mini Logo"
+                        class="h-8 w-auto"
+                        on:error={(e) => e.target.style.display = 'none'}
+                      />
+                    </div>
+                  </div>
+                </div>
               </AlertDialog.Header>
 
-              <div class="flex justify-center gap-8 py-6">
-                {#if team.expand?.mini_logo}
-                  <img
-                    src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
-                    alt={`${team.name} mini logo`}
-                    class="w-32 h-auto"
-                  />
+              <div class="space-y-6 py-4">
+                <!-- Team Logos Section -->
+                <div class="flex justify-center gap-8 pb-6 border-b">
+                  {#if team.expand?.mini_logo}
+                    <div class="flex flex-col items-center gap-3">
+                      <span class="text-sm text-muted-foreground font-medium">Mini Logo</span>
+                      <img
+                        src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                        alt={`${team.name} mini logo`}
+                        class="w-32 h-auto"
+                      />
+                    </div>
+                  {/if}
+                  {#if team.expand?.avatar}
+                    <div class="flex flex-col items-center gap-3">
+                      <span class="text-sm text-muted-foreground font-medium">Full Logo</span>
+                      <img
+                        src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+                        alt={team.name}
+                        class="w-32 h-auto"
+                      />
+                    </div>
+                  {/if}
+                </div>
+
+                <!-- Team Bio Section -->
+                {#if team.team_bio}
+                  <div class="space-y-3">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                      <Disc3 class="h-5 w-5 text-primary" />
+                      Team Biography
+                    </h3>
+                    <div class="prose prose-sm max-w-none text-white [&_p]:text-white [&_li]:text-white [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_strong]:text-white bg-muted/30 p-4 rounded-lg">
+                      {@html team.team_bio}
+                    </div>
+                  </div>
                 {/if}
-                {#if team.expand?.avatar}
+
+                <!-- Hyzer Heros Full Logo Footer -->
+                <div class="flex justify-center pt-4 border-t">
                   <img
-                    src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
-                    alt={team.name}
-                    class="w-32 h-auto"
+                    src="/logos/hyzer_heros_full.png"
+                    alt="Hyzer Heros"
+                    class="h-12 w-auto opacity-70"
+                    on:error={(e) => e.target.style.display = 'none'}
                   />
-                {/if}
+                </div>
               </div>
 
               <AlertDialog.Footer>
@@ -141,35 +187,123 @@
         ]} 
       />
       {#if teams.length}
-        <div class="grid gap-4">
-          {#each teams as team}
-            <div class="flex items-center gap-4">
-              <div class="flex flex-col items-center">
-                {#if team.expand?.mini_logo}
-                  <span class="text-xs text-muted-foreground mb-2">Mini</span>
-                  <img
-                    src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
-                    alt={`${team.name} mini logo`}
-                    class="h-20 w-20 object-cover ml-2 mr-2"
-                  />
-                {/if}
-              </div>
-              <div class="flex flex-col items-center">
-                {#if team.avatar}
-                  <span class="text-xs text-muted-foreground mb-2">Regular</span>
-                  <img
-                    src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
-                    alt={team.name}
-                    class="h-20 w-20 object-cove ml-4r"
-                  />
-                {/if}
-              </div>
-              <h2 class="text-xl font-semibold">{team.name}</h2>
-            </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {#each filteredTeams as team}
+            <AlertDialog.Root>
+              <AlertDialog.Trigger class="w-full">
+                <div class="border rounded-xl p-6 hover:shadow-lg hover:scale-105 transition-all cursor-pointer bg-card">
+                  <div class="flex flex-col items-center gap-4">
+                    <h2 class="text-xl font-bold text-center">{team.name}</h2>
+                    
+                    <div class="flex gap-6 items-center justify-center w-full">
+                      {#if team.expand?.mini_logo}
+                        <div class="flex flex-col items-center gap-2">
+                          <span class="text-xs text-muted-foreground font-medium">Mini Logo</span>
+                          <div class="p-3 bg-muted rounded-lg">
+                            <img
+                              src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                              alt={`${team.name} mini logo`}
+                              class="h-16 w-16 lg:h-32 lg:w-32 object-contain"
+                            />
+                          </div>
+                        </div>
+                      {/if}
+                      
+                      {#if team.expand?.avatar}
+                        <div class="flex flex-col items-center gap-2">
+                          <span class="text-xs text-muted-foreground font-medium">Full Logo</span>
+                          <div class="p-3 bg-muted rounded-lg">
+                            <img
+                              src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+                              alt={team.name}
+                              class="h-16 w-16 lg:h-32 lg:w-32 object-contain"
+                            />
+                          </div>
+                        </div>
+                      {/if}
+                    </div>
+                  </div>
+                </div>
+              </AlertDialog.Trigger>
+
+              <AlertDialog.Content class="max-w-3xl max-h-[90vh] overflow-y-auto">
+                <AlertDialog.Header>
+                  <div class="flex items-center justify-between">
+                    <AlertDialog.Title class="text-2xl">{team.name}</AlertDialog.Title>
+                    <div class="flex items-center gap-4">
+                      <div class="flex flex-col items-center gap-1">
+                        <span class="text-xs text-muted-foreground">Powered by</span>
+                        <img
+                          src="/logos/hyzer_heros_mini.png"
+                          alt="Hyzer Heros Mini Logo"
+                          class="h-8 w-auto"
+                          on:error={(e) => e.target.style.display = 'none'}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </AlertDialog.Header>
+
+                <div class="space-y-6 py-4">
+                  <!-- Team Logos Section -->
+                  <div class="flex justify-center gap-8 pb-6 border-b">
+                    {#if team.expand?.mini_logo}
+                      <div class="flex flex-col items-center gap-3">
+                        <span class="text-sm text-muted-foreground font-medium">Mini Logo</span>
+                        <img
+                          src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                          alt={`${team.name} mini logo`}
+                          class="w-32 h-auto"
+                        />
+                      </div>
+                    {/if}
+                    {#if team.expand?.avatar}
+                      <div class="flex flex-col items-center gap-3">
+                        <span class="text-sm text-muted-foreground font-medium">Full Logo</span>
+                        <img
+                          src={`https://few-likely.pockethost.io/api/files/${team.expand.avatar.collectionId}/${team.expand.avatar.id}/${team.expand.avatar.image}`}
+                          alt={team.name}
+                          class="w-32 h-auto"
+                        />
+                      </div>
+                    {/if}
+                  </div>
+
+                  <!-- Team Bio Section -->
+                  {#if team.team_bio}
+                    <div class="space-y-3">
+                      <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <Disc3 class="h-5 w-5 text-primary" />
+                        Team Biography
+                      </h3>
+                      <div class="prose prose-sm max-w-none text-white [&_p]:text-white [&_li]:text-white [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_strong]:text-white bg-muted/30 p-4 rounded-lg">
+                        {@html team.team_bio}
+                      </div>
+                    </div>
+                  {/if}
+
+                  <!-- Hyzer Heros Full Logo Footer -->
+                  <div class="flex justify-center pt-4 border-t">
+                    <img
+                      src="/logos/hyzer_heros_full.png"
+                      alt="Hyzer Heros"
+                      class="h-12 w-auto opacity-70"
+                      on:error={(e) => e.target.style.display = 'none'}
+                    />
+                  </div>
+                </div>
+
+                <AlertDialog.Footer>
+                  <AlertDialog.Cancel>
+                    <Button variant="outline">Close</Button>
+                  </AlertDialog.Cancel>
+                </AlertDialog.Footer>
+              </AlertDialog.Content>
+            </AlertDialog.Root>
           {/each}
         </div>
       {:else}
-        <p class="text-gray-600">Loading teams...</p>
+        <p class="text-muted-foreground">Loading teams...</p>
       {/if}
     </main>
   </div>

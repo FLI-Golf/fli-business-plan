@@ -28,18 +28,18 @@
   };
 </script>
 
-<Card.Header class="flex flex-col items-center text-center gap-4 pb-6">
-  <div class="p-4 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 shadow-lg">
-    <Mic class="h-12 w-12 text-white" />
+<Card.Header class="bg-gradient-to-br from-purple-600 to-pink-600 text-white flex flex-col items-center text-center gap-4 pb-6 pt-6 rounded-t-lg">
+  <div class="p-4 rounded-full bg-white shadow-lg">
+    <Mic class="h-12 w-12 text-purple-600" />
   </div>
   <div class="grid gap-2">
-    <Card.Title class="text-2xl font-bold">Broadcasters</Card.Title>
-    <Card.Description class="text-base">Our media partners.</Card.Description>
+    <Card.Title class="text-2xl font-bold text-white">Broadcasters</Card.Title>
+    <Card.Description class="text-base text-purple-50">Our media partners.</Card.Description>
   </div>
 
   <AlertDialog.Root>
     <AlertDialog.Trigger>
-      <Button size="sm" class="gap-1">
+      <Button size="sm" class="gap-1 bg-white text-purple-700 hover:bg-purple-50">
         Social Media Reach
         <ArrowUpRight class="h-4 w-4" />
       </Button>
