@@ -10,6 +10,21 @@
   export let loading: boolean;
   export let pros: any[];
   export let pb: any;
+
+  function getEmbedUrl(url: string): string {
+    if (!url) return '';
+    
+    // YouTube URL patterns
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+    
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    
+    // If already an embed URL or other video platform, return as is
+    return url;
+  }
 </script>
 
 <Card.Header class="bg-gradient-to-br from-blue-600 to-cyan-600 text-white flex flex-col items-center text-center gap-4 pb-6 pt-6 rounded-t-lg">
@@ -84,6 +99,20 @@
                         <Badge variant="outline">{pro.country}</Badge>
                       </div>
                       <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
+                      {#if pro.clip}
+                        <div class="mt-4">
+                          <div class="aspect-video w-full rounded-lg overflow-hidden">
+                            <iframe
+                              src={getEmbedUrl(pro.clip)}
+                              title="{pro.name} highlight clip"
+                              class="w-full h-full"
+                              frameborder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowfullscreen
+                            ></iframe>
+                          </div>
+                        </div>
+                      {/if}
                     </div>
                   </div>
                 </div>
@@ -176,6 +205,20 @@
                     <Badge variant="outline">{pro.country}</Badge>
                   </div>
                   <p class="text-sm text-muted-foreground">{pro.bio || 'Professional Disc Golfer'}</p>
+                  {#if pro.clip}
+                    <div class="mt-4">
+                      <div class="aspect-video w-full rounded-lg overflow-hidden">
+                        <iframe
+                          src={getEmbedUrl(pro.clip)}
+                          title="{pro.name} highlight clip"
+                          class="w-full h-full"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        ></iframe>
+                      </div>
+                    </div>
+                  {/if}
                 </div>
               </div>
             </div>
