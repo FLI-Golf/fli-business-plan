@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "$lib/components/ui/menubar";
   import { pb } from '$lib/pocketbase';
-  import { Copyright, LogOut, UserPlus, LogIn } from 'lucide-svelte';
+  import { Copyright, LogOut, UserPlus, LogIn, FileCheck } from 'lucide-svelte';
 
   const isLoggedIn = pb.authStore.isValid;
 
@@ -22,11 +22,23 @@
 
     <div class="flex items-center gap-4">
       {#if !isLoggedIn}
+        <a 
+          href="/nda-accept" 
+          class="hover:text-primary px-4 py-2 flex items-center gap-2"
+          title="Use Register to create your own password"
+        >
+          <FileCheck class="h-4 w-4" />
+          Quick Access
+        </a>
         <a href="/login" class="hover:text-primary px-4 py-2 flex items-center gap-2">
           <LogIn class="h-4 w-4" />
           Login
         </a>
-        <a href="/register" class="hover:text-primary px-4 py-2 flex items-center gap-2">
+        <a 
+          href="/register" 
+          class="hover:text-primary px-4 py-2 flex items-center gap-2"
+          title="Create custom password"
+        >
           <UserPlus class="h-4 w-4" />
           Register
         </a>
@@ -55,9 +67,17 @@
   </div>
 
   <footer class="bg-gray-800 text-gray-400 py-4 border-t border-gray-700">
-    <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-2 text-sm">
-      <Copyright class="h-4 w-4" />
-      <span>2025 FLI Golf. All rights reserved.</span>
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-sm">
+      <div class="flex items-center gap-2">
+        <Copyright class="h-4 w-4" />
+        <span>2025 FLI Golf. All rights reserved.</span>
+      </div>
+      <a 
+        href="/nda-accept" 
+        class="px-4 py-2 bg-gray-700 text-white font-semibold rounded-md hover:bg-gray-600 transition-colors text-xs uppercase tracking-wide"
+      >
+        Accept Nondisclosure
+      </a>
     </div>
   </footer>
 </div>
