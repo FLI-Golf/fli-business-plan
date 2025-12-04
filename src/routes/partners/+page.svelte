@@ -60,6 +60,12 @@
       <div class="space-y-2">
         <button
           class={`block w-full px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition ${selectedCategory === 'Pendending Partner' ? 'bg-muted' : ''}`}
+          on:click={() => selectedCategory = 'Strategic League Partner'}
+        >
+          Partners
+        </button>
+        <button
+          class={`block w-full px-2 py-1 text-sm font-medium hover:bg-muted rounded-md transition ${selectedCategory === 'Pendending Partner' ? 'bg-muted' : ''}`}
           on:click={() => selectedCategory = 'Pendending Partner'}
         >
           Pending Partners
