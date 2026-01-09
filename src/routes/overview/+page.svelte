@@ -12,7 +12,7 @@
   import { Pyramid } from 'lucide-svelte';
   import Scale from "lucide-svelte/icons/scale";
   import HelpCircle from "lucide-svelte/icons/help-circle";
-  import { AudioLines, MapPin } from 'lucide-svelte';
+  import { AudioLines, MapPin, Users, Eye } from 'lucide-svelte';
 
   // UI Components
   import * as Avatar from "$lib/components/ui/avatar/index.js";
@@ -381,13 +381,45 @@
         </div>
       </a>
 
-      <!-- Global Overview Card -->
+      <!-- Audience Projections Card -->
       <a
-        href="/global"
+        href="/audience-projections"
+        class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 dark:from-fuchsia-950 dark:to-fuchsia-900 border-fuchsia-200 dark:border-fuchsia-800"
+      >
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="p-4 rounded-full bg-fuchsia-500 text-white">
+            <Users class="h-12 w-12" />
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mb-2">Audience Projections</h2>
+            <p class="text-sm text-muted-foreground">Fan attendance & market analysis</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Global Viewer Card -->
+      <a
+        href="/global-viewer"
         class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 border-emerald-200 dark:border-emerald-800"
       >
         <div class="flex flex-col items-center text-center gap-4">
           <div class="p-4 rounded-full bg-emerald-500 text-white">
+            <Eye class="h-12 w-12" />
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mb-2">Global Viewer</h2>
+            <p class="text-sm text-muted-foreground">International viewership data</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Global Overview Card -->
+      <a
+        href="/global"
+        class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-lime-50 to-lime-100 dark:from-lime-950 dark:to-lime-900 border-lime-200 dark:border-lime-800"
+      >
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="p-4 rounded-full bg-lime-500 text-white">
             <Globe class="h-12 w-12" />
           </div>
           <div>
