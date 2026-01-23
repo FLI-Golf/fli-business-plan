@@ -16,7 +16,7 @@
   <Menubar class="border-b border-gray-600 flex justify-between">
     <div class="flex">
       <MenubarMenu>
-        <MenubarTrigger class="font-bold">FLI Golf Business Plan</MenubarTrigger>
+        <MenubarTrigger class="font-bold">FLI Golf Information</MenubarTrigger>
       </MenubarMenu>
     </div>
 
