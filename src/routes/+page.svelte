@@ -62,7 +62,7 @@
     />
    
     <div class="text-center space-y-6">
-      <h1 class="text-4xl font-bold text-white">Welcome To The FLI Golf Business Plan</h1>
+      <h1 class="text-4xl font-bold text-white">Welcome To The FLI Golf Business Information</h1>
     </div>
   </div>
 
