@@ -27,7 +27,7 @@
 
   // Card Components
   import ExecutiveCard from "$lib/components/cards/ExecutiveCard.svelte";
-  import ProsCard from "$lib/components/cards/ProsCard.svelte";
+
   import BroadcasterCard from "$lib/components/cards/BroadcasterCard.svelte";
 
   // Utilities and Services
@@ -540,13 +540,26 @@
           </div>
         </div>
       </a>
+
+      <!-- Committed Pros Card -->
+      <a
+        href="/pros"
+        class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-900 border-blue-200 dark:border-cyan-800"
+      >
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="p-4 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 shadow-lg">
+            <img src="/logos/wdr.png" alt="Pros Logo" class="w-12 h-12 object-contain" />
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mb-2">Committed Pros</h2>
+            <p class="text-sm text-muted-foreground">{pros.length} Professional Disc Golfers</p>
+          </div>
+        </div>
+      </a>
     </div>
       
           <!-- Team Cards Section -->
-          <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-3 mt-4">
-            <Card.Root>
-              <ProsCard {loading} {pros} {pb} />
-            </Card.Root>
+          <div class="grid gap-4 md:gap-8 grid-cols-1 lg:grid-cols-2 mt-4">
             <Card.Root>
               <ExecutiveCard {loading} {exe} {pb} />
             </Card.Root>
