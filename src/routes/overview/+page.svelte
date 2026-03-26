@@ -557,6 +557,22 @@
         </div>
       </a>
 
+      <!-- Humanitarian Prospectus Card -->
+      <a
+        href="/prospectus"
+        class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-950 dark:to-green-900 border-emerald-200 dark:border-green-800"
+      >
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="p-4 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-white text-3xl shadow-lg">
+            🌍
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mb-2">Humanitarian Prospectus</h2>
+            <p class="text-sm text-muted-foreground">Equality, accessibility & global impact</p>
+          </div>
+        </div>
+      </a>
+
 
     </div>
       
