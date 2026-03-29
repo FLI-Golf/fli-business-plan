@@ -557,6 +557,22 @@
         </div>
       </a>
 
+      <!-- Apparel Marketing Plan Card -->
+      <a
+        href="/apparel"
+        class="group rounded-xl border p-6 transition-all hover:shadow-lg hover:scale-105 text-foreground dark:text-foreground bg-gradient-to-br from-violet-50 to-purple-100 dark:from-violet-950 dark:to-purple-900 border-violet-200 dark:border-purple-800"
+      >
+        <div class="flex flex-col items-center text-center gap-4">
+          <div class="p-4 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 text-white text-3xl shadow-lg">
+            👕
+          </div>
+          <div>
+            <h2 class="text-xl font-bold mb-2">Apparel Marketing Plan</h2>
+            <p class="text-sm text-muted-foreground">Brand strategy, drops &amp; growth</p>
+          </div>
+        </div>
+      </a>
+
       <!-- Humanitarian Prospectus Card -->
       <a
         href="/prospectus"
@@ -572,6 +588,7 @@
           </div>
         </div>
       </a>
+
 
 
     </div>
