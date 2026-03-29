@@ -22,7 +22,7 @@
     try {
       const response = await pb.collection('teams').getList(1, 50, {
         expand: 'avatar,mini_logo',
-        fields: '*,expand.avatar.*,expand.mini_logo.*'
+        fields: '*,expand.avatar.*,expand.mini_logo.*,jersey'
       });
       teams = response.items;
     } catch (error) {
@@ -107,6 +107,23 @@
                     </div>
                   {/if}
                 </div>
+
+                <!-- Jersey Section -->
+                {#if team.jersey}
+                  <div class="space-y-3">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                      <Disc3 class="h-5 w-5 text-primary" />
+                      Team Jersey
+                    </h3>
+                    <div class="flex justify-center">
+                      <img
+                        src={`${pb.baseUrl}/api/files/${team.collectionId}/${team.id}/${team.jersey}?thumb=800x0`}
+                        alt={`${team.name} jersey`}
+                        class="max-w-sm w-full rounded-xl shadow-md object-contain max-h-[400px]"
+                      />
+                    </div>
+                  </div>
+                {/if}
 
                 <!-- Team Bio Section -->
                 {#if team.team_bio}
@@ -268,6 +285,24 @@
                       </div>
                     {/if}
                   </div>
+
+
+                  <!-- Jersey Section -->
+                  {#if team.jersey}
+                    <div class="space-y-3">
+                      <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <Disc3 class="h-5 w-5 text-primary" />
+                        Team Jersey
+                      </h3>
+                      <div class="flex justify-center">
+                        <img
+                          src={`${pb.baseUrl}/api/files/${team.collectionId}/${team.id}/${team.jersey}?thumb=800x0`}
+                          alt={`${team.name} jersey`}
+                          class="max-w-sm w-full rounded-xl shadow-md object-contain max-h-[400px]"
+                        />
+                      </div>
+                    </div>
+                  {/if}
 
                   <!-- Team Bio Section -->
                   {#if team.team_bio}
