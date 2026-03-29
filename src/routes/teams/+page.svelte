@@ -22,7 +22,7 @@
     try {
       const response = await pb.collection('teams').getList(1, 50, {
         expand: 'avatar,mini_logo',
-        fields: '*,expand.avatar.*,expand.mini_logo.*'
+        fields: '*,expand.avatar.*,expand.mini_logo.*,jersey'
       });
       teams = response.items;
     } catch (error) {
@@ -61,7 +61,16 @@
       {#if teams.length}
         {#each teams as team}
           <AlertDialog.Root>
-            <AlertDialog.Trigger class="block w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition text-left">
+            <AlertDialog.Trigger class="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition text-left">
+              {#if team.expand?.mini_logo}
+                <img
+                  src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                  alt={team.name}
+                  class="h-6 w-6 object-contain shrink-0"
+                />
+              {:else}
+                <Disc3 class="h-6 w-6 shrink-0 text-muted-foreground" />
+              {/if}
               {team.name}
             </AlertDialog.Trigger>
 
@@ -107,6 +116,23 @@
                     </div>
                   {/if}
                 </div>
+
+                <!-- Jersey Section -->
+                {#if team.jersey}
+                  <div class="space-y-3">
+                    <h3 class="text-lg font-semibold flex items-center gap-2">
+                      <Disc3 class="h-5 w-5 text-primary" />
+                      Team Jersey
+                    </h3>
+                    <div class="flex justify-center">
+                      <img
+                        src={`${pb.baseUrl}/api/files/${team.collectionId}/${team.id}/${team.jersey}?thumb=800x0`}
+                        alt={`${team.name} jersey`}
+                        class="max-w-sm w-full rounded-xl shadow-md object-contain max-h-[400px]"
+                      />
+                    </div>
+                  </div>
+                {/if}
 
                 <!-- Team Bio Section -->
                 {#if team.team_bio}
@@ -268,6 +294,24 @@
                       </div>
                     {/if}
                   </div>
+
+
+                  <!-- Jersey Section -->
+                  {#if team.jersey}
+                    <div class="space-y-3">
+                      <h3 class="text-lg font-semibold flex items-center gap-2">
+                        <Disc3 class="h-5 w-5 text-primary" />
+                        Team Jersey
+                      </h3>
+                      <div class="flex justify-center">
+                        <img
+                          src={`${pb.baseUrl}/api/files/${team.collectionId}/${team.id}/${team.jersey}?thumb=800x0`}
+                          alt={`${team.name} jersey`}
+                          class="max-w-sm w-full rounded-xl shadow-md object-contain max-h-[400px]"
+                        />
+                      </div>
+                    </div>
+                  {/if}
 
                   <!-- Team Bio Section -->
                   {#if team.team_bio}
