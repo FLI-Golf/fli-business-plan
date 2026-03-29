@@ -61,7 +61,16 @@
       {#if teams.length}
         {#each teams as team}
           <AlertDialog.Root>
-            <AlertDialog.Trigger class="block w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition text-left">
+            <AlertDialog.Trigger class="flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm font-medium hover:bg-muted transition text-left">
+              {#if team.expand?.mini_logo}
+                <img
+                  src={`https://few-likely.pockethost.io/api/files/${team.expand.mini_logo.collectionId}/${team.expand.mini_logo.id}/${team.expand.mini_logo.mini_logo}`}
+                  alt={team.name}
+                  class="h-6 w-6 object-contain shrink-0"
+                />
+              {:else}
+                <Disc3 class="h-6 w-6 shrink-0 text-muted-foreground" />
+              {/if}
               {team.name}
             </AlertDialog.Trigger>
 
