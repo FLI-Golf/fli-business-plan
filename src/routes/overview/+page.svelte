@@ -567,8 +567,8 @@
             👕
           </div>
           <div>
-            <h2 class="text-xl font-bold mb-2">Apparel Marketing Plan</h2>
-            <p class="text-sm text-muted-foreground">Brand strategy, drops &amp; growth</p>
+            <h2 class="text-xl font-bold mb-2">Team Jerseys</h2>
+            <p class="text-sm text-muted-foreground">Official FLI Golf team jersey designs</p>
           </div>
         </div>
       </a>
